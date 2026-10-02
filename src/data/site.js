@@ -1,6 +1,6 @@
 export const brand = {
   short: 'BACR',
-  name: 'Bodija Advanced Care & Rehabilitation Centre',
+  name: 'Bodija Advanced Centre for Rehabilitation',
   tagline: 'Every step forward matters.',
   ecosystem: 'Part of the Bodija Health Hub Ecosystem',
   location: 'Bodija, Ibadan, Oyo State, Nigeria',
@@ -17,7 +17,7 @@ export const nav = [
 ]
 
 export const hero = {
-  eyebrow: 'Bodija Advanced Care & Rehabilitation Centre',
+  eyebrow: 'Bodija Advanced Centre for Rehabilitation',
   headline: 'Restoring Function. Rebuilding Lives.',
   subtext:
     'A specialist-led rehabilitation centre supporting recovery, independence, and quality of life - for children, adults, and the elderly across Ibadan.',

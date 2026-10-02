@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import usePageTitle from '../../lib/usePageTitle.js'
 import CtaBand from '../../components/CtaBand.jsx'
+import logo from '../../assets/bacr-logo.png'
 import {
   hero,
   about,
@@ -44,6 +45,7 @@ function AboutPreview() {
       <div className="container">
         <div className="split">
           <div>
+            <img src={logo} alt="BACR logo" className="about-logo" />
             <div className="section-head">
               <span className="kicker">About BACR</span>
               <h2>{about.headline}</h2>

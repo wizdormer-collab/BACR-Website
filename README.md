@@ -1,6 +1,6 @@
 # BACR Public Website
 
-Marketing / information website for **Bodija Advanced Care & Rehabilitation Centre (BACR)** — built from `BACR_Website_Content_v2.docx`.
+Marketing / information website for **Bodija Advanced Centre for Rehabilitation (BACR)** — built from `BACR_Website_Content_v2.docx`.
 
 Companion to the [BACR Patient Triage System](https://wizdormer-collab.github.io/Bodija-Advanced-Centre-for-Rehabilitation/) (separate repo), sharing the same stack and brand colours.
 

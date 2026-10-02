@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { nav, brand } from '../data/site.js'
-import logo from '../assets/bacr-logo.png'
+import mark from '../assets/bacr-mark.png'
 
 export default function Header() {
   const [open, setOpen] = useState(false)
@@ -12,7 +12,7 @@ export default function Header() {
     <header className="header">
       <div className="container header-inner">
         <Link to="/" className="brand" onClick={close}>
-          <img src={logo} alt={`${brand.short} logo`} className="brand-mark" />
+          <img src={mark} alt={`${brand.short} logo`} className="brand-mark" />
           <span className="brand-text">
             <strong>{brand.short}</strong>
             <small>{brand.name}</small>

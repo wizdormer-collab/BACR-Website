@@ -1,6 +1,7 @@
 import usePageTitle from '../../lib/usePageTitle.js'
 import PageHero from '../../components/PageHero.jsx'
 import CtaBand from '../../components/CtaBand.jsx'
+import logo from '../../assets/bacr-logo.png'
 import { about, hero } from '../../data/site.js'
 
 export default function About() {
@@ -18,6 +19,7 @@ export default function About() {
         <div className="container">
           <div className="split">
             <div>
+              <img src={logo} alt="BACR logo" className="about-logo" />
               <div className="section-head">
                 <span className="kicker">Who We Are</span>
                 <h2>{about.headline}</h2>

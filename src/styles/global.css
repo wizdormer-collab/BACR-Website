@@ -4,12 +4,12 @@
   --text: #1b2430;
   --muted: #6b7684;
   --border: #e2e6ea;
-  --primary: #1a6fb0;
-  --primary-dark: #145a8f;
-  --primary-deep: #0d3f66;
-  --primary-soft: #e8f2fa;
-  --accent: #1f9d66;
-  --accent-soft: #e6f5ee;
+  --primary: #554ce5;
+  --primary-dark: #4238c9;
+  --primary-deep: #15085a;
+  --primary-soft: #efedfd;
+  --accent: #00c244;
+  --accent-soft: #e6fbef;
   --warn: #c98a16;
   --danger: #c0392b;
   --on-primary: #ffffff;
@@ -268,7 +268,7 @@ p {
 .hero {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary) 62%, #2b87c9 100%);
+  background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary) 62%, #6e67f0 100%);
   color: #fff;
   padding: 84px 0 72px;
 }
@@ -344,7 +344,7 @@ p {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #7fe0b0;
+  background: #00e24b;
   flex: none;
 }
 
@@ -424,7 +424,7 @@ p {
 .card:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
-  border-color: #cfe0ee;
+  border-color: #d8d4fa;
 }
 
 .card h3 {
@@ -858,7 +858,7 @@ p {
   font-size: 30px;
   font-weight: 700;
   margin: 0 auto 16px;
-  border: 2px dashed #bcd6ea;
+  border: 2px dashed #c9c4f5;
 }
 
 .team-role {
@@ -903,7 +903,7 @@ p {
 }
 
 .footer-brand img {
-  height: 44px;
+  height: 84px;
   background: #fff;
   border-radius: 8px;
   padding: 4px;
@@ -993,11 +993,22 @@ p {
   display: inline-block;
   background: var(--primary-soft);
   color: var(--primary-dark);
-  border: 1px solid #cfe0ee;
+  border: 1px solid #d8d4fa;
   border-radius: 999px;
   padding: 6px 14px;
   font-size: 13.5px;
   font-weight: 600;
+}
+
+.about-logo {
+  width: 190px;
+  max-width: 60%;
+  height: auto;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
 }
 
 /* ---------- Responsive ---------- */
