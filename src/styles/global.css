@@ -1966,11 +1966,117 @@ a.contact-item:hover {
   }
 
   .hero {
-    padding: 64px 0 56px;
+    padding: 52px 0 44px;
+  }
+
+  .hero-inner {
+    gap: 24px;
+  }
+
+  .hero p.lead {
+    font-size: 15.5px;
+    margin-bottom: 22px;
   }
 
   .hero-actions .btn {
     width: 100%;
+  }
+
+  .hero-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .float-card {
+    padding: 12px;
+    gap: 9px;
+    align-items: flex-start;
+  }
+
+  .float-card .fc-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .float-card .fc-body {
+    padding-right: 12px;
+  }
+
+  .float-card strong {
+    font-size: 13.5px;
+  }
+
+  .float-card span {
+    font-size: 11.5px;
+  }
+
+  .float-card .fc-detail {
+    font-size: 12px;
+  }
+
+  .trust-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .trust-item .ti-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .section {
+    padding: 40px 0;
+  }
+
+  .section-head {
+    margin-bottom: 24px;
+  }
+
+  .about-logo {
+    width: 120px;
+    margin-bottom: 14px;
+  }
+
+  .quote {
+    padding: 18px;
+  }
+
+  .feature {
+    padding: 14px 16px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .split-rows {
+    gap: 22px;
+  }
+
+  .sr-art {
+    min-height: 96px;
+  }
+
+  .sr-art .sr-icon svg {
+    width: 44px;
+    height: 44px;
+  }
+
+  .list-check li {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .callout {
+    padding: 26px 20px;
+  }
+
+  .tl-item h3 {
+    margin-bottom: 3px;
+  }
+
+  .tl-item p {
+    font-size: 13px;
   }
 }
 
