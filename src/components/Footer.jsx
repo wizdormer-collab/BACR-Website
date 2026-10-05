@@ -69,7 +69,6 @@ export default function Footer() {
           <span>
             &copy; {footer.copyright.split(' ')[0]} {brand.short}. All rights reserved.
           </span>
-          <span className="tagline">&ldquo;{brand.tagline}&rdquo;</span>
           {legal.length > 0 ? (
             <span className="footer-legal">
               {legal.map((link) => (

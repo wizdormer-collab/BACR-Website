@@ -8,7 +8,7 @@ export default function CtaBand({
   note,
 }) {
   return (
-    <section className="section">
+    <section className="section section-cta">
       <div className="container">
         <div className="callout">
           <div>
