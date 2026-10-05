@@ -38,22 +38,10 @@ const SLIDES = [
     title: hero.headline,
     detail: brand.tagline,
   },
-  {
-    title: 'Specialist-Led Care',
-    detail: 'Physio, speech, occupational and behavioral specialists working as one team.',
-  },
-  {
-    title: 'Evidence-Based',
-    detail: 'Methods grounded in current clinical research and measurable outcomes.',
-  },
-  {
-    title: 'Personalised Plans',
-    detail: 'Goals set with you, reviewed and adjusted as you progress.',
-  },
-  {
-    title: 'BHH Ecosystem',
-    detail: 'Connected referrals across the wider Bodija health hub.',
-  },
+  { title: 'Specialist-Led Care' },
+  { title: 'Evidence-Based' },
+  { title: 'Personalised Plans' },
+  { title: 'BHH Ecosystem' },
 ]
 
 const ROTATE_MS = 5000
@@ -116,15 +104,17 @@ function HeroRotator() {
       </h1>
 
       <div className="hr-details">
-        {SLIDES.map((slide, i) => (
-          <span
-            key={slide.title}
-            className={`hr-detail${i === index ? ' is-on' : ''}`}
-            aria-hidden={i !== index}
-          >
-            {slide.detail}
-          </span>
-        ))}
+        {SLIDES.map((slide, i) =>
+          slide.detail ? (
+            <span
+              key={slide.title}
+              className={`hr-detail${i === index ? ' is-on' : ''}`}
+              aria-hidden={i !== index}
+            >
+              {slide.detail}
+            </span>
+          ) : null
+        )}
       </div>
 
       <div className="hr-dots">

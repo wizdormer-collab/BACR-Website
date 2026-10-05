@@ -81,7 +81,8 @@ describe('page rendering', () => {
       expect(html).toContain(`>${title}</span>`)
     }
     expect(html).toContain('Every step forward matters.')
-    expect(html).toContain('Methods grounded in current clinical research')
+    expect((html.match(/class="hr-detail(?:\s|")/g) || []).length).toBe(1)
+    expect(html).not.toContain('Methods grounded in current clinical research')
     expect(html).not.toContain('float-card')
   })
 
