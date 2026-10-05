@@ -60,6 +60,19 @@ describe('page rendering', () => {
     expect(html).toContain('tl-num')
   })
 
+  it('renders hero cards as expandable buttons with hidden detail copy', () => {
+    const html = renderToString(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>
+    )
+    expect(html).toMatch(/<button[^>]*type="button"[^>]*aria-expanded="false"/)
+    expect((html.match(/aria-controls="fc-detail-\d"/g) || []).length).toBe(4)
+    expect(html).toContain('current clinical research')
+    expect(html).not.toContain('is-active')
+    expect((html.match(/<button/g) || []).length).toBeGreaterThanOrEqual(4)
+  })
+
   it('does not render dead footer links', () => {
     const html = renderToString(
       <MemoryRouter initialEntries={['/']}>

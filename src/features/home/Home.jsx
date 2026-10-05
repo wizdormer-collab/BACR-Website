@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import usePageTitle from '../../lib/usePageTitle.js'
 import CtaBand from '../../components/CtaBand.jsx'
@@ -32,13 +33,52 @@ const TRUST = [
 ]
 
 const FLOAT_CARDS = [
-  { icon: 'shield', title: 'Specialist-Led Care', text: 'Multidisciplinary team' },
-  { icon: 'book', title: 'Evidence-Based', text: 'Research-grounded methods' },
-  { icon: 'clipboard', title: 'Personalised Plans', text: 'Built around the person' },
-  { icon: 'layers', title: 'BHH Ecosystem', text: 'Coordinated wider care' },
+  {
+    icon: 'shield',
+    title: 'Specialist-Led Care',
+    text: 'Multidisciplinary team',
+    detail: 'Physiotherapists, speech therapists, occupational therapists and behavioral specialists working as one team.',
+  },
+  {
+    icon: 'book',
+    title: 'Evidence-Based',
+    text: 'Research-grounded methods',
+    detail: 'Every plan is built on current clinical research and tracked against measurable outcomes.',
+  },
+  {
+    icon: 'clipboard',
+    title: 'Personalised Plans',
+    text: 'Built around the person',
+    detail: 'Goals are set together, reviewed regularly, and adjusted as progress is made.',
+  },
+  {
+    icon: 'layers',
+    title: 'BHH Ecosystem',
+    text: 'Coordinated wider care',
+    detail: 'Connected referrals across the wider Bodija health hub when wider care is needed.',
+  },
 ]
 
+function useActive() {
+  const [active, setActive] = useState(-1)
+  const toggle = (i) => setActive((cur) => (cur === i ? -1 : i))
+  const clear = (i) => setActive((cur) => (cur === i ? -1 : cur))
+  return {
+    active,
+    toggle,
+    bind: (i) => ({
+      className: active === i ? 'is-active' : '',
+      onClick: () => toggle(i),
+      onMouseEnter: () => setActive(i),
+      onMouseLeave: () => clear(i),
+      onBlur: () => clear(i),
+    }),
+  }
+}
+
 function Hero() {
+  const { bind } = useActive()
+
   return (
     <section className="hero">
       <div className="container hero-inner">
@@ -56,20 +96,39 @@ function Hero() {
           </div>
         </div>
 
-        <div className="hero-visual" aria-hidden="true">
-          <img src={mark} alt="" className="hero-mark" />
+        <div className="hero-visual">
+          <img src={mark} alt="" aria-hidden="true" className="hero-mark" />
           <div className="hero-stack">
-            {FLOAT_CARDS.map((card) => (
-              <div key={card.title} className="float-card">
-                <span className="fc-icon">
-                  <Icon name={card.icon} size={20} />
-                </span>
-                <div>
-                  <strong>{card.title}</strong>
-                  <span>{card.text}</span>
-                </div>
-              </div>
-            ))}
+            {FLOAT_CARDS.map((card, i) => {
+              const state = bind(i)
+              return (
+                <button
+                  key={card.title}
+                  type="button"
+                  className={`float-card ${state.className}`.trim()}
+                  aria-expanded={state.className.includes('is-active')}
+                  aria-controls={`fc-detail-${i}`}
+                  onClick={state.onClick}
+                  onMouseEnter={state.onMouseEnter}
+                  onMouseLeave={state.onMouseLeave}
+                  onBlur={state.onBlur}
+                >
+                  <span className="fc-icon">
+                    <Icon name={card.icon} size={20} />
+                  </span>
+                  <span className="fc-body">
+                    <strong>{card.title}</strong>
+                    <span className="fc-sub">{card.text}</span>
+                    <span className="fc-detail" id={`fc-detail-${i}`}>
+                      {card.detail}
+                    </span>
+                  </span>
+                  <span className="fc-hint" aria-hidden="true">
+                    +
+                  </span>
+                </button>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -78,12 +137,20 @@ function Hero() {
 }
 
 function TrustStrip() {
+  const { bind } = useActive()
+
   return (
     <section className="trust-strip">
       <div className="container">
         <div className="trust-grid">
-          {TRUST.map((item) => (
-            <div key={item.title} className="trust-item">
+          {TRUST.map((item, i) => (
+            <div
+              key={item.title}
+              className={`trust-item ${bind(i).className}`.trim()}
+              onClick={bind(i).onClick}
+              onMouseEnter={bind(i).onMouseEnter}
+              onMouseLeave={bind(i).onMouseLeave}
+            >
               <span className="ti-icon">
                 <Icon name={item.icon} size={20} />
               </span>
@@ -139,6 +206,8 @@ function AboutPreview() {
 }
 
 function ServicesSection() {
+  const { bind } = useActive()
+
   return (
     <section className="section">
       <div className="container">
@@ -150,7 +219,14 @@ function ServicesSection() {
 
         <div className="grid grid-4">
           {services.items.map((service, i) => (
-            <Reveal key={service.slug} delay={i * 70} className="card">
+            <Reveal
+              key={service.slug}
+              delay={i * 70}
+              className={`card ${bind(i).className}`.trim()}
+              onClick={bind(i).onClick}
+              onMouseEnter={bind(i).onMouseEnter}
+              onMouseLeave={bind(i).onMouseLeave}
+            >
               <div className="icon-tile">
                 <Icon name={SERVICE_ICONS[service.slug]} size={24} />
               </div>
@@ -168,6 +244,8 @@ function ServicesSection() {
 }
 
 function HowItWorksSection() {
+  const { bind } = useActive()
+
   return (
     <section className="section section-alt">
       <div className="container">
@@ -177,8 +255,14 @@ function HowItWorksSection() {
         </Reveal>
 
         <Reveal className="timeline">
-          {howItWorks.steps.map((step) => (
-            <div key={step.title} className="tl-item">
+          {howItWorks.steps.map((step, i) => (
+            <div
+              key={step.title}
+              className={`tl-item ${bind(i).className}`.trim()}
+              onClick={bind(i).onClick}
+              onMouseEnter={bind(i).onMouseEnter}
+              onMouseLeave={bind(i).onMouseLeave}
+            >
               <span className="tl-num" aria-hidden="true" />
               <h3>{step.title}</h3>
               <p>{step.text}</p>
@@ -191,6 +275,8 @@ function HowItWorksSection() {
 }
 
 function WhoWeHelpSection() {
+  const { bind } = useActive()
+
   return (
     <section className="section">
       <div className="container">
@@ -201,7 +287,13 @@ function WhoWeHelpSection() {
 
         <div className="split-rows">
           {audiences.items.map((item, i) => (
-            <Reveal key={item.title} className="split-row">
+            <Reveal
+              key={item.title}
+              className={`split-row ${bind(i).className}`.trim()}
+              onClick={bind(i).onClick}
+              onMouseEnter={bind(i).onMouseEnter}
+              onMouseLeave={bind(i).onMouseLeave}
+            >
               <div className={`sr-art tone-${i + 1}`}>
                 <span className="sr-icon">
                   <Icon name={AUDIENCE_ICONS[i]} size={64} strokeWidth={1.4} />
