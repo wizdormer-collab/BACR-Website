@@ -60,30 +60,17 @@ describe('page rendering', () => {
     expect(html).toContain('tl-num')
   })
 
-  it('rotates the headline and four care pillars through one hero slot', () => {
+  it('renders hero cards as expandable buttons with hidden detail copy', () => {
     const html = renderToString(
       <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>
     )
-    expect(html).toContain('class="hero-rotator')
-    expect((html.match(/aria-label="Show /g) || []).length).toBe(5)
-    expect(html).toContain('class="hr-dot is-on"')
-    expect(html).toMatch(
-      /class="hr-title is-on"[^>]*>Restoring Function\. Rebuilding Lives\./
-    )
-    for (const title of [
-      'Specialist-Led Care',
-      'Evidence-Based',
-      'Personalised Plans',
-      'BHH Ecosystem',
-    ]) {
-      expect(html).toContain(`>${title}</span>`)
-    }
-    expect(html).toContain('Every step forward matters.')
-    expect((html.match(/class="hr-detail(?:\s|")/g) || []).length).toBe(1)
-    expect(html).not.toContain('Methods grounded in current clinical research')
-    expect(html).not.toContain('float-card')
+    expect(html).toMatch(/<button[^>]*type="button"[^>]*aria-expanded="false"/)
+    expect((html.match(/aria-controls="fc-detail-\d"/g) || []).length).toBe(4)
+    expect(html).toContain('current clinical research')
+    expect(html).not.toContain('is-active')
+    expect((html.match(/<button/g) || []).length).toBeGreaterThanOrEqual(4)
   })
 
   it('does not render dead footer links', () => {
