@@ -4,7 +4,7 @@ export const contactConfig = {
   email: 'hello@example.com',
   whatsapp: '+234 XXX XXX XXXX',
   whatsappNumber: '', // digits only, e.g. '2348012345678' - leave empty until provided
-  workingHours: 'Mon - Fri, 8:00 AM - 5:00 PM',
+  workingHours: '', // e.g. 'Mon - Fri, 8:00 AM - 5:00 PM',
   address: 'Bodija, Ibadan, Oyo State, Nigeria',
   referralEmail: 'referrals@example.com',
   referralPhone: '+234 XXX XXX XXXX',

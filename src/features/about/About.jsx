@@ -10,6 +10,7 @@ export default function About() {
   return (
     <>
       <PageHero
+        variant="light"
         kicker="About BACR"
         title={about.headline}
         subtitle={about.paragraphs[0]}

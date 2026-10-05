@@ -2,7 +2,13 @@ import { Link } from 'react-router-dom'
 import { brand, nav, footer } from '../data/site.js'
 import logo from '../assets/bacr-logo.png'
 
+const isLive = (link) => Boolean(link.href) && link.href !== '#'
+
 export default function Footer() {
+  const ecosystemLinks = footer.ecosystemLinks.filter(isLive)
+  const socials = footer.socials.filter(isLive)
+  const legal = footer.legal.filter(isLive)
+
   return (
     <footer className="footer">
       <div className="container">
@@ -32,27 +38,31 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h4>{footer.ecosystemLabel}</h4>
-            <ul className="footer-links">
-              {footer.ecosystemLinks.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {ecosystemLinks.length > 0 ? (
+            <div>
+              <h4>{footer.ecosystemLabel}</h4>
+              <ul className="footer-links">
+                {ecosystemLinks.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href}>{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
 
-          <div>
-            <h4>{footer.socialsLabel}</h4>
-            <ul className="footer-links">
-              {footer.socials.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {socials.length > 0 ? (
+            <div>
+              <h4>{footer.socialsLabel}</h4>
+              <ul className="footer-links">
+                {socials.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href}>{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
 
         <div className="footer-bottom">
@@ -60,13 +70,15 @@ export default function Footer() {
             &copy; {footer.copyright.split(' ')[0]} {brand.short}. All rights reserved.
           </span>
           <span className="tagline">&ldquo;{brand.tagline}&rdquo;</span>
-          <span className="footer-legal">
-            {footer.legal.map((link) => (
-              <a key={link.label} href={link.href}>
-                {link.label}
-              </a>
-            ))}
-          </span>
+          {legal.length > 0 ? (
+            <span className="footer-legal">
+              {legal.map((link) => (
+                <a key={link.label} href={link.href}>
+                  {link.label}
+                </a>
+              ))}
+            </span>
+          ) : null}
         </div>
       </div>
     </footer>

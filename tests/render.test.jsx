@@ -36,13 +36,38 @@ describe('page rendering', () => {
     }
   })
 
-  it('shows placeholders until real contact details are configured', () => {
+  it('hides placeholder contact details until real ones are configured', () => {
     const html = renderToString(
       <MemoryRouter initialEntries={['/book']}>
         <App />
       </MemoryRouter>
     )
-    expect(html).toContain('+234 XXX XXX XXXX')
-    expect(html).toContain('number not set')
+    expect(html).not.toContain('XXX')
+    expect(html).not.toContain('hello@example.com')
+    expect(html).not.toContain('referrals@example.com')
+    expect(html).toContain('coming soon')
+    expect(html).toContain('Dev: set real details')
+  })
+
+  it('renders the homepage hero and trust strip', () => {
+    const html = renderToString(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>
+    )
+    expect(html).toContain('Specialist-Led Care')
+    expect(html).toContain('4 Core Disciplines')
+    expect(html).toContain('tl-num')
+  })
+
+  it('does not render dead footer links', () => {
+    const html = renderToString(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>
+    )
+    expect(html).not.toContain('Instagram')
+    expect(html).not.toContain('Privacy Policy')
+    expect(html).toContain('Quick Links')
   })
 })

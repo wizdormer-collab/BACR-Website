@@ -1,7 +1,12 @@
 import usePageTitle from '../../lib/usePageTitle.js'
 import PageHero from '../../components/PageHero.jsx'
 import CtaBand from '../../components/CtaBand.jsx'
+import Icon from '../../components/Icon.jsx'
+import Reveal from '../../components/Reveal.jsx'
+import mark from '../../assets/bacr-mark.png'
 import { audiences, whyChoose, howItWorks } from '../../data/site.js'
+
+const ICONS = ['smile', 'user', 'heart', 'waves']
 
 export default function WhoWeHelp() {
   usePageTitle('Who We Help')
@@ -9,6 +14,7 @@ export default function WhoWeHelp() {
   return (
     <>
       <PageHero
+        variant="light"
         kicker="Who We Help"
         title={audiences.headline}
         subtitle="Care tailored to children, adults and the elderly - at every stage of the recovery journey."
@@ -16,12 +22,20 @@ export default function WhoWeHelp() {
 
       <section className="section">
         <div className="container">
-          <div className="grid grid-2">
-            {audiences.items.map((item) => (
-              <article key={item.title} className="card">
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
+          <div className="split-rows">
+            {audiences.items.map((item, i) => (
+              <Reveal key={item.title} className="split-row">
+                <div className={`sr-art tone-${i + 1}`}>
+                  <span className="sr-icon">
+                    <Icon name={ICONS[i]} size={64} strokeWidth={1.4} />
+                  </span>
+                  <img src={mark} alt="" className="sr-watermark" />
+                </div>
+                <div className="sr-body">
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -29,31 +43,31 @@ export default function WhoWeHelp() {
 
       <section className="section section-alt">
         <div className="container">
-          <div className="section-head center">
+          <Reveal className="section-head center">
             <span className="kicker">Your Journey With Us</span>
             <h2>{howItWorks.headline}</h2>
-          </div>
-          <div className="steps grid grid-2">
+          </Reveal>
+
+          <Reveal className="timeline">
             {howItWorks.steps.map((step) => (
-              <div key={step.title} className="step">
-                <span className="step-num" aria-hidden="true" />
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </div>
+              <div key={step.title} className="tl-item">
+                <span className="tl-num" aria-hidden="true" />
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
               </div>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      <section className="section">
+      <section className="section band-dark">
         <div className="container">
-          <div className="section-head center">
+          <Reveal className="section-head center">
             <span className="kicker">Why Choose BACR</span>
             <h2>{whyChoose.headline}</h2>
-          </div>
-          <div className="grid grid-2">
+          </Reveal>
+
+          <Reveal className="grid grid-2" delay={100}>
             <ul className="list-check">
               {whyChoose.points
                 .slice(0, Math.ceil(whyChoose.points.length / 2))
@@ -66,7 +80,7 @@ export default function WhoWeHelp() {
                 <li key={point}>{point}</li>
               ))}
             </ul>
-          </div>
+          </Reveal>
         </div>
       </section>
 

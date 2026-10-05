@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import usePageTitle from '../../lib/usePageTitle.js'
 import PageHero from '../../components/PageHero.jsx'
+import ContactList from '../../components/ContactList.jsx'
 import { booking, contact } from '../../data/site.js'
-import { contactConfig, isContactConfigured } from '../../lib/site.config.js'
+import { contactConfig } from '../../lib/site.config.js'
 import {
   buildWhatsAppMessage,
   buildWhatsAppLink,
@@ -40,7 +41,6 @@ export default function Book() {
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState(null)
   const [copied, setCopied] = useState(false)
-  const configured = isContactConfigured()
 
   const update = (key) => (event) => {
     setValues((v) => ({ ...v, [key]: event.target.value }))
@@ -94,51 +94,7 @@ export default function Book() {
                 <p>Prefer to talk? Reach us directly and we will book you in.</p>
               </div>
 
-              <div className="contact-list">
-                <div className="contact-item">
-                  <span className="ci-icon" aria-hidden="true">
-                    ☎
-                  </span>
-                  <div>
-                    <div className="ci-label">Phone</div>
-                    <div className="ci-value">{contactConfig.phone}</div>
-                  </div>
-                </div>
-                <div className="contact-item">
-                  <span className="ci-icon" aria-hidden="true">
-                    ✉
-                  </span>
-                  <div>
-                    <div className="ci-label">Email</div>
-                    <div className="ci-value">{contactConfig.email}</div>
-                  </div>
-                </div>
-                <div className="contact-item">
-                  <span className="ci-icon" aria-hidden="true">
-                    ◎
-                  </span>
-                  <div>
-                    <div className="ci-label">WhatsApp</div>
-                    <div className="ci-value">{contactConfig.whatsapp}</div>
-                  </div>
-                </div>
-                <div className="contact-item">
-                  <span className="ci-icon" aria-hidden="true">
-                    ⏱
-                  </span>
-                  <div>
-                    <div className="ci-label">{contact.hoursLabel}</div>
-                    <div className="ci-value">{contactConfig.workingHours}</div>
-                  </div>
-                </div>
-              </div>
-
-              {!configured ? (
-                <p className="notice notice-warn" style={{ marginTop: 18, marginBottom: 0 }}>
-                  Contact details are placeholders. Add the real phone/WhatsApp number in{' '}
-                  <code>src/lib/site.config.js</code> to enable direct sending.
-                </p>
-              ) : null}
+              <ContactList />
             </div>
 
             <form className="form" onSubmit={handleSubmit} noValidate>
@@ -283,11 +239,7 @@ export default function Book() {
                   >
                     Send via WhatsApp
                   </a>
-                ) : (
-                  <button type="button" className="btn btn-outline" disabled>
-                    Send via WhatsApp (number not set)
-                  </button>
-                )}
+                ) : null}
                 <button type="button" className="btn btn-outline" onClick={handleCopy}>
                   {copied ? 'Copied!' : 'Copy message'}
                 </button>

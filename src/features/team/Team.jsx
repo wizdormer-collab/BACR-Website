@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom'
 import usePageTitle from '../../lib/usePageTitle.js'
 import PageHero from '../../components/PageHero.jsx'
-import CtaBand from '../../components/CtaBand.jsx'
+import Icon from '../../components/Icon.jsx'
+import mark from '../../assets/bacr-mark.png'
 import { team, services } from '../../data/site.js'
 
-const SPECIALISATIONS = {
-  Physiotherapy: 'Movement, strength and physical function recovery',
-  'Speech Therapy': 'Speech, language, communication and swallowing',
-  'Occupational Therapy': 'Everyday activities, independence and participation',
-  'Behavioral Therapy': 'ASD, ADHD, anxiety and emotional regulation',
+const DISCIPLINE_ICONS = {
+  Physiotherapy: 'activity',
+  'Speech Therapy': 'chat',
+  'Occupational Therapy': 'hand',
+  'Behavioral Therapy': 'brain',
 }
 
 export default function Team() {
@@ -15,38 +17,44 @@ export default function Team() {
 
   return (
     <>
-      <PageHero kicker="Our Team" title={team.headline} subtitle={team.intro} />
+      <PageHero
+        variant="light"
+        kicker="Our Team"
+        title={team.headline}
+        subtitle={team.intro}
+      />
 
       <section className="section">
         <div className="container">
-          <div className="grid grid-4">
-            {services.items.map((service) => (
-              <article key={service.slug} className="card team-card">
-                <div className="avatar" aria-hidden="true">
-                  ?
-                </div>
-                <div className="team-role">{service.title}</div>
-                <h3>Name to be added</h3>
-                <p>{SPECIALISATIONS[service.title] || 'Specialist therapist'}</p>
-                <p className="text-muted" style={{ fontSize: 14, marginTop: 10 }}>
-                  Short bio to be added.
-                </p>
-              </article>
-            ))}
-          </div>
+          <div className="coming-soon">
+            <img src={mark} alt="" className="cs-mark" />
+            <h2>Specialists who care — profiles publishing soon</h2>
+            <p>
+              Our physiotherapists, speech and language therapists, occupational therapists and
+              behavioral specialists are being introduced here shortly. In the meantime, you can
+              book a consultation and be seen by a specialist in your first visit.
+            </p>
 
-          <p className="center" style={{ marginTop: 30 }}>
-            <span className="pill-note">{team.placeholderNote}</span>
-          </p>
+            <div className="cs-disciplines">
+              {services.items.map((service) => (
+                <span key={service.slug}>
+                  <Icon name={DISCIPLINE_ICONS[service.title]} size={16} />
+                  {service.title}
+                </span>
+              ))}
+            </div>
+
+            <div className="hero-actions" style={{ justifyContent: 'center', marginBottom: 0 }}>
+              <Link to="/book" className="btn btn-primary">
+                Book Appointment
+              </Link>
+              <Link to="/contact" className="btn btn-outline">
+                Contact us
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
-
-      <CtaBand
-        title="Want to meet the team?"
-        text="Book a consultation and be seen by a specialist in your first visit."
-        primary={{ label: 'Book Appointment', to: '/book' }}
-        secondary={{ label: 'Contact us', to: '/contact' }}
-      />
     </>
   )
 }
