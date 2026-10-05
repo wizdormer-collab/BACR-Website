@@ -60,17 +60,19 @@ describe('page rendering', () => {
     expect(html).toContain('tl-num')
   })
 
-  it('renders hero cards as expandable buttons with hidden detail copy', () => {
+  it('renders the hero slideshow beneath the headline', () => {
     const html = renderToString(
       <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>
     )
-    expect(html).toMatch(/<button[^>]*type="button"[^>]*aria-expanded="false"/)
-    expect((html.match(/aria-controls="fc-detail-\d"/g) || []).length).toBe(4)
-    expect(html).toContain('current clinical research')
-    expect(html).not.toContain('is-active')
-    expect((html.match(/<button/g) || []).length).toBeGreaterThanOrEqual(4)
+    expect(html).toContain('Restoring Function. Rebuilding Lives.')
+    expect(html).toContain('class="hero-rotator')
+    expect((html.match(/aria-label="Show /g) || []).length).toBe(4)
+    expect(html).toContain('class="hr-dot is-on"')
+    expect(html).toContain('Physio, speech, occupational and behavioral specialists')
+    expect(html).toContain('aria-label="Show Evidence-Based"')
+    expect(html).not.toContain('float-card')
   })
 
   it('does not render dead footer links', () => {

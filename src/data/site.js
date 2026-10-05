@@ -12,7 +12,6 @@ export const nav = [
   { label: 'Our Services', to: '/services' },
   { label: 'Who We Help', to: '/who-we-help' },
   { label: 'Our Team', to: '/team' },
-  { label: 'Book Appointment', to: '/book' },
   { label: 'Contact', to: '/contact' },
 ]
 

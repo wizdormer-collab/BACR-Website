@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import usePageTitle from '../../lib/usePageTitle.js'
 import CtaBand from '../../components/CtaBand.jsx'
@@ -32,32 +32,26 @@ const TRUST = [
   { icon: 'star', title: 'Part of BHH', text: 'Connected to the wider health hub' },
 ]
 
-const FLOAT_CARDS = [
+const ROTATOR = [
   {
-    icon: 'shield',
     title: 'Specialist-Led Care',
-    text: 'Multidisciplinary team',
-    detail: 'Physiotherapists, speech therapists, occupational therapists and behavioral specialists working as one team.',
+    detail: 'Physio, speech, occupational and behavioral specialists working as one team.',
   },
   {
-    icon: 'book',
     title: 'Evidence-Based',
-    text: 'Research-grounded methods',
-    detail: 'Every plan is built on current clinical research and tracked against measurable outcomes.',
+    detail: 'Methods grounded in current clinical research and measurable outcomes.',
   },
   {
-    icon: 'clipboard',
     title: 'Personalised Plans',
-    text: 'Built around the person',
-    detail: 'Goals are set together, reviewed regularly, and adjusted as progress is made.',
+    detail: 'Goals set with you, reviewed and adjusted as you progress.',
   },
   {
-    icon: 'layers',
     title: 'BHH Ecosystem',
-    text: 'Coordinated wider care',
-    detail: 'Connected referrals across the wider Bodija health hub when wider care is needed.',
+    detail: 'Connected referrals across the wider Bodija health hub.',
   },
 ]
+
+const ROTATE_MS = 5000
 
 function useActive() {
   const [active, setActive] = useState(-1)
@@ -76,15 +70,66 @@ function useActive() {
   }
 }
 
-function Hero() {
-  const { bind } = useActive()
+function HeroRotator() {
+  const [index, setIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
 
+  useEffect(() => {
+    if (paused) return undefined
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return undefined
+    }
+    const id = window.setInterval(
+      () => setIndex((i) => (i + 1) % ROTATOR.length),
+      ROTATE_MS
+    )
+    return () => window.clearInterval(id)
+  }, [paused])
+
+  const item = ROTATOR[index]
+
+  return (
+    <div
+      className={`hero-rotator${paused ? ' is-paused' : ''}`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      <div className="hr-slides">
+        <span className="hr-slide" key={index}>
+          <span className="hr-title">{item.title}</span>
+          <span className="hr-detail">{item.detail}</span>
+        </span>
+      </div>
+      <div className="hr-dots">
+        {ROTATOR.map((slide, i) => (
+          <button
+            key={slide.title}
+            type="button"
+            className={`hr-dot${i === index ? ' is-on' : ''}`}
+            aria-label={`Show ${slide.title}`}
+            aria-pressed={i === index}
+            onClick={() => setIndex(i)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function Hero() {
   return (
     <section className="hero">
       <div className="container hero-inner">
         <div className="hero-copy">
           <span className="eyebrow">{hero.eyebrow}</span>
           <h1>{hero.headline}</h1>
+          <HeroRotator />
           <p className="lead">{hero.subtext}</p>
           <div className="hero-actions">
             <Link to={hero.primaryCta.to} className="btn btn-light">
@@ -98,38 +143,6 @@ function Hero() {
 
         <div className="hero-visual">
           <img src={mark} alt="" aria-hidden="true" className="hero-mark" />
-          <div className="hero-stack">
-            {FLOAT_CARDS.map((card, i) => {
-              const state = bind(i)
-              return (
-                <button
-                  key={card.title}
-                  type="button"
-                  className={`float-card ${state.className}`.trim()}
-                  aria-expanded={state.className.includes('is-active')}
-                  aria-controls={`fc-detail-${i}`}
-                  onClick={state.onClick}
-                  onMouseEnter={state.onMouseEnter}
-                  onMouseLeave={state.onMouseLeave}
-                  onBlur={state.onBlur}
-                >
-                  <span className="fc-icon">
-                    <Icon name={card.icon} size={20} />
-                  </span>
-                  <span className="fc-body">
-                    <strong>{card.title}</strong>
-                    <span className="fc-sub">{card.text}</span>
-                    <span className="fc-detail" id={`fc-detail-${i}`}>
-                      {card.detail}
-                    </span>
-                  </span>
-                  <span className="fc-hint" aria-hidden="true">
-                    +
-                  </span>
-                </button>
-              )
-            })}
-          </div>
         </div>
       </div>
     </section>

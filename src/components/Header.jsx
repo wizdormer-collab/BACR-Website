@@ -18,7 +18,7 @@ export default function Header() {
 
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
-      <div className="container header-inner">
+      <div className="header-inner">
         <Link to="/" className="brand" onClick={close}>
           <img src={mark} alt={`${brand.short} logo`} className="brand-mark" />
           <span className="brand-text">
