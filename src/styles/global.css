@@ -1073,28 +1073,34 @@ a.contact-item:hover {
   margin-bottom: 24px;
 }
 
-.hr-slides {
-  position: relative;
-  min-height: clamp(128px, 15vw, 156px);
+.hr-titles {
+  display: grid;
 }
 
-.hr-slide {
-  display: block;
+.hero-rotator .hr-titles {
+  margin-bottom: 0;
+}
+
+.hr-details {
+  display: grid;
+}
+
+.hr-title,
+.hr-detail {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hr-title.is-on,
+.hr-detail.is-on {
+  opacity: 1;
+  visibility: visible;
   animation: hr-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .hr-title {
   display: block;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(26px, 4.4vw, 42px);
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  background: linear-gradient(100deg, #ffffff 0%, #b9ffd2 55%, var(--accent) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: var(--accent);
 }
 
 .hr-detail {
@@ -1120,7 +1126,7 @@ a.contact-item:hover {
 .hr-dots {
   display: flex;
   gap: 8px;
-  margin-top: 4px;
+  margin-top: 16px;
 }
 
 .hr-dot {
@@ -1655,10 +1661,6 @@ a.contact-item:hover {
 
   .hero-visual {
     display: none;
-  }
-
-  .hr-slides {
-    min-height: clamp(140px, 34vw, 170px);
   }
 
   .hr-dot {

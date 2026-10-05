@@ -7,6 +7,7 @@ import Reveal from '../../components/Reveal.jsx'
 import logo from '../../assets/bacr-logo.png'
 import mark from '../../assets/bacr-mark.png'
 import {
+  brand,
   hero,
   about,
   services,
@@ -32,7 +33,11 @@ const TRUST = [
   { icon: 'star', title: 'Part of BHH', text: 'Connected to the wider health hub' },
 ]
 
-const ROTATOR = [
+const SLIDES = [
+  {
+    title: hero.headline,
+    detail: brand.tagline,
+  },
   {
     title: 'Specialist-Led Care',
     detail: 'Physio, speech, occupational and behavioral specialists working as one team.',
@@ -84,13 +89,11 @@ function HeroRotator() {
       return undefined
     }
     const id = window.setInterval(
-      () => setIndex((i) => (i + 1) % ROTATOR.length),
+      () => setIndex((i) => (i + 1) % SLIDES.length),
       ROTATE_MS
     )
     return () => window.clearInterval(id)
   }, [paused])
-
-  const item = ROTATOR[index]
 
   return (
     <div
@@ -100,14 +103,32 @@ function HeroRotator() {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <div className="hr-slides">
-        <span className="hr-slide" key={index}>
-          <span className="hr-title">{item.title}</span>
-          <span className="hr-detail">{item.detail}</span>
-        </span>
+      <h1 className="hr-titles">
+        {SLIDES.map((slide, i) => (
+          <span
+            key={slide.title}
+            className={`hr-title${i === index ? ' is-on' : ''}`}
+            aria-hidden={i !== index}
+          >
+            {slide.title}
+          </span>
+        ))}
+      </h1>
+
+      <div className="hr-details">
+        {SLIDES.map((slide, i) => (
+          <span
+            key={slide.title}
+            className={`hr-detail${i === index ? ' is-on' : ''}`}
+            aria-hidden={i !== index}
+          >
+            {slide.detail}
+          </span>
+        ))}
       </div>
+
       <div className="hr-dots">
-        {ROTATOR.map((slide, i) => (
+        {SLIDES.map((slide, i) => (
           <button
             key={slide.title}
             type="button"
@@ -128,7 +149,6 @@ function Hero() {
       <div className="container hero-inner">
         <div className="hero-copy">
           <span className="eyebrow">{hero.eyebrow}</span>
-          <h1>{hero.headline}</h1>
           <HeroRotator />
           <p className="lead">{hero.subtext}</p>
           <div className="hero-actions">

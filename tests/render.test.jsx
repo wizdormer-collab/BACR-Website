@@ -60,18 +60,28 @@ describe('page rendering', () => {
     expect(html).toContain('tl-num')
   })
 
-  it('renders the hero slideshow beneath the headline', () => {
+  it('rotates the headline and four care pillars through one hero slot', () => {
     const html = renderToString(
       <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>
     )
-    expect(html).toContain('Restoring Function. Rebuilding Lives.')
     expect(html).toContain('class="hero-rotator')
-    expect((html.match(/aria-label="Show /g) || []).length).toBe(4)
+    expect((html.match(/aria-label="Show /g) || []).length).toBe(5)
     expect(html).toContain('class="hr-dot is-on"')
-    expect(html).toContain('Physio, speech, occupational and behavioral specialists')
-    expect(html).toContain('aria-label="Show Evidence-Based"')
+    expect(html).toMatch(
+      /class="hr-title is-on"[^>]*>Restoring Function\. Rebuilding Lives\./
+    )
+    for (const title of [
+      'Specialist-Led Care',
+      'Evidence-Based',
+      'Personalised Plans',
+      'BHH Ecosystem',
+    ]) {
+      expect(html).toContain(`>${title}</span>`)
+    }
+    expect(html).toContain('Every step forward matters.')
+    expect(html).toContain('Methods grounded in current clinical research')
     expect(html).not.toContain('float-card')
   })
 
