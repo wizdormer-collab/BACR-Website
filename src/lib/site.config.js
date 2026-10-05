@@ -1,14 +1,15 @@
 export const contactConfig = {
-  // TODO: replace every placeholder below with the real BACR details.
-  phone: '+234 XXX XXX XXXX',
-  email: 'hello@example.com',
-  whatsapp: '+234 XXX XXX XXXX',
-  whatsappNumber: '', // digits only, e.g. '2348012345678' - leave empty until provided
-  workingHours: '', // e.g. 'Mon - Fri, 8:00 AM - 5:00 PM',
+  // Fill these with the real BACR details. Empty string = not yet published,
+  // and the UI hides the row instead of showing a placeholder.
+  phone: '',
+  email: '',
+  whatsapp: '',
+  whatsappNumber: '', // digits only, e.g. '2348012345678'
+  workingHours: '', // e.g. 'Mon - Fri, 8:00 AM - 5:00 PM'
   address: 'Bodija, Ibadan, Oyo State, Nigeria',
-  referralEmail: 'referrals@example.com',
-  referralPhone: '+234 XXX XXX XXXX',
-  referralFormUrl: '', // TODO: link to the downloadable referral form
+  referralEmail: '',
+  referralPhone: '',
+  referralFormUrl: '', // link to the downloadable referral form
   mapQuery: 'Bodija, Ibadan, Oyo State, Nigeria',
 }
 
