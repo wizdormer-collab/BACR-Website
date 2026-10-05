@@ -12,7 +12,6 @@ import {
   services,
   audiences,
   howItWorks,
-  whyChoose,
   referrals,
 } from '../../data/site.js'
 
@@ -318,34 +317,6 @@ function WhoWeHelpSection() {
   )
 }
 
-function WhyChooseSection() {
-  const half = Math.ceil(whyChoose.points.length / 2)
-
-  return (
-    <section className="section band-dark">
-      <div className="container">
-        <Reveal className="section-head center">
-          <span className="kicker">Why Choose BACR</span>
-          <h2>{whyChoose.headline}</h2>
-        </Reveal>
-
-        <Reveal className="grid grid-2" delay={100}>
-          <ul className="list-check">
-            {whyChoose.points.slice(0, half).map((point) => (
-              <li key={point}>{point}</li>
-            ))}
-          </ul>
-          <ul className="list-check">
-            {whyChoose.points.slice(half).map((point) => (
-              <li key={point}>{point}</li>
-            ))}
-          </ul>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
 export default function Home() {
   usePageTitle(null)
 
@@ -357,7 +328,6 @@ export default function Home() {
       <ServicesSection />
       <HowItWorksSection />
       <WhoWeHelpSection />
-      <WhyChooseSection />
       <CtaBand
         title="Ready to take the first step?"
         text="Book a consultation for yourself or a loved one — or, as a referring clinician, contact our clinical team."

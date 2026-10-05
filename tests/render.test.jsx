@@ -73,6 +73,22 @@ describe('page rendering', () => {
     expect((html.match(/<button/g) || []).length).toBeGreaterThanOrEqual(4)
   })
 
+  it('omits the Why Choose section from the homepage only', () => {
+    const home = renderToString(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>
+    )
+    expect(home).not.toContain('Why Choose BACR')
+
+    const whoWeHelp = renderToString(
+      <MemoryRouter initialEntries={['/who-we-help']}>
+        <App />
+      </MemoryRouter>
+    )
+    expect(whoWeHelp).toContain('Why Choose BACR')
+  })
+
   it('does not render dead footer links', () => {
     const html = renderToString(
       <MemoryRouter initialEntries={['/']}>
