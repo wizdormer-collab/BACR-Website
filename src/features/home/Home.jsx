@@ -41,7 +41,7 @@ const FLOAT_CARDS = [
   {
     icon: 'book',
     title: 'Evidence-Based',
-    text: 'Research-grounded methods',
+    text: 'Grounded in research',
     detail: 'Every plan is built on current clinical research and tracked against measurable outcomes.',
   },
   {

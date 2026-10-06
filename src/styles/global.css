@@ -1994,12 +1994,14 @@ a.contact-item:hover {
   .hero-stack {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
+    align-items: start;
   }
 
   .float-card {
-    padding: 12px;
-    gap: 9px;
+    flex-direction: column;
     align-items: flex-start;
+    padding: 12px;
+    gap: 8px;
   }
 
   .float-card .fc-icon {
@@ -2008,7 +2010,7 @@ a.contact-item:hover {
   }
 
   .float-card .fc-body {
-    padding-right: 12px;
+    padding-right: 0;
   }
 
   .float-card strong {
