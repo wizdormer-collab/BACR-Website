@@ -1956,6 +1956,18 @@ a.contact-item:hover {
     font-size: 13.6px;
   }
 
+  .page-hero {
+    padding: 42px 0;
+  }
+
+  .trust-strip {
+    padding: 22px 0;
+  }
+
+  .footer {
+    padding: 42px 0 20px;
+  }
+
   .grid-2,
   .grid-3,
   .grid-4 {
@@ -1975,7 +1987,7 @@ a.contact-item:hover {
   }
 
   .hero {
-    padding: 52px 0 44px;
+    padding: 40px 0 34px;
   }
 
   .hero-inner {
@@ -2040,11 +2052,11 @@ a.contact-item:hover {
   }
 
   .section {
-    padding: 40px 0;
+    padding: 30px 0;
   }
 
   .section-head {
-    margin-bottom: 24px;
+    margin-bottom: 18px;
   }
 
   .about-logo {
@@ -2136,7 +2148,7 @@ a.contact-item:hover {
   }
 
   .callout {
-    padding: 26px 20px;
+    padding: 20px 16px;
   }
 
   .callout-actions {
@@ -2153,7 +2165,7 @@ a.contact-item:hover {
   }
 
   .section-cta {
-    padding-bottom: 24px;
+    padding-bottom: 18px;
   }
 
   .tl-item h3 {
