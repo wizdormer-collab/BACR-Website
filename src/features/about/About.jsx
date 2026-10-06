@@ -9,12 +9,7 @@ export default function About() {
 
   return (
     <>
-      <PageHero
-        variant="light"
-        kicker="About BACR"
-        title={about.headline}
-        subtitle={about.paragraphs[0]}
-      />
+      <PageHero variant="light" kicker="About BACR" title={about.headline} />
 
       <section className="section section-alt">
         <div className="container">
@@ -23,7 +18,6 @@ export default function About() {
               <img src={logo} alt="BACR logo" className="about-logo" />
               <div className="section-head">
                 <span className="kicker">Who We Are</span>
-                <h2>{about.headline}</h2>
               </div>
               {about.paragraphs.map((text) => (
                 <p key={text.slice(0, 24)} className="text-muted">

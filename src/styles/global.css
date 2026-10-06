@@ -1400,6 +1400,11 @@ a.contact-item:hover {
   pointer-events: none;
 }
 
+.page-hero > .container {
+  position: relative;
+  z-index: 1;
+}
+
 /* ---------- Coming soon ---------- */
 
 .coming-soon {
