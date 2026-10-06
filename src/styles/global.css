@@ -131,7 +131,6 @@ p {
 .brand-mark {
   height: 40px;
   width: auto;
-  border-radius: 8px;
 }
 
 .brand-text {
@@ -950,9 +949,6 @@ a.contact-item:hover {
 
 .footer-brand img {
   height: 84px;
-  background: #fff;
-  border-radius: 8px;
-  padding: 4px;
 }
 
 .footer-brand strong {

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { brand, nav, footer } from '../data/site.js'
-import logo from '../assets/bacr-logo.png'
+import whiteLogo from '../assets/bacr-logo-white.png'
 
 const isLive = (link) => Boolean(link.href) && link.href !== '#'
 
@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <div className="footer-brand">
-              <img src={logo} alt={`${brand.short} logo`} />
+              <img src={whiteLogo} alt={`${brand.short} logo`} />
               <span>
                 <strong>
                   {brand.short} - {brand.name}
