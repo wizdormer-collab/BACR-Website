@@ -5,7 +5,7 @@ import App from '../src/App.jsx'
 
 const routes = [
   { path: '/', text: 'Restoring Function. Rebuilding Lives.' },
-  { path: '/about', text: 'More Than Recovery. A Return to Life.' },
+  { path: '/about', text: ['More Than Recovery.', 'A Return to Life.'] },
   { path: '/services', text: 'Specialist Therapy. Measurable Progress.' },
   { path: '/who-we-help', text: 'Care for Every Journey. Support at Every Stage.' },
   { path: '/team', text: 'Specialists Who Care. Professionals You Can Trust.' },
@@ -21,7 +21,10 @@ describe('page rendering', () => {
           <App />
         </MemoryRouter>
       )
-      expect(html).toContain(route.text)
+      const texts = Array.isArray(route.text) ? route.text : [route.text]
+      for (const text of texts) {
+        expect(html).toContain(text)
+      }
     })
   }
 

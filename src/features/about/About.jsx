@@ -7,9 +7,23 @@ import { about, hero } from '../../data/site.js'
 export default function About() {
   usePageTitle('About BACR')
 
+  const splitAt = about.headline.indexOf('. ')
+  const hasLines = splitAt > -1
+  const line1 = hasLines ? about.headline.slice(0, splitAt + 1) : about.headline
+  const line2 = hasLines ? about.headline.slice(splitAt + 2) : ''
+  const title = hasLines ? (
+    <>
+      {line1}
+      <br />
+      {line2}
+    </>
+  ) : (
+    about.headline
+  )
+
   return (
     <>
-      <PageHero variant="light" kicker="About BACR" title={about.headline} />
+      <PageHero variant="light" kicker="About BACR" title={title} />
 
       <section className="section section-alt">
         <div className="container">
