@@ -15,7 +15,7 @@ export default function CtaBand({
             <h2>{title}</h2>
             {text ? <p>{text}</p> : null}
             {note ? (
-              <p style={{ marginTop: 10, fontSize: 14.5 }}>
+              <p style={{ marginTop: 10, fontSize: '0.90625rem' }}>
                 <strong>{note}</strong>
               </p>
             ) : null}

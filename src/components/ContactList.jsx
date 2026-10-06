@@ -67,7 +67,7 @@ export default function ContactList() {
       ) : null}
 
       {import.meta.env.DEV ? (
-        <p className="text-muted" style={{ fontSize: 13, marginTop: 14, marginBottom: 0 }}>
+        <p className="text-muted" style={{ fontSize: '0.8125rem', marginTop: 14, marginBottom: 0 }}>
           Dev: set real details in <code>src/lib/site.config.js</code>.
         </p>
       ) : null}

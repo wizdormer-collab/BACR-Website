@@ -104,7 +104,7 @@ export default function Services() {
           </p>
 
           {import.meta.env.DEV && (emailReady || phoneReady) ? (
-            <p className="center text-muted" style={{ fontSize: 14 }}>
+            <p className="center text-muted" style={{ fontSize: '0.875rem' }}>
               Dev note: referral contacts configured in <code>src/lib/site.config.js</code>.
             </p>
           ) : null}

@@ -246,13 +246,13 @@ export default function Book() {
               </div>
 
               <details style={{ marginTop: 20 }}>
-                <summary style={{ cursor: 'pointer', fontSize: 14.5, color: 'var(--muted)' }}>
+                <summary style={{ cursor: 'pointer', fontSize: '0.90625rem', color: 'var(--muted)' }}>
                   Preview of the message we will prepare
                 </summary>
                 <pre
                   style={{
                     whiteSpace: 'pre-wrap',
-                    fontSize: 13.5,
+                    fontSize: '0.84375rem',
                     background: 'var(--bg)',
                     border: '1px solid var(--border)',
                     borderRadius: 10,

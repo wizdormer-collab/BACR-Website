@@ -140,12 +140,12 @@ p {
 }
 
 .brand-text strong {
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .brand-text small {
   color: var(--muted);
-  font-size: 11.5px;
+  font-size: 0.71875rem;
   max-width: 220px;
 }
 
@@ -157,7 +157,7 @@ p {
 
 .nav-link {
   color: var(--muted);
-  font-size: 14.5px;
+  font-size: 0.90625rem;
   font-weight: 500;
   padding: 8px 12px;
   border-radius: 8px;
@@ -223,7 +223,7 @@ p {
   gap: 8px;
   padding: 13px 24px;
   border-radius: var(--radius-btn);
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 600;
   font-family: var(--font-display);
   letter-spacing: -0.01em;
@@ -315,7 +315,7 @@ p {
 
 .eyebrow {
   display: inline-block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -327,12 +327,12 @@ p {
 }
 
 .hero h1 {
-  font-size: clamp(34px, 6vw, 58px);
+  font-size: clamp(2.125rem, 6vw, 3.625rem);
   margin-bottom: 18px;
 }
 
 .hero p.lead {
-  font-size: clamp(16px, 2.2vw, 19px);
+  font-size: clamp(1rem, 2.2vw, 1.1875rem);
   color: rgba(255, 255, 255, 0.9);
   max-width: 640px;
   margin-bottom: 28px;
@@ -359,7 +359,7 @@ p {
   border: 1px solid rgba(255, 255, 255, 0.22);
   padding: 8px 14px;
   border-radius: 999px;
-  font-size: 13.5px;
+  font-size: 0.84375rem;
   font-weight: 500;
 }
 
@@ -399,7 +399,7 @@ p {
 
 .kicker {
   display: block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -408,12 +408,12 @@ p {
 }
 
 .section-head h2 {
-  font-size: clamp(26px, 4vw, 36px);
+  font-size: clamp(1.625rem, 4vw, 2.25rem);
 }
 
 .section-head p {
   color: var(--muted);
-  font-size: 17px;
+  font-size: 1.0625rem;
   margin-bottom: 0;
 }
 
@@ -452,13 +452,13 @@ p {
 }
 
 .card h3 {
-  font-size: 18px;
+  font-size: 1.125rem;
   margin-bottom: 8px;
 }
 
 .card p {
   color: var(--muted);
-  font-size: 15px;
+  font-size: 0.9375rem;
   margin-bottom: 0;
 }
 
@@ -471,7 +471,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 1.375rem;
   margin-bottom: 16px;
 }
 
@@ -479,7 +479,7 @@ p {
   display: inline-block;
   margin-top: 14px;
   font-weight: 600;
-  font-size: 14.5px;
+  font-size: 0.90625rem;
 }
 
 .num-badge {
@@ -492,7 +492,7 @@ p {
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
   margin-bottom: 16px;
 }
 
@@ -507,7 +507,7 @@ p {
 .list-check li {
   position: relative;
   padding-left: 34px;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .list-check li::before {
@@ -541,7 +541,7 @@ p {
   border-left: 4px solid var(--primary);
   border-radius: 0 var(--radius) var(--radius) 0;
   padding: 26px 30px;
-  font-size: clamp(18px, 2.5vw, 22px);
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
   font-style: italic;
   color: var(--primary-dark);
   margin: 30px 0;
@@ -561,7 +561,7 @@ p {
 }
 
 .callout h2 {
-  font-size: clamp(24px, 3.4vw, 32px);
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
   margin-bottom: 8px;
 }
 
@@ -614,13 +614,13 @@ p {
 }
 
 .step h3 {
-  font-size: 17px;
+  font-size: 1.0625rem;
   margin-bottom: 6px;
 }
 
 .step p {
   color: var(--muted);
-  font-size: 15px;
+  font-size: 0.9375rem;
   margin: 0;
 }
 
@@ -650,13 +650,13 @@ p {
 
 .feature strong {
   display: block;
-  font-size: 15.5px;
+  font-size: 0.96875rem;
   margin-bottom: 3px;
 }
 
 .feature span {
   color: var(--muted);
-  font-size: 14.5px;
+  font-size: 0.90625rem;
 }
 
 .feature-dot {
@@ -677,13 +677,13 @@ p {
 }
 
 .page-hero h1 {
-  font-size: clamp(28px, 4.6vw, 42px);
+  font-size: clamp(1.75rem, 4.6vw, 2.625rem);
   margin-bottom: 10px;
 }
 
 .page-hero p {
   color: rgba(255, 255, 255, 0.88);
-  font-size: 17px;
+  font-size: 1.0625rem;
   max-width: 680px;
   margin: 0;
 }
@@ -715,7 +715,7 @@ p {
 }
 
 .field label {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
 }
 
@@ -727,7 +727,7 @@ p {
 .field select,
 .field textarea {
   font-family: inherit;
-  font-size: 15px;
+  font-size: 0.9375rem;
   padding: 12px 14px;
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -751,7 +751,7 @@ p {
 
 .field .error {
   color: var(--danger);
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 
 .form-actions {
@@ -764,7 +764,7 @@ p {
 .notice {
   border-radius: 10px;
   padding: 14px 16px;
-  font-size: 14.5px;
+  font-size: 0.90625rem;
   margin-bottom: 20px;
 }
 
@@ -829,14 +829,14 @@ p {
 }
 
 .contact-item .ci-label {
-  font-size: 12.5px;
+  font-size: max(11px, 0.78125rem);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
 }
 
 .contact-item .ci-value {
-  font-size: 15.5px;
+  font-size: 0.96875rem;
   font-weight: 600;
   color: var(--text);
   word-break: break-word;
@@ -896,7 +896,7 @@ a.contact-item:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+  font-size: 1.875rem;
   font-weight: 700;
   margin: 0 auto 16px;
   border: 2px dashed #c9c4f5;
@@ -904,7 +904,7 @@ a.contact-item:hover {
 
 .team-role {
   color: var(--primary);
-  font-size: 13.5px;
+  font-size: 0.84375rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -934,7 +934,7 @@ a.contact-item:hover {
 
 .footer h4 {
   color: #fff;
-  font-size: 14px;
+  font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
   margin-bottom: 16px;
@@ -954,16 +954,16 @@ a.contact-item:hover {
 .footer-brand strong {
   color: #fff;
   display: block;
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .footer-brand span {
-  font-size: 12.5px;
+  font-size: max(11px, 0.78125rem);
   color: #8fa0b3;
 }
 
 .footer p {
-  font-size: 14.5px;
+  font-size: 0.90625rem;
   color: #8fa0b3;
 }
 
@@ -977,10 +977,10 @@ a.contact-item:hover {
 
 .footer-links a {
   display: block;
-  padding: 9px 0;
-  margin: -9px 0;
+  padding: 11px 0;
+  margin: -11px 0;
   color: #c6cfda;
-  font-size: 14.5px;
+  font-size: 0.90625rem;
 }
 
 .footer-links a:hover {
@@ -994,7 +994,7 @@ a.contact-item:hover {
   gap: 16px;
   flex-wrap: wrap;
   padding-top: 20px;
-  font-size: 13.5px;
+  font-size: 0.84375rem;
   color: #8fa0b3;
 }
 
@@ -1096,12 +1096,12 @@ a.contact-item:hover {
 .float-card strong {
   display: block;
   font-family: var(--font-display);
-  font-size: 14.5px;
+  font-size: 0.90625rem;
   line-height: 1.25;
 }
 
 .float-card span {
-  font-size: 12.5px;
+  font-size: max(11px, 0.78125rem);
   color: var(--muted);
 }
 
@@ -1165,12 +1165,12 @@ a.contact-item:hover {
 .trust-item strong {
   display: block;
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.3;
 }
 
 .trust-item span {
-  font-size: 13.5px;
+  font-size: 0.84375rem;
   color: var(--muted);
 }
 
@@ -1216,7 +1216,7 @@ a.contact-item:hover {
   justify-content: center;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 17px;
+  font-size: 1.0625rem;
   box-shadow: 0 4px 12px rgba(85, 76, 229, 0.18);
 }
 
@@ -1225,12 +1225,12 @@ a.contact-item:hover {
 }
 
 .tl-item h3 {
-  font-size: 14.5px;
+  font-size: 0.90625rem;
   margin-bottom: 6px;
 }
 
 .tl-item p {
-  font-size: 13.5px;
+  font-size: 0.84375rem;
   color: var(--muted);
   margin: 0;
   line-height: 1.5;
@@ -1268,7 +1268,7 @@ a.contact-item:hover {
 
 .band-dark .list-check li {
   color: rgba(255, 255, 255, 0.94);
-  font-size: 17px;
+  font-size: 1.0625rem;
 }
 
 .band-dark .list-check li::before {
@@ -1353,13 +1353,13 @@ a.contact-item:hover {
 }
 
 .sr-body h3 {
-  font-size: clamp(20px, 2.6vw, 25px);
+  font-size: clamp(1.25rem, 2.6vw, 1.5625rem);
   margin-bottom: 10px;
 }
 
 .sr-body p {
   color: var(--muted);
-  font-size: 16.5px;
+  font-size: 1.03125rem;
   margin: 0;
 }
 
@@ -1426,12 +1426,12 @@ a.contact-item:hover {
 }
 
 .coming-soon h2 {
-  font-size: clamp(23px, 3vw, 30px);
+  font-size: clamp(1.4375rem, 3vw, 1.875rem);
 }
 
 .coming-soon p {
   color: var(--muted);
-  font-size: 16.5px;
+  font-size: 1.03125rem;
   max-width: 520px;
   margin: 0 auto 22px;
 }
@@ -1453,7 +1453,7 @@ a.contact-item:hover {
   border: 1px solid #d8d4fa;
   border-radius: 999px;
   padding: 8px 16px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
 }
 
@@ -1587,7 +1587,7 @@ a.contact-item:hover {
 
 .float-card .fc-detail {
   display: block;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.45;
   color: var(--muted);
   max-height: 0;
@@ -1612,7 +1612,7 @@ a.contact-item:hover {
   position: absolute;
   right: 14px;
   bottom: 12px;
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1;
   color: var(--primary);
   opacity: 0.45;
@@ -1869,7 +1869,7 @@ a.contact-item:hover {
   border: 1px solid #d8d4fa;
   border-radius: 999px;
   padding: 6px 14px;
-  font-size: 13.5px;
+  font-size: 0.84375rem;
   font-weight: 600;
 }
 
@@ -1931,7 +1931,7 @@ a.contact-item:hover {
 
   .nav-link {
     padding: 12px 14px;
-    font-size: 15.5px;
+    font-size: 0.96875rem;
   }
 
   .header-cta {
@@ -1952,6 +1952,10 @@ a.contact-item:hover {
 }
 
 @media (max-width: 640px) {
+  html {
+    font-size: 13.6px;
+  }
+
   .grid-2,
   .grid-3,
   .grid-4 {
@@ -1979,7 +1983,7 @@ a.contact-item:hover {
   }
 
   .hero p.lead {
-    font-size: 15.5px;
+    font-size: 0.96875rem;
     margin-bottom: 22px;
   }
 
@@ -2010,15 +2014,15 @@ a.contact-item:hover {
   }
 
   .float-card strong {
-    font-size: 13.5px;
+    font-size: 0.84375rem;
   }
 
   .float-card span {
-    font-size: 12px;
+    font-size: max(11px, 0.75rem);
   }
 
   .float-card .fc-detail {
-    font-size: 12px;
+    font-size: max(11px, 0.75rem);
   }
 
   .float-card .fc-hint {
@@ -2061,12 +2065,12 @@ a.contact-item:hover {
   }
 
   .card h3 {
-    font-size: 17px;
+    font-size: 1.0625rem;
     margin-bottom: 6px;
   }
 
   .card p {
-    font-size: 14.5px;
+    font-size: 0.90625rem;
     line-height: 1.55;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -2079,7 +2083,7 @@ a.contact-item:hover {
     align-items: center;
     min-height: 40px;
     margin-top: 5px;
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .grid {
@@ -2117,17 +2121,17 @@ a.contact-item:hover {
   }
 
   .sr-body h3 {
-    font-size: 17px;
+    font-size: 1.0625rem;
     margin-bottom: 5px;
   }
 
   .sr-body p {
-    font-size: 14.5px;
+    font-size: 0.90625rem;
     line-height: 1.5;
   }
 
   .list-check li {
-    font-size: 15px;
+    font-size: 0.9375rem;
     margin-bottom: 10px;
   }
 
@@ -2144,7 +2148,7 @@ a.contact-item:hover {
     flex: 1;
     min-width: 0;
     padding: 13px 8px;
-    font-size: 14px;
+    font-size: 0.875rem;
     white-space: nowrap;
   }
 
@@ -2157,7 +2161,7 @@ a.contact-item:hover {
   }
 
   .tl-item p {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 }
 
