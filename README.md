@@ -1,6 +1,6 @@
 # BACR Public Website
 
-Marketing / information website for **Bodija Advanced Centre for Rehabilitation (BACR)** — built from `BACR_Website_Content_v2.docx`.
+Marketing / information website for **Bodija Advanced Centre for Rehabilitation (BACR)** — built from `BACR Website.docx`.
 
 Companion to the [BACR Patient Triage System](https://wizdormer-collab.github.io/Bodija-Advanced-Centre-for-Rehabilitation/) (separate repo), sharing the same stack and brand colours.
 
@@ -22,13 +22,17 @@ npm run preview  # preview the production build
 
 | Route | Content |
 |---|---|
-| `/` | Hero, trust indicators, about preview, services, how it works, who we help, why choose, referral + booking CTAs |
-| `/about` | Full about copy, pull quote, core principles, BHH ecosystem |
-| `/services` | 4 therapy disciplines + clinician referral section |
-| `/who-we-help` | 4 patient groups, journey, why choose |
-| `/team` | Team profile placeholders |
-| `/book` | Appointment enquiry form → WhatsApp / copy-to-clipboard |
-| `/contact` | Contact details + Google Maps embed |
+| `/` | Hero, trust indicators, "rehabilitation done differently" + approach principles, 5 rehabilitation areas, how BACR works, children / adults, start-your-journey CTAs |
+| `/about` | About BACR, our approach (4 principles), families & caregivers, BHH ecosystem |
+| `/how-it-works` | 5-step process, care coordinator, rehabilitation plan, measuring progress, safety first |
+| `/services` | 5 rehabilitation areas with detail lists + multidisciplinary care |
+| `/children` | For children — copy + support list |
+| `/adults` | For adults — copy + support list |
+| `/team` | Disciplines, multidisciplinary note, team profile placeholders |
+| `/referrers` | Referrer copy + referral form / email / phone cards |
+| `/book` | Assessment enquiry form → WhatsApp / copy-to-clipboard |
+| `/contact` | Contact details + Google Maps embed + FAQ |
+| `/who-we-help` | Legacy URL → redirects to `/children` |
 
 ## Filling in the real details
 
