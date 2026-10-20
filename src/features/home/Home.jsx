@@ -58,65 +58,34 @@ const AUDIENCES = [
   { data: adults, icon: AUDIENCE_ICONS[1] },
 ]
 
-// Touch devices fire hover events on tap and have no hover-out, so they get
-// a plain toggle plus an automatic collapse instead.
-const HOVER_NONE =
-  typeof window !== 'undefined' && typeof window.matchMedia === 'function'
-    ? window.matchMedia('(hover: none)')
-    : null
-
 const COLLAPSE_AFTER_MS = 5000
 
 function useActive() {
   const [active, setActive] = useState(-1)
-  const timerRef = useRef(null)
 
-  const stopCollapse = () => {
-    if (timerRef.current) {
-      window.clearTimeout(timerRef.current)
-      timerRef.current = null
-    }
-  }
-
-  const scheduleCollapse = () => {
-    // Always collapse an opened card on its own; hover-capable devices can
-    // still re-open it by hovering.
-    timerRef.current = window.setTimeout(() => setActive(-1), COLLAPSE_AFTER_MS)
-  }
-
-  useEffect(() => stopCollapse, [])
-
-  const toggle = (i) => {
-    stopCollapse()
-    if (active === i) {
-      setActive(-1)
-      return
-    }
-    setActive(i)
-    scheduleCollapse()
-  }
-
-  const clear = (i) => {
-    stopCollapse()
-    setActive((cur) => (cur === i ? -1 : cur))
-  }
+  // Whatever opens a card — tap, click or keyboard — it collapses itself.
+  useEffect(() => {
+    if (active === -1) return undefined
+    const timer = window.setTimeout(() => setActive(-1), COLLAPSE_AFTER_MS)
+    return () => window.clearTimeout(timer)
+  }, [active])
 
   return {
     active,
-    toggle,
     bind: (i) => ({
       className: active === i ? 'is-active' : '',
-      onClick: () => toggle(i),
-      onMouseEnter: () => {
-        if (HOVER_NONE && HOVER_NONE.matches) return
-        stopCollapse()
+      onClick: () => setActive((cur) => (cur === i ? -1 : i)),
+      onBlur: () => setActive((cur) => (cur === i ? -1 : cur)),
+      // Touch taps also emit compatibility mouse events; ignore those so a tap
+      // is a clean open/close toggle.
+      onPointerEnter: (event) => {
+        if (event.pointerType === 'touch') return
         setActive(i)
       },
-      onMouseLeave: () => {
-        if (HOVER_NONE && HOVER_NONE.matches) return
-        clear(i)
+      onPointerLeave: (event) => {
+        if (event.pointerType === 'touch') return
+        setActive((cur) => (cur === i ? -1 : cur))
       },
-      onBlur: () => clear(i),
     }),
   }
 }
@@ -159,8 +128,8 @@ function Hero() {
                   aria-expanded={state.className.includes('is-active')}
                   aria-controls={`fc-detail-${i}`}
                   onClick={state.onClick}
-                  onMouseEnter={state.onMouseEnter}
-                  onMouseLeave={state.onMouseLeave}
+                  onPointerEnter={state.onPointerEnter}
+                  onPointerLeave={state.onPointerLeave}
                   onBlur={state.onBlur}
                 >
                   <span className="fc-icon">
