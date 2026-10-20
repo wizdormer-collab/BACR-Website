@@ -100,6 +100,8 @@ const paths = {
       <path d="M18.5 7c-2.5 0-4 2-4 4.5s1.5 4.5 3.5 4.5c1 0 1.8-.4 2.3-1" />
     </>
   ),
+  chevronLeft: <polyline points="14.5 5 8 12 14.5 19" />,
+  chevronRight: <polyline points="9.5 5 16 12 9.5 19" />,
 }
 
 export default function Icon({ name, size = 22, strokeWidth = 1.8, className = '', ...rest }) {

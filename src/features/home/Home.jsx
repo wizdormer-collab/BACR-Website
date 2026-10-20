@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import usePageTitle from '../../lib/usePageTitle.js'
 import CtaBand from '../../components/CtaBand.jsx'
@@ -58,18 +58,63 @@ const AUDIENCES = [
   { data: adults, icon: AUDIENCE_ICONS[1] },
 ]
 
+// Touch devices fire hover events on tap and have no hover-out, so they get
+// a plain toggle plus an automatic collapse instead.
+const HOVER_NONE =
+  typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+    ? window.matchMedia('(hover: none)')
+    : null
+
+const COLLAPSE_AFTER_MS = 5000
+
 function useActive() {
   const [active, setActive] = useState(-1)
-  const toggle = (i) => setActive((cur) => (cur === i ? -1 : i))
-  const clear = (i) => setActive((cur) => (cur === i ? -1 : cur))
+  const timerRef = useRef(null)
+
+  const stopCollapse = () => {
+    if (timerRef.current) {
+      window.clearTimeout(timerRef.current)
+      timerRef.current = null
+    }
+  }
+
+  const scheduleCollapse = () => {
+    if (!HOVER_NONE || !HOVER_NONE.matches) return
+    timerRef.current = window.setTimeout(() => setActive(-1), COLLAPSE_AFTER_MS)
+  }
+
+  useEffect(() => stopCollapse, [])
+
+  const toggle = (i) => {
+    stopCollapse()
+    if (active === i) {
+      setActive(-1)
+      return
+    }
+    setActive(i)
+    scheduleCollapse()
+  }
+
+  const clear = (i) => {
+    stopCollapse()
+    setActive((cur) => (cur === i ? -1 : cur))
+  }
+
   return {
     active,
     toggle,
     bind: (i) => ({
       className: active === i ? 'is-active' : '',
       onClick: () => toggle(i),
-      onMouseEnter: () => setActive(i),
-      onMouseLeave: () => clear(i),
+      onMouseEnter: () => {
+        if (HOVER_NONE && HOVER_NONE.matches) return
+        stopCollapse()
+        setActive(i)
+      },
+      onMouseLeave: () => {
+        if (HOVER_NONE && HOVER_NONE.matches) return
+        clear(i)
+      },
       onBlur: () => clear(i),
     }),
   }
@@ -206,6 +251,36 @@ function DoneDifferently() {
 }
 
 function ServicesSection() {
+  const trackRef = useRef(null)
+  const [canPrev, setCanPrev] = useState(false)
+  const [canNext, setCanNext] = useState(true)
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return undefined
+
+    const update = () => {
+      setCanPrev(track.scrollLeft > 4)
+      setCanNext(track.scrollLeft + track.clientWidth < track.scrollWidth - 4)
+    }
+
+    update()
+    track.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      track.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [])
+
+  const slide = (dir) => {
+    const track = trackRef.current
+    if (!track) return
+    const card = track.firstElementChild
+    const step = card ? card.getBoundingClientRect().width + 22 : track.clientWidth * 0.8
+    track.scrollBy({ left: dir * step, behavior: 'smooth' })
+  }
+
   return (
     <section className="section">
       <div className="container">
@@ -214,19 +289,40 @@ function ServicesSection() {
           <h2>{services.headline}</h2>
         </Reveal>
 
-        <div className="grid grid-auto">
-          {services.items.map((service, i) => (
-            <Reveal key={service.slug} delay={i * 70} className="card">
-              <div className="icon-tile">
-                <Icon name={service.icon} size={24} />
-              </div>
-              <h3>{service.title}</h3>
-              <p>{service.text}</p>
-              <Link to={`/services#${service.slug}`} className="card-link">
-                Learn More &rarr;
-              </Link>
-            </Reveal>
-          ))}
+        <div className="carousel">
+          <div className="carousel-track" ref={trackRef}>
+            {services.items.map((service) => (
+              <article className="card carousel-card" key={service.slug}>
+                <div className="icon-tile">
+                  <Icon name={service.icon} size={24} />
+                </div>
+                <h3>{service.title}</h3>
+                <p>{service.text}</p>
+                <Link to={`/services#${service.slug}`} className="card-link">
+                  Learn More &rarr;
+                </Link>
+              </article>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            className="carousel-btn prev"
+            onClick={() => slide(-1)}
+            disabled={!canPrev}
+            aria-label="Show previous services"
+          >
+            <Icon name="chevronLeft" size={20} />
+          </button>
+          <button
+            type="button"
+            className="carousel-btn next"
+            onClick={() => slide(1)}
+            disabled={!canNext}
+            aria-label="Show next services"
+          >
+            <Icon name="chevronRight" size={20} />
+          </button>
         </div>
       </div>
     </section>

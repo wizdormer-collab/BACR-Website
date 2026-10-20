@@ -2231,3 +2231,72 @@ a.contact-item:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Services carousel (home) ---------- */
+
+.carousel {
+  position: relative;
+}
+
+.carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(270px, calc((100% - 44px) / 3));
+  gap: 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 4px 2px 12px;
+  scrollbar-width: none;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-card {
+  scroll-snap-align: start;
+}
+
+.carousel-btn {
+  display: none;
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--primary);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.carousel-btn:hover {
+  border-color: #d8d4fa;
+  color: var(--primary-dark);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  box-shadow: none;
+}
+
+.carousel-btn.prev {
+  left: -18px;
+}
+
+.carousel-btn.next {
+  right: -18px;
+}
+
+@media (min-width: 861px) {
+  .carousel-btn {
+    display: inline-flex;
+  }
+}
