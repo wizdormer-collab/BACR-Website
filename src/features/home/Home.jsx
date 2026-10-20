@@ -79,7 +79,8 @@ function useActive() {
   }
 
   const scheduleCollapse = () => {
-    if (!HOVER_NONE || !HOVER_NONE.matches) return
+    // Always collapse an opened card on its own; hover-capable devices can
+    // still re-open it by hovering.
     timerRef.current = window.setTimeout(() => setActive(-1), COLLAPSE_AFTER_MS)
   }
 
