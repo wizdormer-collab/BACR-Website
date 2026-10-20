@@ -2300,3 +2300,31 @@ a.contact-item:hover {
     display: inline-flex;
   }
 }
+
+/* Edge fades while more cards are out of view */
+.carousel::before,
+.carousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 12px;
+  width: 56px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+}
+
+.carousel::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), rgba(244, 246, 248, 0));
+}
+
+.carousel::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), rgba(244, 246, 248, 0));
+}
+
+.carousel.has-prev::before,
+.carousel.has-next::after {
+  opacity: 1;
+}

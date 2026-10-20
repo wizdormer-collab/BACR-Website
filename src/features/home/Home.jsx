@@ -289,7 +289,9 @@ function ServicesSection() {
           <h2>{services.headline}</h2>
         </Reveal>
 
-        <div className="carousel">
+        <div
+          className={`carousel ${canPrev ? 'has-prev' : ''} ${canNext ? 'has-next' : ''}`.trim()}
+        >
           <div className="carousel-track" ref={trackRef}>
             {services.items.map((service) => (
               <article className="card carousel-card" key={service.slug}>
