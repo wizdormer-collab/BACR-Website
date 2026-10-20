@@ -141,20 +141,12 @@ function Hero() {
 }
 
 function TrustStrip() {
-  const { bind } = useActive()
-
   return (
     <section className="trust-strip">
       <div className="container">
         <div className="trust-grid">
-          {TRUST.map((item, i) => (
-            <div
-              key={item.title}
-              className={`trust-item ${bind(i).className}`.trim()}
-              onClick={bind(i).onClick}
-              onMouseEnter={bind(i).onMouseEnter}
-              onMouseLeave={bind(i).onMouseLeave}
-            >
+          {TRUST.map((item) => (
+            <div key={item.title} className="trust-item">
               <span className="ti-icon">
                 <Icon name={item.icon} size={20} />
               </span>
@@ -214,8 +206,6 @@ function DoneDifferently() {
 }
 
 function ServicesSection() {
-  const { bind } = useActive()
-
   return (
     <section className="section">
       <div className="container">
@@ -226,14 +216,7 @@ function ServicesSection() {
 
         <div className="grid grid-auto">
           {services.items.map((service, i) => (
-            <Reveal
-              key={service.slug}
-              delay={i * 70}
-              className={`card ${bind(i).className}`.trim()}
-              onClick={bind(i).onClick}
-              onMouseEnter={bind(i).onMouseEnter}
-              onMouseLeave={bind(i).onMouseLeave}
-            >
+            <Reveal key={service.slug} delay={i * 70} className="card">
               <div className="icon-tile">
                 <Icon name={service.icon} size={24} />
               </div>
@@ -251,8 +234,6 @@ function ServicesSection() {
 }
 
 function HowItWorksSection() {
-  const { bind } = useActive()
-
   return (
     <section className="section section-alt">
       <div className="container">
@@ -263,14 +244,8 @@ function HowItWorksSection() {
         </Reveal>
 
         <Reveal className="timeline timeline-5">
-          {howItWorks.steps.map((step, i) => (
-            <div
-              key={step.title}
-              className={`tl-item ${bind(i).className}`.trim()}
-              onClick={bind(i).onClick}
-              onMouseEnter={bind(i).onMouseEnter}
-              onMouseLeave={bind(i).onMouseLeave}
-            >
+          {howItWorks.steps.map((step) => (
+            <div key={step.title} className="tl-item">
               <span className="tl-num" aria-hidden="true" />
               <h3>{step.title}</h3>
               <p>{step.text}</p>
@@ -289,20 +264,12 @@ function HowItWorksSection() {
 }
 
 function AudiencesSection() {
-  const { bind } = useActive()
-
   return (
     <section className="section">
       <div className="container">
         <div className="split-rows">
           {AUDIENCES.map(({ data, icon }, i) => (
-            <Reveal
-              key={data.kicker}
-              className={`split-row ${bind(i).className}`.trim()}
-              onClick={bind(i).onClick}
-              onMouseEnter={bind(i).onMouseEnter}
-              onMouseLeave={bind(i).onMouseLeave}
-            >
+            <Reveal key={data.kicker} className="split-row">
               <div className={`sr-art tone-${i + 1}`}>
                 <span className="sr-icon">
                   <Icon name={icon} size={64} strokeWidth={1.4} />
