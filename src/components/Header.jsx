@@ -19,7 +19,7 @@ export default function Header() {
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="header-inner">
-        <Link to="/" className="brand" onClick={close}>
+        <Link to="/" className="brand" onClick={close} title={brand.name}>
           <img src={mark} alt={`${brand.short} logo`} className="brand-mark" />
           <span className="brand-text">
             <strong>{brand.short}</strong>
@@ -48,11 +48,11 @@ export default function Header() {
               className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
               onClick={close}
             >
-              {item.label}
+              {open ? item.label : item.short || item.label}
             </NavLink>
           ))}
           <Link to="/book" className="btn btn-primary header-cta" onClick={close}>
-            Book Appointment
+            Book an Assessment
           </Link>
         </nav>
       </div>

@@ -79,7 +79,7 @@ export default function Book() {
   return (
     <>
       <PageHero
-        kicker="Book an Appointment"
+        kicker="Start Your Journey"
         title={booking.headline}
         subtitle={booking.subtext}
       />

@@ -5,6 +5,7 @@ export default function CtaBand({
   text,
   primary,
   secondary,
+  tertiary,
   note,
 }) {
   return (
@@ -29,6 +30,11 @@ export default function CtaBand({
             {secondary ? (
               <Link to={secondary.to} className="btn btn-ghost-light">
                 {secondary.label}
+              </Link>
+            ) : null}
+            {tertiary ? (
+              <Link to={tertiary.to} className="btn btn-ghost-light">
+                {tertiary.label}
               </Link>
             ) : null}
           </div>

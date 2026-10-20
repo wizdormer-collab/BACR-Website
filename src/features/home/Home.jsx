@@ -8,26 +8,21 @@ import logo from '../../assets/bacr-logo.png'
 import mark from '../../assets/bacr-mark.png'
 import {
   hero,
-  about,
+  doneDifferently,
+  approach,
   services,
-  audiences,
   howItWorks,
-  referrals,
+  children,
+  adults,
+  journey,
 } from '../../data/site.js'
 
-const SERVICE_ICONS = {
-  physiotherapy: 'activity',
-  'speech-therapy': 'chat',
-  'occupational-therapy': 'hand',
-  'behavioral-therapy': 'brain',
-}
-
-const AUDIENCE_ICONS = ['smile', 'user', 'heart', 'waves']
+const AUDIENCE_ICONS = ['smile', 'user']
 
 const TRUST = [
-  { icon: 'layers', title: '4 Core Disciplines', text: 'Physio, speech, OT & behavioral' },
-  { icon: 'users', title: 'Every Age', text: 'Children, adults & the elderly' },
-  { icon: 'shield', title: 'Specialist-Led', text: 'Evidence-based, goal-driven care' },
+  { icon: 'users', title: 'Multidisciplinary Team', text: 'Many disciplines, one patient' },
+  { icon: 'clipboard', title: 'Coordinated Care', text: 'One Clinical Case Coordinator' },
+  { icon: 'activity', title: 'Measurable Progress', text: 'Function and participation tracked' },
   { icon: 'star', title: 'Part of BHH', text: 'Connected to the wider health hub' },
 ]
 
@@ -58,6 +53,11 @@ const FLOAT_CARDS = [
   },
 ]
 
+const AUDIENCES = [
+  { data: children, icon: AUDIENCE_ICONS[0] },
+  { data: adults, icon: AUDIENCE_ICONS[1] },
+]
+
 function useActive() {
   const [active, setActive] = useState(-1)
   const toggle = (i) => setActive((cur) => (cur === i ? -1 : i))
@@ -84,7 +84,12 @@ function Hero() {
         <div className="hero-copy">
           <span className="eyebrow">{hero.eyebrow}</span>
           <h1>{hero.headline}</h1>
-          <p className="lead">{hero.subtext}</p>
+          {hero.paragraphs.map((text) => (
+            <p className="lead" key={text.slice(0, 24)}>
+              {text}
+            </p>
+          ))}
+          <p className="hero-note">{hero.note}</p>
           <div className="hero-actions">
             <Link to={hero.primaryCta.to} className="btn btn-light">
               {hero.primaryCta.label}
@@ -165,7 +170,7 @@ function TrustStrip() {
   )
 }
 
-function AboutPreview() {
+function DoneDifferently() {
   return (
     <section className="section section-alt">
       <div className="container">
@@ -173,19 +178,23 @@ function AboutPreview() {
           <Reveal>
             <img src={logo} alt="BACR logo" className="about-logo" />
             <div className="section-head">
-              <span className="kicker">About BACR</span>
-              <h2>{about.headline}</h2>
+              <span className="kicker">{doneDifferently.kicker}</span>
+              <h2>{doneDifferently.headline}</h2>
             </div>
-            {about.paragraphs.map((text) => (
+            {doneDifferently.paragraphs.map((text) => (
               <p key={text.slice(0, 24)} className="text-muted">
                 {text}
               </p>
             ))}
-            <blockquote className="quote mb-0">{about.pullQuote}</blockquote>
+            <blockquote className="quote mb-0">{doneDifferently.pullQuote}</blockquote>
           </Reveal>
 
           <Reveal delay={120} className="feature-list">
-            {about.principles.map((item) => (
+            <div className="section-head">
+              <span className="kicker">{approach.kicker}</span>
+              <h2>{approach.headline}</h2>
+            </div>
+            {approach.principles.map((item) => (
               <div key={item.title} className="feature">
                 <span className="feature-dot" />
                 <div>
@@ -211,12 +220,11 @@ function ServicesSection() {
     <section className="section">
       <div className="container">
         <Reveal className="section-head center">
-          <span className="kicker">Our Services</span>
+          <span className="kicker">{services.kicker}</span>
           <h2>{services.headline}</h2>
-          <p>{services.intro}</p>
         </Reveal>
 
-        <div className="grid grid-4">
+        <div className="grid grid-auto">
           {services.items.map((service, i) => (
             <Reveal
               key={service.slug}
@@ -227,12 +235,12 @@ function ServicesSection() {
               onMouseLeave={bind(i).onMouseLeave}
             >
               <div className="icon-tile">
-                <Icon name={SERVICE_ICONS[service.slug]} size={24} />
+                <Icon name={service.icon} size={24} />
               </div>
               <h3>{service.title}</h3>
               <p>{service.text}</p>
-              <Link to="/book" className="card-link">
-                Book this service &rarr;
+              <Link to={`/services#${service.slug}`} className="card-link">
+                Learn More &rarr;
               </Link>
             </Reveal>
           ))}
@@ -249,11 +257,12 @@ function HowItWorksSection() {
     <section className="section section-alt">
       <div className="container">
         <Reveal className="section-head center">
-          <span className="kicker">How It Works</span>
+          <span className="kicker">{howItWorks.kicker}</span>
           <h2>{howItWorks.headline}</h2>
+          <p>{howItWorks.intro}</p>
         </Reveal>
 
-        <Reveal className="timeline">
+        <Reveal className="timeline timeline-5">
           {howItWorks.steps.map((step, i) => (
             <div
               key={step.title}
@@ -268,26 +277,27 @@ function HowItWorksSection() {
             </div>
           ))}
         </Reveal>
+
+        <div className="center" style={{ marginTop: 40 }}>
+          <Link to="/how-it-works" className="btn btn-outline">
+            See how BACR works
+          </Link>
+        </div>
       </div>
     </section>
   )
 }
 
-function WhoWeHelpSection() {
+function AudiencesSection() {
   const { bind } = useActive()
 
   return (
     <section className="section">
       <div className="container">
-        <Reveal className="section-head center">
-          <span className="kicker">Who We Help</span>
-          <h2>{audiences.headline}</h2>
-        </Reveal>
-
         <div className="split-rows">
-          {audiences.items.map((item, i) => (
+          {AUDIENCES.map(({ data, icon }, i) => (
             <Reveal
-              key={item.title}
+              key={data.kicker}
               className={`split-row ${bind(i).className}`.trim()}
               onClick={bind(i).onClick}
               onMouseEnter={bind(i).onMouseEnter}
@@ -295,22 +305,20 @@ function WhoWeHelpSection() {
             >
               <div className={`sr-art tone-${i + 1}`}>
                 <span className="sr-icon">
-                  <Icon name={AUDIENCE_ICONS[i]} size={64} strokeWidth={1.4} />
+                  <Icon name={icon} size={64} strokeWidth={1.4} />
                 </span>
                 <img src={mark} alt="" className="sr-watermark" />
               </div>
               <div className="sr-body">
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
+                <span className="kicker">{data.kicker}</span>
+                <h3>{data.headline}</h3>
+                <p>{data.paragraphs[0]}</p>
+                <Link to={data.exploreCta.to} className="btn btn-outline">
+                  {data.exploreCta.label}
+                </Link>
               </div>
             </Reveal>
           ))}
-        </div>
-
-        <div className="center" style={{ marginTop: 40 }}>
-          <Link to="/who-we-help" className="btn btn-outline">
-            See who we help
-          </Link>
         </div>
       </div>
     </section>
@@ -324,16 +332,16 @@ export default function Home() {
     <>
       <Hero />
       <TrustStrip />
-      <AboutPreview />
+      <DoneDifferently />
       <ServicesSection />
       <HowItWorksSection />
-      <WhoWeHelpSection />
+      <AudiencesSection />
       <CtaBand
-        title="Ready to take the first step?"
-        text="Book a consultation for yourself or a loved one — or, as a referring clinician, contact our clinical team."
-        note={referrals.acknowledgement}
-        primary={{ label: 'Book Appointment', to: '/book' }}
-        secondary={{ label: 'Refer a patient', to: '/services' }}
+        title={journey.headline}
+        text={journey.text}
+        primary={journey.primary}
+        secondary={journey.secondary}
+        tertiary={journey.tertiary}
       />
     </>
   )

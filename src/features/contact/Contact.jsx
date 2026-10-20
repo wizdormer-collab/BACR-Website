@@ -4,12 +4,16 @@ import PageHero from '../../components/PageHero.jsx'
 import CtaBand from '../../components/CtaBand.jsx'
 import ContactList from '../../components/ContactList.jsx'
 import Reveal from '../../components/Reveal.jsx'
-import { brand } from '../../data/site.js'
+import { brand, faq, contact, journey } from '../../data/site.js'
 import { contactConfig } from '../../lib/site.config.js'
 
 const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
   contactConfig.mapQuery
 )}&t=&z=14&ie=UTF8&iwloc=&output=embed`
+
+const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  contactConfig.mapQuery
+)}`
 
 export default function Contact() {
   usePageTitle('Contact')
@@ -17,7 +21,7 @@ export default function Contact() {
   return (
     <>
       <PageHero
-        kicker="Contact"
+        kicker="Contact Us"
         title="Visit Us in Bodija, Ibadan"
         subtitle={`${brand.name} - ${brand.location}`}
       />
@@ -27,16 +31,26 @@ export default function Contact() {
           <div className="contact-grid">
             <Reveal>
               <div className="section-head">
-                <span className="kicker">Get in Touch</span>
+                <span className="kicker">{contact.headline}</span>
                 <h2>We'd love to hear from you</h2>
-                <p>Walk in, call us, or send a message - we will get back to you.</p>
+                <p>Tell us what is happening and we will help you understand the next step.</p>
               </div>
 
               <ContactList />
 
-              <Link to="/book" className="btn btn-primary" style={{ marginTop: 22 }}>
-                Book an appointment
-              </Link>
+              <div className="hero-actions" style={{ marginTop: 22, marginBottom: 0 }}>
+                <Link to={journey.primary.to} className="btn btn-primary">
+                  {journey.primary.label}
+                </Link>
+                <a
+                  className="btn btn-outline"
+                  href={directionsHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {contact.directionsLabel}
+                </a>
+              </div>
             </Reveal>
 
             <Reveal delay={120} className="map-frame">
@@ -52,11 +66,29 @@ export default function Contact() {
         </div>
       </section>
 
+      <section className="section section-alt">
+        <div className="container">
+          <Reveal className="section-head center">
+            <span className="kicker">{faq.kicker}</span>
+            <h2>{faq.headline}</h2>
+          </Reveal>
+
+          <div className="faq">
+            {faq.items.map((item) => (
+              <details className="faq-item" key={item.q}>
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <CtaBand
-        title="Your Recovery Starts With One Step."
-        text="Book your consultation today - for yourself, a loved one, or as a referring clinician."
-        primary={{ label: 'Book Appointment', to: '/book' }}
-        secondary={{ label: 'Our services', to: '/services' }}
+        title={journey.headline}
+        text={journey.text}
+        primary={journey.primary}
+        secondary={journey.secondary}
       />
     </>
   )

@@ -4,35 +4,23 @@ import PageHero from '../../components/PageHero.jsx'
 import CtaBand from '../../components/CtaBand.jsx'
 import Icon from '../../components/Icon.jsx'
 import Reveal from '../../components/Reveal.jsx'
-import { services, referrals } from '../../data/site.js'
-import { contactConfig, isPlaceholder } from '../../lib/site.config.js'
-
-const ICONS = {
-  physiotherapy: 'activity',
-  'speech-therapy': 'chat',
-  'occupational-therapy': 'hand',
-  'behavioral-therapy': 'brain',
-}
+import { services, multidisciplinary, journey } from '../../data/site.js'
 
 export default function Services() {
-  usePageTitle('Our Services')
-
-  const referralLinkReady = Boolean(contactConfig.referralFormUrl)
-  const emailReady = !isPlaceholder(contactConfig.referralEmail)
-  const phoneReady = !isPlaceholder(contactConfig.referralPhone)
+  usePageTitle('Rehabilitation')
 
   return (
     <>
       <PageHero
         variant="light"
-        kicker="Our Services"
+        kicker={services.kicker}
         title={services.headline}
         subtitle={services.intro}
       />
 
       <section className="section">
         <div className="container">
-          <div className="grid grid-2">
+          <div className="grid grid-auto">
             {services.items.map((service, i) => (
               <Reveal
                 key={service.slug}
@@ -41,12 +29,23 @@ export default function Services() {
                 id={service.slug}
               >
                 <div className="icon-tile">
-                  <Icon name={ICONS[service.slug]} size={24} />
+                  <Icon name={service.icon} size={24} />
                 </div>
                 <h3>{service.title}</h3>
                 <p>{service.text}</p>
+                {service.listLabel ? (
+                  <p className="card-sublabel">{service.listLabel}</p>
+                ) : null}
+                {service.bullets.length > 0 ? (
+                  <ul className="list-check list-check-sm">
+                    {service.bullets.map((bullet) => (
+                      <li key={bullet}>{bullet}</li>
+                    ))}
+                  </ul>
+                ) : null}
+                {service.note ? <p className="text-muted card-note">{service.note}</p> : null}
                 <Link to="/book" className="card-link">
-                  Book an appointment &rarr;
+                  Book an Assessment &rarr;
                 </Link>
               </Reveal>
             ))}
@@ -54,68 +53,42 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="section section-alt" id="referrals">
+      <section className="section section-alt">
         <div className="container">
           <Reveal className="section-head center">
-            <span className="kicker">Clinician Referrals</span>
-            <h2>{referrals.headline}</h2>
-            <p>{referrals.text}</p>
+            <span className="kicker">{multidisciplinary.kicker}</span>
+            <h2>{multidisciplinary.headline}</h2>
+            {multidisciplinary.paragraphs.map((text) => (
+              <p key={text.slice(0, 24)}>{text}</p>
+            ))}
           </Reveal>
 
-          <div className="grid grid-3">
-            <Reveal className="card center">
-              <h3>Referral Form</h3>
-              {referralLinkReady ? (
-                <a className="card-link" href={contactConfig.referralFormUrl}>
-                  Download the form &rarr;
-                </a>
-              ) : (
-                <p className="text-muted">
-                  Available on request — contact our clinical team and we will send it across.
-                </p>
-              )}
-            </Reveal>
+          <Reveal delay={80} className="center">
+            <div className="chip-grid">
+              {multidisciplinary.disciplines.map((discipline) => (
+                <span className="chip" key={discipline}>
+                  {discipline}
+                </span>
+              ))}
+            </div>
+          </Reveal>
 
-            <Reveal delay={70} className="card center">
-              <h3>Email</h3>
-              {emailReady ? (
-                <p className="text-muted">{contactConfig.referralEmail}</p>
-              ) : (
-                <Link to="/contact" className="card-link">
-                  Contact our team &rarr;
-                </Link>
-              )}
-            </Reveal>
-
-            <Reveal delay={140} className="card center">
-              <h3>Phone</h3>
-              {phoneReady ? (
-                <p className="text-muted">{contactConfig.referralPhone}</p>
-              ) : (
-                <Link to="/contact" className="card-link">
-                  Contact our team &rarr;
-                </Link>
-              )}
-            </Reveal>
-          </div>
-
-          <p className="center" style={{ marginTop: 26 }}>
-            <span className="pill-note">{referrals.acknowledgement}</span>
-          </p>
-
-          {import.meta.env.DEV && (emailReady || phoneReady) ? (
-            <p className="center text-muted" style={{ fontSize: '0.875rem' }}>
-              Dev note: referral contacts configured in <code>src/lib/site.config.js</code>.
+          <Reveal delay={140}>
+            <p className="text-muted" style={{ marginTop: 30, maxWidth: 780 }}>
+              {multidisciplinary.example}
             </p>
-          ) : null}
+            <p className="mb-0" style={{ maxWidth: 780 }}>
+              <strong>{multidisciplinary.note}</strong>
+            </p>
+          </Reveal>
         </div>
       </section>
 
       <CtaBand
-        title="Not sure which service you need?"
-        text="Tell us about the condition or goal and our team will point you to the right specialist."
-        primary={{ label: 'Book Appointment', to: '/book' }}
-        secondary={{ label: 'Contact us', to: '/contact' }}
+        title={journey.headline}
+        text={journey.text}
+        primary={journey.primary}
+        secondary={journey.secondary}
       />
     </>
   )
