@@ -1,0 +1,216 @@
+/* ==========================================================================
+   Page-level composition
+   ========================================================================== */
+
+/* --- Generic inner-page hero --- */
+.page-hero {
+  padding-block: clamp(2.75rem, 6vw, 4.5rem);
+  border-bottom: var(--border);
+  background: var(--paper-deep);
+}
+
+.page-hero__inner {
+  max-width: 46rem;
+}
+
+.page-hero h1 {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--s-4);
+}
+
+/* --- Home hero --- */
+.hero {
+  padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2rem, 4vw, 3rem);
+  overflow: hidden;
+}
+
+.hero__grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+}
+
+.hero__copy {
+  max-width: 40rem;
+}
+
+.hero__title {
+  font-size: var(--text-4xl);
+  line-height: 1.04;
+  margin-bottom: var(--s-5);
+}
+
+.hero__lede {
+  display: grid;
+  gap: var(--s-4);
+  max-width: 60ch;
+  font-size: var(--text-md);
+  line-height: 1.55;
+}
+
+.hero__note {
+  margin-top: var(--s-5);
+  padding-left: 1.15rem;
+  border-left: 2px solid var(--brand-indigo);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-display);
+  color: var(--ink);
+}
+
+.hero .btn-row {
+  margin-top: var(--s-6);
+}
+
+.hero__art {
+  justify-self: center;
+  width: clamp(160px, 24vw, 300px);
+}
+
+@media (max-width: 48rem) {
+  .hero__art {
+    display: none;
+  }
+}
+
+@media (min-width: 60rem) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  }
+
+  .hero__art {
+    justify-self: end;
+  }
+}
+
+/* --- Trust strip: hairline row, cross-bulleted, no invented claims --- */
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+  list-style: none;
+  margin-top: clamp(2.25rem, 5vw, 3.5rem);
+  padding-top: var(--s-5);
+  border-top: var(--border);
+}
+
+.trust li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.trust li::before {
+  content: '';
+  width: 0.7em;
+  height: 0.7em;
+  flex: none;
+  background: var(--brand-green);
+  -webkit-mask: var(--cross-mask) center / contain no-repeat;
+  mask: var(--cross-mask) center / contain no-repeat;
+}
+
+/* --- Vertical stack of paragraphs --- */
+.stack {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.list-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: var(--s-4);
+}
+
+/* --- Pull quote marked with the brand rule --- */
+.pullquote--marked {
+  margin-top: var(--s-5);
+  padding-left: 1.15rem;
+  border-left: 3px solid var(--brand-indigo);
+}
+
+blockquote.pullquote {
+  margin-top: var(--s-6);
+}
+
+/* --- Service list on home: numbered, hairline separated --- */
+.service-list {
+  list-style: none;
+  counter-reset: svc;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  column-gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.service-list__item {
+  counter-increment: svc;
+  padding: var(--s-5) 0;
+  border-top: var(--border);
+}
+
+.service-list__item h3 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--s-3);
+}
+
+.service-list__item h3::before {
+  content: counter(svc, decimal-leading-zero) ' — ';
+  font-family: var(--font-body);
+  font-size: 0.7em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--brand-indigo);
+  vertical-align: 0.18em;
+}
+
+.service-list__item p {
+  margin-bottom: var(--s-4);
+}
+
+/* --- Numbered step titles --- */
+.numbered__title {
+  font-size: var(--text-lg);
+  margin-bottom: var(--s-2);
+}
+
+/* --- Audience (children / adults) blocks --- */
+.audience {
+  padding-top: var(--s-5);
+  border-top: 2px solid var(--brand-indigo);
+}
+
+.audience h2 {
+  margin-bottom: var(--s-4);
+}
+
+.audience .lead {
+  margin-bottom: var(--s-5);
+}
+
+.audience > p:not(.kicker):not(.lead) {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: var(--s-4);
+}
+
+.audience .checklist {
+  margin-bottom: var(--s-4);
+}
+
+/* --- Buttons centred in CTA bands --- */
+.btn-row--center {
+  justify-content: center;
+}
