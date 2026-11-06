@@ -18,6 +18,11 @@
   margin-bottom: var(--s-4);
 }
 
+/* CTA under a hero headline (the static 404 page uses this shape). */
+.page-hero .btn-row {
+  margin-top: var(--s-5);
+}
+
 /* --- Home hero --- */
 .hero {
   padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2rem, 4vw, 3rem);

@@ -7,7 +7,19 @@
       name="description"
       content="Bodija Advanced Centre for Rehabilitation (BACR) - a multidisciplinary rehabilitation centre providing specialised, coordinated care for children and adults in Ibadan."
     />
-    <meta name="theme-color" content="#554ce5" />
+    <meta name="theme-color" content="#534cea" />
+    <script>
+      // v2 dropped hash routing (#/about). Forward any old hash URL to its
+      // path equivalent before React boots, so links shared from the first
+      // release keep working. Hash routes are always base-relative, so only
+      // the first pathname segment (the repo base) is kept.
+      ;(function () {
+        var match = location.hash.match(/^#\/(.*)$/)
+        if (!match) return
+        var root = (location.pathname.match(/^\/[^/]+/) || [''])[0]
+        location.replace(root + '/' + match[1] + location.search)
+      })()
+    </script>
     <meta property="og:title" content="BACR - Rehabilitation, coordinated around you." />
     <meta
       property="og:description"
@@ -24,7 +36,7 @@
       content="Coordinated, multidisciplinary rehabilitation for children and adults in Ibadan."
     />
     <meta name="twitter:image" content="https://wizdormer-collab.github.io/BACR-Website/og-image.png" />
-    <!-- Display/body web fonts are added in Phase 3 (self-hosted, no CDN round trip) -->
+    <!-- Display/body web fonts are self-hosted (no CDN round trip): see src/styles/fonts.css -->
     <link rel="icon" type="image/png" href="/favicon.png" />
     <title>BACR - Bodija Advanced Centre for Rehabilitation</title>
   </head>

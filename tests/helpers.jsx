@@ -1,6 +1,4 @@
-import { renderToString } from 'react-dom/server'
-import { MemoryRouter } from 'react-router-dom'
-import App from '../src/App.jsx'
+import { render as renderRoute } from '../src/ssr.jsx'
 
 // renderToString emits HTML-escaped text (You don't -> You don&#x27;t,
 // Physical & -> Physical &amp;). Asserting against raw source strings then
@@ -15,12 +13,8 @@ export function decode(html) {
     .replace(/&amp;/g, '&')
 }
 
+// Tests and tools/prerender.mjs share this one render path (src/ssr.jsx), so
+// a route that renders here prerenders identically on the build machine.
 export function render(path) {
-  return decode(
-    renderToString(
-      <MemoryRouter initialEntries={[path]}>
-        <App />
-      </MemoryRouter>
-    )
-  )
+  return decode(renderRoute(path).html)
 }
