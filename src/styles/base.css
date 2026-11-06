@@ -33,7 +33,7 @@ picture {
   max-width: 100%;
 }
 
-/* --- Headings: display serif, tight leading, optical tracking --- */
+/* --- Headings: chunky display grotesque, tight leading, optical tracking --- */
 h1,
 h2,
 h3,
@@ -41,7 +41,7 @@ h4,
 h5 {
   font-family: var(--font-display);
   color: var(--ink);
-  font-weight: 600;
+  font-weight: 800;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-display);
   text-wrap: balance;
@@ -92,7 +92,8 @@ a:hover {
 }
 
 .on-dark :focus-visible,
-footer :focus-visible {
+footer :focus-visible,
+.site-header :focus-visible {
   outline-color: var(--brand-green);
 }
 
@@ -113,14 +114,19 @@ button {
   cursor: pointer;
 }
 
-/* --- Kicker: the small caps label that opens every PRD section --- */
+/* --- Kicker: the small caps label that opens every PRD section.
+   Petal Pop sets it as an indigo pill chip — the brand's rounded language. --- */
 .kicker {
+  display: inline-block;
   font-family: var(--font-body);
   font-size: var(--text-xs);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: var(--tracking-kicker);
   text-transform: uppercase;
-  color: var(--accent-deep);
+  color: #fff;
+  background: var(--brand-indigo);
+  border-radius: var(--radius-btn);
+  padding: 0.45em 1.05em;
   margin: 0 0 var(--s-4);
 }
 
@@ -141,11 +147,11 @@ button {
   line-height: 1.55;
 }
 
-/* --- Pull quote: Fraunces italic-free, set large and airy --- */
+/* --- Pull quote: display grotesque, set chunky and confident --- */
 .pullquote {
   font-family: var(--font-display);
   font-size: var(--text-xl);
-  font-weight: 600;
+  font-weight: 800;
   line-height: var(--leading-snug);
   letter-spacing: var(--tracking-display);
   color: var(--ink);

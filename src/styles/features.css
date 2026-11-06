@@ -22,7 +22,7 @@
 .goal {
   font-family: var(--font-display);
   font-size: var(--text-lg);
-  font-weight: 600;
+  font-weight: 800;
   line-height: var(--leading-snug);
   letter-spacing: var(--tracking-display);
   color: var(--ink);
@@ -30,7 +30,7 @@
   border-left: 3px solid var(--brand-green);
 }
 
-/* --- About: four principles --- */
+/* --- About: four principles — pastel petal-tint cards --- */
 .principles {
   list-style: none;
   counter-reset: principle;
@@ -41,8 +41,27 @@
 
 .principles li {
   counter-increment: principle;
-  padding-top: var(--s-4);
-  border-top: var(--border);
+  background: var(--panel);
+  border: var(--border-chunky);
+  border-radius: var(--radius-lg);
+  padding: var(--s-5);
+  box-shadow: var(--shadow-pop);
+}
+
+.principles li:nth-child(4n + 1) {
+  background: var(--lav);
+}
+
+.principles li:nth-child(4n + 2) {
+  background: var(--mint);
+}
+
+.principles li:nth-child(4n + 3) {
+  background: var(--blush);
+}
+
+.principles li:nth-child(4n + 4) {
+  background: var(--sand);
 }
 
 .principles h3 {
@@ -54,7 +73,7 @@
   content: counter(principle, decimal-leading-zero) ' — ';
   font-family: var(--font-body);
   font-size: 0.7em;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--brand-indigo);
   vertical-align: 0.18em;
@@ -75,7 +94,7 @@
   display: block;
   font-family: var(--font-display);
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: 0.06em;
   color: var(--brand-indigo);
   margin-bottom: var(--s-3);
@@ -89,9 +108,10 @@
 .service-detail__note {
   margin-top: var(--s-5);
   padding: var(--s-4) var(--s-5);
-  background: var(--paper-deep);
-  border-left: 3px solid var(--brand-indigo);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--panel);
+  border: var(--border-chunky);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-pop);
   font-size: var(--text-sm);
 }
 
@@ -113,9 +133,10 @@
 }
 
 .discipline-list--light li {
-  border-color: var(--rule-strong);
+  border: 2px solid var(--brand-navy);
   background: var(--panel);
   color: var(--ink);
+  font-weight: 600;
 }
 
 /* --- Steps: wide variant, compact variant --- */
@@ -165,7 +186,7 @@
   list-style: none;
   font-family: var(--font-display);
   font-size: var(--text-lg);
-  font-weight: 600;
+  font-weight: 800;
   line-height: var(--leading-snug);
   letter-spacing: var(--tracking-display);
   color: var(--ink);
@@ -313,7 +334,7 @@
 .contact__place {
   font-family: var(--font-display);
   font-size: var(--text-xl);
-  font-weight: 600;
+  font-weight: 800;
   line-height: var(--leading-snug);
   letter-spacing: var(--tracking-display);
   color: var(--ink);
@@ -367,16 +388,16 @@
 .holding {
   margin-top: var(--s-6);
   padding: var(--s-5);
-  background: var(--panel);
-  border: var(--border);
-  border-top: 3px solid var(--brand-green);
-  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: var(--mint);
+  border: var(--border-chunky);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-pop);
 }
 
 .holding__title {
   font-family: var(--font-display);
   font-size: var(--text-lg);
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: var(--tracking-display);
   color: var(--ink);
   margin-bottom: var(--s-3);

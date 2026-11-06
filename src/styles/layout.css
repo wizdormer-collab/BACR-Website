@@ -124,10 +124,46 @@
   }
 }
 
-/* --- Dark band: navy from the wordmark, green accent reads 9.9:1 here --- */
+/* --- Dark band: navy from the wordmark, green accent reads 9.9:1 here.
+   Two rotated petals of the mark bleed in from the corners — the petal-pop
+   signature on the site's biggest CTA moments. --- */
 .band {
+  position: relative;
+  overflow: hidden;
   background: var(--dark);
   color: var(--on-dark);
+}
+
+.band::before,
+.band::after {
+  content: '';
+  position: absolute;
+  width: clamp(170px, 22vw, 320px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  -webkit-mask: var(--petal-mask) center / contain no-repeat;
+  mask: var(--petal-mask) center / contain no-repeat;
+}
+
+.band::before {
+  left: -5%;
+  bottom: -34%;
+  transform: rotate(18deg);
+  background: var(--brand-green);
+  opacity: 0.22;
+}
+
+.band::after {
+  right: -5%;
+  top: -38%;
+  transform: rotate(-162deg);
+  background: var(--brand-indigo);
+  opacity: 0.55;
+}
+
+.band > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .band h1,
@@ -137,8 +173,10 @@
   color: var(--on-dark);
 }
 
+/* Kicker chip on navy: flip to the neon green pill so it reads as one */
 .band .kicker {
-  color: var(--brand-green);
+  background: var(--brand-green);
+  color: var(--brand-navy);
 }
 
 .band .muted,
