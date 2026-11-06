@@ -57,7 +57,7 @@ export default function Home() {
       </section>
 
       {/* --------------------------------- Rehabilitation, done differently */}
-      <section className="section">
+      <section className="section section--panel">
         <div className="container split split--even">
           <div>
             <p className="kicker">{doneDifferently.kicker}</p>
@@ -95,7 +95,7 @@ export default function Home() {
       </section>
 
       {/* -------------------------------------------------- How BACR works */}
-      <section className="section section--ruled">
+      <section className="section section--ruled section--panel">
         <div className="container split split--sticky">
           <div>
             <p className="kicker">{howItWorks.kicker}</p>
@@ -163,7 +163,7 @@ export default function Home() {
       </section>
 
       {/* ------------------------------------------------- Care coordinator */}
-      <section className="section section--ruled">
+      <section className="section section--ruled section--panel">
         <div className="container split split--sticky">
           <div>
             <p className="kicker">{careCoordinator.kicker}</p>

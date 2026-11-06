@@ -30,7 +30,7 @@
   border-left: 3px solid var(--brand-green);
 }
 
-/* --- About: four principles — pastel petal-tint cards --- */
+/* --- About: four principles — white cards with pastel number tiles --- */
 .principles {
   list-style: none;
   counter-reset: principle;
@@ -42,26 +42,10 @@
 .principles li {
   counter-increment: principle;
   background: var(--panel);
-  border: var(--border-chunky);
+  border: var(--border);
   border-radius: var(--radius-lg);
   padding: var(--s-5);
-  box-shadow: var(--shadow-pop);
-}
-
-.principles li:nth-child(4n + 1) {
-  background: var(--lav);
-}
-
-.principles li:nth-child(4n + 2) {
-  background: var(--mint);
-}
-
-.principles li:nth-child(4n + 3) {
-  background: var(--blush);
-}
-
-.principles li:nth-child(4n + 4) {
-  background: var(--sand);
+  box-shadow: var(--shadow-md);
 }
 
 .principles h3 {
@@ -70,13 +54,30 @@
 }
 
 .principles h3::before {
-  content: counter(principle, decimal-leading-zero) ' — ';
+  content: counter(principle, decimal-leading-zero);
+  display: inline-block;
   font-family: var(--font-body);
   font-size: 0.7em;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: var(--brand-indigo);
-  vertical-align: 0.18em;
+  color: var(--brand-navy);
+  background: var(--lav);
+  border-radius: 8px;
+  padding: 0.35em 0.6em;
+  margin-right: 0.5em;
+  vertical-align: 0.1em;
+}
+
+.principles li:nth-child(4n + 2) h3::before {
+  background: var(--mint);
+}
+
+.principles li:nth-child(4n + 3) h3::before {
+  background: var(--blush);
+}
+
+.principles li:nth-child(4n + 4) h3::before {
+  background: var(--sand);
 }
 
 /* --- Services detail blocks --- */
@@ -108,10 +109,9 @@
 .service-detail__note {
   margin-top: var(--s-5);
   padding: var(--s-4) var(--s-5);
-  background: var(--panel);
-  border: var(--border-chunky);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-pop);
+  background: var(--paper-deep);
+  border-left: 3px solid var(--brand-indigo);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   font-size: var(--text-sm);
 }
 
@@ -133,7 +133,7 @@
 }
 
 .discipline-list--light li {
-  border: 2px solid var(--brand-navy);
+  border-color: var(--rule);
   background: var(--panel);
   color: var(--ink);
   font-weight: 600;
@@ -388,10 +388,11 @@
 .holding {
   margin-top: var(--s-6);
   padding: var(--s-5);
-  background: var(--mint);
-  border: var(--border-chunky);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-pop);
+  background: var(--panel);
+  border: var(--border);
+  border-left: 3px solid var(--brand-indigo);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
 }
 
 .holding__title {

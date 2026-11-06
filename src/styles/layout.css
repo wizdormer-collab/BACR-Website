@@ -37,6 +37,12 @@
   border-top: var(--border);
 }
 
+/* White panel section — alternates with the grey ground for the original
+   site's light-grey/white rhythm (Home tags dd / how / coordinator). */
+.section--panel {
+  background: var(--panel);
+}
+
 /* --- Section head: kicker / headline / lead, constrained measure --- */
 .section-head {
   max-width: 46rem;
@@ -124,41 +130,29 @@
   }
 }
 
-/* --- Dark band: navy from the wordmark, green accent reads 9.9:1 here.
-   Two rotated petals of the mark bleed in from the corners — the petal-pop
-   signature on the site's biggest CTA moments. --- */
+/* --- CTA band: the signature gradient card — deep indigo into brand
+   indigo, rounded and floated on the page ground, a green glow bleeding
+   in from the lower right. --- */
 .band {
   position: relative;
   overflow: hidden;
-  background: var(--dark);
+  max-width: var(--maxw);
+  margin: clamp(1.5rem, 4vw, 2.75rem) auto;
+  border-radius: 28px;
+  background: var(--grad-cta);
   color: var(--on-dark);
 }
 
-.band::before,
 .band::after {
   content: '';
   position: absolute;
-  width: clamp(170px, 22vw, 320px);
-  aspect-ratio: 1;
+  width: 380px;
+  height: 380px;
+  right: -110px;
+  bottom: -190px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 226, 75, 0.4), transparent 70%);
   pointer-events: none;
-  -webkit-mask: var(--petal-mask) center / contain no-repeat;
-  mask: var(--petal-mask) center / contain no-repeat;
-}
-
-.band::before {
-  left: -5%;
-  bottom: -34%;
-  transform: rotate(18deg);
-  background: var(--brand-green);
-  opacity: 0.22;
-}
-
-.band::after {
-  right: -5%;
-  top: -38%;
-  transform: rotate(-162deg);
-  background: var(--brand-indigo);
-  opacity: 0.55;
 }
 
 .band > .container {
@@ -173,15 +167,14 @@
   color: var(--on-dark);
 }
 
-/* Kicker chip on navy: flip to the neon green pill so it reads as one */
+/* Kicker on the gradient: the neon green label, 9.9:1 on the deep start */
 .band .kicker {
-  background: var(--brand-green);
-  color: var(--brand-navy);
+  color: var(--brand-green);
 }
 
 .band .muted,
 .band .lead {
-  color: var(--on-dark-muted);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* Prose links inside the band. Buttons must stay excluded: a bare

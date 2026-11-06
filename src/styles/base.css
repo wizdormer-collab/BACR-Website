@@ -33,15 +33,25 @@ picture {
   max-width: 100%;
 }
 
-/* --- Headings: chunky display grotesque, tight leading, optical tracking --- */
+/* --- Headings: display grotesque, tight leading, optical tracking.
+   Big heads set 800, card heads 700 — the original site's split. --- */
 h1,
-h2,
+h2 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  margin: 0;
+}
+
 h3,
 h4,
 h5 {
   font-family: var(--font-display);
   color: var(--ink);
-  font-weight: 800;
+  font-weight: 700;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-display);
   text-wrap: balance;
@@ -92,8 +102,7 @@ a:hover {
 }
 
 .on-dark :focus-visible,
-footer :focus-visible,
-.site-header :focus-visible {
+footer :focus-visible {
   outline-color: var(--brand-green);
 }
 
@@ -114,19 +123,16 @@ button {
   cursor: pointer;
 }
 
-/* --- Kicker: the small caps label that opens every PRD section.
-   Petal Pop sets it as an indigo pill chip — the brand's rounded language. --- */
+/* --- Kicker: the small caps indigo label that opens every PRD section.
+   On the gradient hero and pastel cards it flips to a translucent pill
+   (pages.css); on the CTA band it flips to green (layout.css). --- */
 .kicker {
-  display: inline-block;
   font-family: var(--font-body);
-  font-size: var(--text-xs);
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: var(--tracking-kicker);
   text-transform: uppercase;
-  color: #fff;
-  background: var(--brand-indigo);
-  border-radius: var(--radius-btn);
-  padding: 0.45em 1.05em;
+  color: var(--accent);
   margin: 0 0 var(--s-4);
 }
 
@@ -147,7 +153,7 @@ button {
   line-height: 1.55;
 }
 
-/* --- Pull quote: display grotesque, set chunky and confident --- */
+/* --- Pull quote: display face, set large and confident --- */
 .pullquote {
   font-family: var(--font-display);
   font-size: var(--text-xl);

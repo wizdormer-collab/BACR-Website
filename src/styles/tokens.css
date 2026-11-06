@@ -1,11 +1,11 @@
 /* ==========================================================================
-   Design tokens — Petal Pop direction
-   Brand values are measured from the logo artwork (tools/trace-mark.py reports
-   them), NOT from the old site's CSS — those were off, most visibly the green:
-   logo #00e24b vs old token #00c244.
-   The surface system is the BACR brand brought to life: cream paper, pastel
-   colour-blocking (the four petal tints), navy outlines with hard offset
-   shadows, pill buttons — the mark's own vocabulary.
+   Design tokens — Direction A "Signature Gradient"
+   The original BACR site's DNA, refined: indigo→violet gradient hero,
+   cool-grey page ground, white panels, pastel gradient tiles, soft blue
+   shadows, Plus Jakarta Sans display. Brand values are measured from the
+   logo artwork (tools/trace-mark.py reports them), NOT from the old site's
+   CSS — those were off, most visibly the green: logo #00e24b vs old
+   token #00c244.
    ========================================================================== */
 
 :root {
@@ -14,32 +14,38 @@
   --brand-indigo: #534cea; /* mark, top-left / bottom-right petals */
   --brand-green: #00e24b; /* mark, top-right / bottom-left petals */
 
-  /* --- Surfaces: warm cream paper with pastel colour blocks --- */
-  --paper: #fdf6e7; /* cream — the page ground */
-  --paper-deep: #f7edd7; /* deeper cream for hero/page-hero blocks */
+  /* --- Surfaces: cool grey ground with white panels — the original
+         site's light-grey/white section rhythm --- */
+  --paper: #f4f6f8; /* page ground */
+  --paper-deep: #eaeef3; /* hover wells, code chips */
   --panel: #ffffff;
-  --ink: #160958; /* headings read as the wordmark navy */
-  --body: #3d3f6b; /* body copy — AA on cream and on white */
-  --muted: #5b5f8a; /* AA on cream (4.9:1), white and pastels */
-  --rule: rgba(22, 9, 88, 0.16); /* hairline */
-  --rule-strong: #7a76a8; /* form controls — 4.0:1 on white, past 3:1 */
-  --rule-hover: #55517f; /* input hover — must sit darker than --rule-strong */
+  --ink: #1b2430; /* headings & strong text */
+  --body: #37414f; /* body copy — 8.9:1 on paper */
+  --muted: #5f6a78; /* captions — 5.0:1 on paper, AA on white & pastels */
+  --rule: #e2e6ea; /* hairline */
+  --rule-strong: #7d8896; /* form controls — 3.6:1 on white, past 1.4.11 */
+  --rule-hover: #5c6674; /* input hover — must sit darker than --rule-strong */
 
-  /* --- Pastel petal tints: one per quadrant of the mark --- */
-  --lav: #d8d4fa; /* indigo petal */
-  --mint: #bfe6d3; /* green petal */
+  /* --- Pastel petal tints: icon-tile & card fills --- */
+  --lav: #d8d4fa;
+  --mint: #bfe6d3;
   --blush: #f3c2bd;
   --sand: #f0dfb4;
 
+  /* --- Gradients: the direction's signature --- */
+  --grad-hero: linear-gradient(135deg, #4238c9 0%, #534cea 38%, #8b5cf6 100%);
+  --grad-cta: linear-gradient(135deg, #160958 0%, #4238c9 55%, #534cea 100%);
+  --grad-btn: linear-gradient(135deg, #534cea 0%, #8b5cf6 100%);
+
   /* --- Accents --- */
   --accent: var(--brand-indigo);
-  --accent-deep: #3a31a8; /* indigo dark enough for small text on paper */
-  --accent-wash: #eeecfd;
+  --accent-deep: #4238c9; /* indigo dark enough for small text on paper (7.4:1) */
+  --accent-wash: #eef0fd;
   --positive: var(--brand-green); /* decorative only — 1.75:1 on paper! */
   --positive-on-dark: var(--brand-green); /* 9.9:1 on navy — safe for text */
-  --dark: var(--brand-navy);
+  --dark: #0f1524; /* footer ground, from the original site */
   --on-dark: #ffffff;
-  --on-dark-muted: #c9c3ec;
+  --on-dark-muted: #aab4c5; /* 8.7:1 on --dark */
 
   /* --- Semantic --- */
   --danger: #b4342a;
@@ -47,7 +53,7 @@
   --focus: var(--accent);
 
   /* --- Type --- */
-  --font-display: 'Bricolage Grotesque', 'Inter', -apple-system,
+  --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system,
     BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Helvetica, Arial, sans-serif;
@@ -59,16 +65,16 @@
   --text-md: clamp(1.1rem, 1.4vw, 1.22rem); /* lead paragraphs */
   --text-lg: clamp(1.25rem, 2vw, 1.5rem); /* h3 */
   --text-xl: clamp(1.5rem, 2.6vw, 1.9rem); /* h2 small */
-  --text-2xl: clamp(1.8rem, 3.4vw, 2.4rem); /* section headline */
+  --text-2xl: clamp(1.8rem, 3vw, 2.4rem); /* section headline */
   --text-3xl: clamp(2.15rem, 4.6vw, 3.1rem); /* page headline */
-  --text-4xl: clamp(2.5rem, 6.2vw, 4.1rem); /* home hero */
+  --text-4xl: clamp(2.4rem, 4.8vw, 3.6rem); /* home hero */
 
-  --leading-tight: 1.1;
+  --leading-tight: 1.15;
   --leading-snug: 1.28;
   --leading-body: 1.65;
 
-  --tracking-display: -0.03em;
-  --tracking-kicker: 0.1em;
+  --tracking-display: -0.02em;
+  --tracking-kicker: 0.12em;
 
   /* --- Space --- */
   --s-1: 0.25rem;
@@ -86,23 +92,20 @@
   --maxw: 1160px;
   --maxw-text: 68ch;
 
-  /* --- Form --- */
+  /* --- Radii: soft rectangles — buttons at 12px, like the original --- */
   --radius-xs: 6px;
   --radius-sm: 10px;
   --radius-md: 16px;
-  --radius-lg: 26px; /* cards */
-  --radius-btn: 999px; /* pills */
+  --radius-lg: 20px; /* cards */
+  --radius-btn: 12px;
   --border: 1px solid var(--rule);
   --border-strong: 1px solid var(--rule-strong);
-  /* The signature: chunky navy outline on cards, tiles and callouts */
-  --border-chunky: 2.5px solid var(--brand-navy);
 
-  /* --- Elevation: soft float + the signature hard offset pop --- */
-  --shadow-sm: 0 1px 2px rgba(22, 9, 88, 0.05);
-  --shadow-md: 0 2px 18px rgba(22, 9, 88, 0.07);
-  --shadow-lg: 0 14px 44px rgba(22, 9, 88, 0.1);
-  --shadow-pop: 6px 6px 0 rgba(22, 9, 88, 0.14);
-  --shadow-pop-lg: 9px 9px 0 rgba(22, 9, 88, 0.16);
+  /* --- Elevation: soft, blue-tinted floats --- */
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 1px 2px rgba(16, 24, 40, 0.06),
+    0 4px 14px rgba(16, 24, 40, 0.05);
+  --shadow-lg: 0 8px 30px rgba(13, 63, 102, 0.14);
 
   /* --- Motion: colour/opacity only, never layout. Guarded in base.css. --- */
   --dur: 160ms;
@@ -114,8 +117,4 @@
      a section ornament. Arm 16/100 — slightly bolder than the mark's own
      9% gap so it still reads at 12px. */
   --cross-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M42 0H58V42H100V58H58V100H42V58H0V42H42Z'/%3E%3C/svg%3E");
-
-  /* One petal of the mark (indigo quadrant), as a section ornament blob.
-     Reused for the big rotated decorations on dark bands. */
-  --petal-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 144 144'%3E%3Cpath d='M0 86 L2 65 L10 44 L12 43 L14 37 L18 34 L18 32 L26 25 L26 23 L28 23 L32 18 L34 18 L42 11 L61 3 L78 0 L144 0 L144 144 L0 144 Z'/%3E%3C/svg%3E");
 }
