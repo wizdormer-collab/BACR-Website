@@ -146,11 +146,15 @@
   color: var(--on-dark-muted);
 }
 
-.band a {
+/* Prose links inside the band. Buttons must stay excluded: a bare
+   `.band a` rule (0,1,1) out-specifies `.btn--*` variants (0,1,0) and was
+   overriding the solid-light CTA's navy foreground — white text on the
+   white button background. Buttons own their colours. */
+.band a:not(.btn) {
   color: var(--on-dark);
 }
 
-.band a:hover {
+.band a:not(.btn):hover {
   color: var(--brand-green);
 }
 
