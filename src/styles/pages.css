@@ -147,14 +147,17 @@
   color: #fff;
 }
 
-/* The mark floats on a white card, like the original's hero tiles */
+/* The mark sits directly on the gradient — plain white, no card behind it
+   (a white plate read as a background glued to the logo). */
 .hero__art {
   justify-self: center;
   width: clamp(160px, 24vw, 300px);
-  padding: clamp(1.25rem, 3vw, 2rem);
-  background: var(--panel);
-  border-radius: 28px;
-  box-shadow: var(--shadow-lg);
+}
+
+.hero__art img {
+  width: 100%;
+  height: auto;
+  filter: brightness(0) invert(1);
 }
 
 @media (max-width: 48rem) {

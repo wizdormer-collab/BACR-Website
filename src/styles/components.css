@@ -229,11 +229,8 @@
   flex: none;
   width: 44px;
   height: 44px;
-  /* The mark's indigo petals sit close to the near-black ground — a white
-     plate keeps all four petals legible (and reads as an app-tile, on style). */
-  background: var(--on-dark);
-  border-radius: 12px;
-  padding: 6px;
+  /* Plain white mark on the near-black ground — no plate behind it. */
+  filter: brightness(0) invert(1);
 }
 
 .site-footer__name {
