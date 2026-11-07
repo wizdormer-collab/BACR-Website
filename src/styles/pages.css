@@ -147,8 +147,8 @@
   color: #fff;
 }
 
-/* The mark sits directly on the gradient — plain white, no card behind it
-   (a white plate read as a background glued to the logo). */
+/* The mark keeps its own colours and sits in the hero row with no card
+   behind it, so it blends into the gradient instead of reading as a sticker. */
 .hero__art {
   justify-self: center;
   width: clamp(160px, 24vw, 300px);
@@ -157,7 +157,6 @@
 .hero__art img {
   width: 100%;
   height: auto;
-  filter: brightness(0) invert(1);
 }
 
 @media (max-width: 48rem) {
