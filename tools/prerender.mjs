@@ -7,7 +7,7 @@
 // hydrates, and writes dist/<route>/index.html — GitHub Pages serves real
 // content for every URL. It also emits the sitemap, per-page titles/canonical
 // tags, static redirect pages for legacy paths, and a branded 404.
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createServer } from 'vite'
@@ -47,8 +47,21 @@ try {
 
   const template = await readFile(path.join(DIST, 'index.html'), 'utf8')
 
+  // SSR through the Vite dev server resolves image imports to `/src/assets/x`
+  // (a URL that only exists while the dev server runs). Rewrite them to the
+  // hashed files the client build emitted, using Vite's manifest.
+  const manifest = JSON.parse(
+    await readFile(path.join(DIST, '.vite/manifest.json'), 'utf8'),
+  )
+  const rewriteAssets = (html) =>
+    html.replace(/src\/assets\/([^"'\s>]+)/g, (match, file) => {
+      const entry = manifest[`src/assets/${file}`]
+      return entry ? entry.file : match
+    })
+
   function buildPage({ markup, title, canonical, headExtra = '' }) {
     let html = template
+    markup = rewriteAssets(markup)
     html = replaceOnce(html, /<title>[^<]*<\/title>/, () => `<title>${esc(title)}</title>`)
     html = replaceOnce(
       html,
@@ -154,6 +167,9 @@ try {
     PAGE_ROUTES.map(({ path: routePath }) => `  <url><loc>${esc(canonicalUrl(routePath))}</loc></url>`).join('\n') +
     '\n</urlset>\n'
   await write('sitemap.xml', sitemap)
+
+  // The manifest is build-time only; don't ship it.
+  await rm(path.join(DIST, '.vite'), { recursive: true, force: true })
 
   console.log(`prerender: ${PAGE_ROUTES.length} routes, ${REDIRECTS.length} redirect, 404, sitemap`)
   for (const file of written) console.log(`  dist/${file}`)

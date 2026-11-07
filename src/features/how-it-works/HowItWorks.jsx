@@ -8,114 +8,119 @@ import {
   safety,
 } from '../../data/site.js'
 
+function splitList(items) {
+  const mid = Math.ceil(items.length / 2)
+  return [items.slice(0, mid), items.slice(mid)]
+}
+
+function TwoColumnList({ items }) {
+  const [left, right] = splitList(items)
+  return (
+    <div className="grid grid-2">
+      <ul className="list-check">
+        {left.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+      <ul className="list-check">
+        {right.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export default function HowItWorks() {
   return (
     <>
       <PageHero
+        variant="light"
         kicker={howItWorks.kicker}
         title={howItWorks.headline}
-        lead={howItWorks.intro}
+        subtitle={howItWorks.intro}
       />
 
-      {/* 5-step process */}
       <section className="section">
         <div className="container">
-          <ol className="numbered numbered--wide">
+          <div className="timeline timeline-5">
             {howItWorks.steps.map((step) => (
-              <li key={step.title}>
-                <div>
-                  <h3 className="numbered__title">{step.title}</h3>
-                  <p>{step.text}</p>
-                </div>
-              </li>
+              <div key={step.title} className="tl-item">
+                <span className="tl-num" aria-hidden="true" />
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
-      {/* Clinical Case Coordination */}
-      <section className="section section--ruled">
-        <div className="container split split--sticky">
-          <div>
-            <p className="kicker">{careCoordinator.kicker}</p>
+      <section className="section section-alt">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">{careCoordinator.kicker}</span>
             <h2>{careCoordinator.headline}</h2>
-            <div className="stack">
-              {careCoordinator.paragraphs.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
-            </div>
-            <p className="small muted">{careCoordinator.note}</p>
-          </div>
-          <div>
-            <p className="list-label">{careCoordinator.listLabel}</p>
-            <ul className="checklist">
-              {careCoordinator.items.map((i) => (
-                <li key={i}>{i}</li>
-              ))}
-            </ul>
-            <blockquote className="pullquote pullquote--marked">
-              {careCoordinator.quote}
-            </blockquote>
-          </div>
-        </div>
-      </section>
-
-      {/* Rehabilitation plan */}
-      <section className="section section--ruled">
-        <div className="container split split--even">
-          <div>
-            <p className="kicker">{rehabPlan.kicker}</p>
-            <h2>{rehabPlan.headline}</h2>
-            <p className="lead">{rehabPlan.intro}</p>
-            <p className="pullquote pullquote--marked">{rehabPlan.closing}</p>
-          </div>
-          <div>
-            <p className="list-label">{rehabPlan.listLabel}</p>
-            <ul className="checklist checklist--columns">
-              {rehabPlan.items.map((i) => (
-                <li key={i}>{i}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Measuring progress */}
-      <section className="section section--ruled">
-        <div className="container split split--even">
-          <div>
-            <p className="kicker">{measuring.kicker}</p>
-            <h2>{measuring.headline}</h2>
-            <div className="stack">
-              {measuring.paragraphs.map((p) => (
-                <p key={p}>{p}</p>
-              ))}
-            </div>
-            <p className="small muted">{measuring.closing}</p>
-          </div>
-          <div>
-            <ul className="checklist checklist--columns">
-              {measuring.items.map((i) => (
-                <li key={i}>{i}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Safety first — dark band, it's the section the PRD wants emphasised */}
-      <section className="section band on-dark">
-        <div className="container split split--even">
-          <div>
-            <p className="kicker">{safety.kicker}</p>
-            <h2>{safety.headline}</h2>
-          </div>
-          <div className="stack">
-            {safety.paragraphs.map((p) => (
-              <p key={p}>{p}</p>
+            {careCoordinator.paragraphs.map((text) => (
+              <p key={text.slice(0, 24)}>{text}</p>
             ))}
-            <p className="pullquote pullquote--marked on-dark">{safety.closing}</p>
           </div>
+
+          <span className="kicker">{careCoordinator.listLabel}</span>
+          <TwoColumnList items={careCoordinator.items} />
+          <p className="text-muted" style={{ marginTop: 26, marginBottom: 8 }}>
+            {careCoordinator.note}
+          </p>
+          <blockquote className="quote mb-0">{careCoordinator.quote}</blockquote>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">{rehabPlan.kicker}</span>
+            <h2>{rehabPlan.headline}</h2>
+            <p>{rehabPlan.intro}</p>
+          </div>
+
+          <span className="kicker">{rehabPlan.listLabel}</span>
+          <TwoColumnList items={rehabPlan.items} />
+          <p className="center text-muted" style={{ marginTop: 26 }}>
+            <strong>{rehabPlan.closing}</strong>
+          </p>
+        </div>
+      </section>
+
+      <section className="section section-alt">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">{measuring.kicker}</span>
+            <h2>{measuring.headline}</h2>
+            {measuring.paragraphs.map((text) => (
+              <p key={text.slice(0, 24)}>{text}</p>
+            ))}
+          </div>
+
+          <TwoColumnList items={measuring.items} />
+          <p className="center text-muted" style={{ marginTop: 26 }}>
+            <strong>{measuring.closing}</strong>
+          </p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head">
+            <span className="kicker">{safety.kicker}</span>
+            <h2>{safety.headline}</h2>
+            {safety.paragraphs.map((text) => (
+              <p key={text.slice(0, 24)} className="text-muted">
+                {text}
+              </p>
+            ))}
+          </div>
+          <p className="center">
+            <span className="pill-note">{safety.closing}</span>
+          </p>
         </div>
       </section>
 

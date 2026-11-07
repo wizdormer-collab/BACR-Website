@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import PageHero from '../../components/PageHero.jsx'
-import { booking } from '../../data/site.js'
+import Icon from '../../components/Icon.jsx'
+import { booking, brand, contact, journey } from '../../data/site.js'
 import { contactConfig } from '../../lib/site.config.js'
 import {
   buildWhatsAppMessage,
@@ -31,7 +33,7 @@ export default function Book() {
 
     if (link) {
       window.open(link, '_blank', 'noopener,noreferrer')
-      setStatus({ tone: 'ok', text: 'Opening WhatsApp with your details ready to send.' })
+      setStatus({ tone: 'success', text: 'Opening WhatsApp with your details ready to send.' })
       return
     }
 
@@ -39,7 +41,7 @@ export default function Book() {
     setStatus(
       copied
         ? {
-            tone: 'ok',
+            tone: 'success',
             text: 'Your details were copied. Send them to BACR once the centre publishes its WhatsApp number.',
           }
         : {
@@ -52,16 +54,42 @@ export default function Book() {
   return (
     <>
       <PageHero
-        kicker="Book an Assessment"
+        kicker={journey.kicker}
         title={booking.headline}
-        lead={booking.subtext}
+        subtitle={booking.subtext}
       />
 
       <section className="section">
-        <div className="container container--narrow">
+        <div className="container contact-grid">
+          <div>
+            <div className="section-head">
+              <span className="kicker">{contact.headline}</span>
+              <h2>{brand.name}</h2>
+              <p>{contact.holdingNote}</p>
+            </div>
+
+            <div className="contact-list">
+              <div className="contact-item">
+                <span className="ci-icon" aria-hidden="true">
+                  <Icon name="pin" size={18} />
+                </span>
+                <div>
+                  <div className="ci-label">{contact.locationLabel}</div>
+                  <div className="ci-value">{contactConfig.address || brand.location}</div>
+                </div>
+              </div>
+            </div>
+
+            <p style={{ marginTop: 24, marginBottom: 0 }}>
+              <Link to="/contact" className="btn btn-outline">
+                Visit the Contact Page
+              </Link>
+            </p>
+          </div>
+
           <form className="form" onSubmit={handleSubmit}>
-            <div className="form__grid">
-              <p className="field">
+            <div className="form-grid">
+              <div className="field">
                 <label htmlFor="fullName">Full name</label>
                 <input
                   id="fullName"
@@ -72,9 +100,9 @@ export default function Book() {
                   value={details.fullName}
                   onChange={set('fullName')}
                 />
-              </p>
+              </div>
 
-              <p className="field">
+              <div className="field">
                 <label htmlFor="phone">Phone number</label>
                 <input
                   id="phone"
@@ -85,9 +113,9 @@ export default function Book() {
                   value={details.phone}
                   onChange={set('phone')}
                 />
-              </p>
+              </div>
 
-              <p className="field field--full">
+              <div className="field field-full">
                 <label htmlFor="email">Email address</label>
                 <input
                   id="email"
@@ -97,16 +125,11 @@ export default function Book() {
                   value={details.email}
                   onChange={set('email')}
                 />
-              </p>
+              </div>
 
-              <p className="field">
+              <div className="field">
                 <label htmlFor="service">Service required</label>
-                <select
-                  id="service"
-                  name="service"
-                  value={details.service}
-                  onChange={set('service')}
-                >
+                <select id="service" name="service" value={details.service} onChange={set('service')}>
                   <option value="">Select…</option>
                   {booking.fields.serviceOptions.map((o) => (
                     <option key={o} value={o}>
@@ -114,9 +137,9 @@ export default function Book() {
                     </option>
                   ))}
                 </select>
-              </p>
+              </div>
 
-              <p className="field">
+              <div className="field">
                 <label htmlFor="ageGroup">Patient age group</label>
                 <select
                   id="ageGroup"
@@ -131,9 +154,9 @@ export default function Book() {
                     </option>
                   ))}
                 </select>
-              </p>
+              </div>
 
-              <p className="field field--full">
+              <div className="field field-full">
                 <label htmlFor="contactMethod">Preferred contact method</label>
                 <select
                   id="contactMethod"
@@ -148,12 +171,10 @@ export default function Book() {
                     </option>
                   ))}
                 </select>
-              </p>
+              </div>
 
-              <p className="field field--full">
-                <label htmlFor="description">
-                  What is happening? <span className="field__hint">need</span>
-                </label>
+              <div className="field field-full">
+                <label htmlFor="description">What is happening?</label>
                 <textarea
                   id="description"
                   name="description"
@@ -162,32 +183,27 @@ export default function Book() {
                   value={details.description}
                   onChange={set('description')}
                 />
-              </p>
+              </div>
             </div>
 
-            <div className="form__actions">
-              <button className="btn btn--primary" type="submit">
+            <div className="form-actions">
+              <button className="btn btn-primary" type="submit">
                 {booking.submitLabel}
               </button>
             </div>
 
-            {!contactConfig.whatsappNumber && (
-              <p className="small muted form__note">
-                WhatsApp delivery is off until a number is set in{' '}
-                <code>site.config.js</code>. Your details are copied to the
-                clipboard instead of sent.
-              </p>
-            )}
-
-            {status && (
-              <p
-                className={`form__status form__status--${status.tone}`}
-                role="status"
-                aria-live="polite"
-              >
+            {status ? (
+              <p className={`notice notice-${status.tone}`} role="status" aria-live="polite">
                 {status.text}
               </p>
-            )}
+            ) : null}
+
+            {!contactConfig.whatsappNumber ? (
+              <p className="text-muted" style={{ fontSize: '0.84375rem', margin: '16px 0 0' }}>
+                WhatsApp delivery is off until a number is set. Your details are copied to the
+                clipboard instead of sent.
+              </p>
+            ) : null}
           </form>
         </div>
       </section>

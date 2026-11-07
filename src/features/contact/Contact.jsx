@@ -1,103 +1,130 @@
 import { Link } from 'react-router-dom'
 import PageHero from '../../components/PageHero.jsx'
+import CtaBand from '../../components/CtaBand.jsx'
 import Faq from '../../components/Faq.jsx'
+import Icon from '../../components/Icon.jsx'
 import { brand, contact, faq, journey } from '../../data/site.js'
 import { contactConfig } from '../../lib/site.config.js'
 
-const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(
+  contactConfig.mapQuery || brand.location
+)}&t=&z=14&ie=UTF8&iwloc=&output=embed`
+
+const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   contactConfig.mapQuery || brand.location
 )}`
-const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(
-  contactConfig.mapQuery || brand.location
-)}&output=embed`
 
 export default function Contact() {
-  // Rows render only when a real value exists — the old site's behaviour,
-  // which keeps [Insert Phone Number]-style placeholders out of the DOM.
-  const rows = [
-    { label: 'Phone', value: contactConfig.phone, href: `tel:${contactConfig.phone}` },
-    { label: 'WhatsApp', value: contactConfig.whatsapp, href: null },
-    { label: 'Email', value: contactConfig.email, href: `mailto:${contactConfig.email}` },
-    { label: contact.hoursLabel, value: contactConfig.workingHours, href: null },
-  ].filter((r) => r.value)
-
-  const hasDirectContact = rows.length > 0
   const address = contactConfig.address || brand.location
+
+  // Rows only exist when a real value is configured — no placeholders.
+  const rows = [
+    { icon: 'phone', label: 'Phone', value: contactConfig.phone, href: `tel:${contactConfig.phone}` },
+    { icon: 'mail', label: 'Email', value: contactConfig.email, href: `mailto:${contactConfig.email}` },
+    { icon: 'chat', label: 'WhatsApp', value: contactConfig.whatsapp, href: null },
+    { icon: 'clock', label: contact.hoursLabel, value: contactConfig.workingHours, href: null },
+  ].filter((row) => row.value)
 
   return (
     <>
-      <PageHero title={contact.headline} />
+      <PageHero
+        title={contact.headline}
+        subtitle={`${brand.name} - ${brand.location}`}
+      />
 
       <section className="section">
-        <div className="container split">
-          <div>
-            <p className="contact__place">{brand.name}</p>
-            <p className="contact__short">{brand.short}</p>
-
-            <dl className="contact__list">
-              <div className="contact__row">
-                <dt>{contact.locationLabel}</dt>
-                <dd>{address}</dd>
+        <div className="container">
+          <div className="contact-grid">
+            <div>
+              <div className="section-head">
+                <span className="kicker">{brand.short}</span>
+                <h2>{brand.name}</h2>
+                <p>{brand.tagline}</p>
               </div>
 
-              {rows.map((r) => (
-                <div className="contact__row" key={r.label}>
-                  <dt>{r.label}</dt>
-                  <dd>
-                    {r.href ? (
-                      <a href={r.href}>{r.value}</a>
-                    ) : (
-                      <span>{r.value}</span>
-                    )}
-                  </dd>
+              <div className="contact-list">
+                <div className="contact-item">
+                  <span className="ci-icon" aria-hidden="true">
+                    <Icon name="pin" size={18} />
+                  </span>
+                  <div>
+                    <div className="ci-label">{contact.locationLabel}</div>
+                    <div className="ci-value">{address}</div>
+                  </div>
                 </div>
-              ))}
-            </dl>
 
-            {!hasDirectContact && (
-              <div className="holding" role="note">
-                <p className="holding__title">Contact details coming soon</p>
-                <p className="holding__text">{contact.holdingNote}</p>
-                <div className="btn-row">
-                  <Link className="btn btn--primary" to={journey.primary.to}>
-                    {journey.primary.label}
-                  </Link>
-                  <Link className="btn btn--secondary" to={journey.secondary.to}>
-                    {journey.secondary.label}
-                  </Link>
-                </div>
+                {rows.map((row) =>
+                  row.href ? (
+                    <a key={row.label} className="contact-item" href={row.href}>
+                      <span className="ci-icon" aria-hidden="true">
+                        <Icon name={row.icon} size={18} />
+                      </span>
+                      <div>
+                        <div className="ci-label">{row.label}</div>
+                        <div className="ci-value">{row.value}</div>
+                      </div>
+                    </a>
+                  ) : (
+                    <div key={row.label} className="contact-item">
+                      <span className="ci-icon" aria-hidden="true">
+                        <Icon name={row.icon} size={18} />
+                      </span>
+                      <div>
+                        <div className="ci-label">{row.label}</div>
+                        <div className="ci-value">{row.value}</div>
+                      </div>
+                    </div>
+                  )
+                )}
               </div>
-            )}
 
-            <p style={{ marginTop: 'var(--s-5)' }}>
-              <a
-                className="link-arrow"
-                href={directionsUrl}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                {contact.directionsLabel}
-              </a>
-            </p>
-          </div>
+              {rows.length === 0 ? (
+                <div className="notice notice-info" role="note" style={{ marginTop: 18 }}>
+                  <strong>Contact details coming soon</strong>
+                  <br />
+                  {contact.holdingNote}
+                </div>
+              ) : null}
 
-          <div className="contact__map">
-            <iframe
-              title={`Map showing ${brand.short} — ${address}`}
-              src={mapEmbedUrl}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+              <div className="hero-actions" style={{ marginTop: 22, marginBottom: 0 }}>
+                <Link to={journey.primary.to} className="btn btn-primary">
+                  {journey.primary.label}
+                </Link>
+                <a
+                  className="btn btn-outline"
+                  href={directionsHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {contact.directionsLabel}
+                </a>
+              </div>
+            </div>
+
+            <div className="map-frame">
+              <iframe
+                title={`Map of ${contactConfig.mapQuery || brand.location}`}
+                src={mapSrc}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section section--ruled">
-        <div className="container container--narrow">
-          <h2 className="section-title">{faq.headline}</h2>
+      <section className="section section-alt">
+        <div className="container">
+          <div className="section-head center">
+            <span className="kicker">Frequently Asked Questions</span>
+            <h2>{faq.headline}</h2>
+          </div>
           <Faq items={faq.items} />
         </div>
       </section>
+
+      <CtaBand />
     </>
   )
 }

@@ -1,25 +1,29 @@
 import { Link } from 'react-router-dom'
 import { journey } from '../data/site.js'
 
-// "Start Your Journey" closing band — appears at the end of most pages,
-// so it lives as one component rather than being copied per feature.
+// "Start Your Journey" closing band — the original site's gradient callout
+// card, sitting at the end of most pages.
 export default function CtaBand() {
   return (
-    <section className="section band on-dark">
-      <div className="container section-head section-head--center">
-        <p className="kicker">{journey.kicker}</p>
-        <h2>{journey.headline}</h2>
-        <p className="lead">{journey.text}</p>
-        <div className="btn-row btn-row--center">
-          <Link className="btn btn--solid-light" to={journey.primary.to}>
-            {journey.primary.label}
-          </Link>
-          <Link className="btn btn--on-dark" to={journey.secondary.to}>
-            {journey.secondary.label}
-          </Link>
-          <Link className="btn btn--on-dark" to={journey.tertiary.to}>
-            {journey.tertiary.label}
-          </Link>
+    <section className="section section-cta">
+      <div className="container">
+        <div className="callout">
+          <div>
+            <span className="kicker">{journey.kicker}</span>
+            <h2>{journey.headline}</h2>
+            <p>{journey.text}</p>
+          </div>
+          <div className="callout-actions">
+            <Link to={journey.primary.to} className="btn btn-light">
+              {journey.primary.label}
+            </Link>
+            <Link to={journey.secondary.to} className="btn btn-ghost-light">
+              {journey.secondary.label}
+            </Link>
+            <Link to={journey.tertiary.to} className="btn btn-ghost-light">
+              {journey.tertiary.label}
+            </Link>
+          </div>
         </div>
       </div>
     </section>

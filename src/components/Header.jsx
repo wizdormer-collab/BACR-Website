@@ -3,16 +3,25 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { brand, nav } from '../data/site.js'
 import mark from '../assets/bacr-mark.svg'
 
+// Original site header: white sticky bar, small mark + BACR, and the menu
+// always collapsed behind the hamburger card at every screen size.
 export default function Header() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const { pathname } = useLocation()
   const panelId = useId()
 
-  // Static disclosure: opens/closes on click only. No hover states, no timers,
-  // no auto-collapse — the source of the old site's last six bug-fix commits.
   useEffect(() => {
     setOpen(false)
   }, [pathname])
+
+  // The old header gains a soft shadow once the page leaves the top.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (!open) return undefined
@@ -22,64 +31,46 @@ export default function Header() {
   }, [open])
 
   return (
-    <header className="site-header">
-      <a className="skip-link" href="#main">
-        Skip to content
-      </a>
-
-      <div className="container site-header__inner">
+    <header className={`header ${scrolled ? 'scrolled' : ''}`.trim()}>
+      <div className="header-inner">
         <Link to="/" className="brand" aria-label={`${brand.short} — home`}>
-          <img className="brand__mark" src={mark} alt="" width="34" height="34" />
-          <span className="brand__text">
-            <strong className="brand__short">{brand.short}</strong>
-            <span className="brand__name">{brand.name}</span>
+          <img className="brand-mark" src={mark} alt="" width="40" height="40" />
+          <span className="brand-text">
+            <strong>{brand.short}</strong>
+            <small>{brand.name}</small>
           </span>
         </Link>
 
-        <nav className="site-nav site-nav--desktop" aria-label="Main">
-          <ul>
-            {nav.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  end={item.to === '/'}
-                  className={({ isActive }) => (isActive ? 'is-active' : undefined)}
-                >
-                  {item.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
         <button
           type="button"
-          className="menu-toggle"
+          className={`nav-toggle ${open ? 'open' : ''}`.trim()}
+          aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls={panelId}
           onClick={() => setOpen((v) => !v)}
         >
-          <span className="menu-toggle__label">{open ? 'Close' : 'Menu'}</span>
+          <span />
+          <span />
+          <span />
         </button>
-      </div>
 
-      {open && (
-        <nav id={panelId} className="site-nav site-nav--panel" aria-label="Main">
-          <ul className="container">
-            {nav.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  end={item.to === '/'}
-                  className={({ isActive }) => (isActive ? 'is-active' : undefined)}
-                >
-                  {item.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+        <nav id={panelId} className={`nav ${open ? 'open' : ''}`.trim()} aria-label="Main">
+          {nav.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.to === '/'}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`.trim()}
+              onClick={() => setOpen(false)}
+            >
+              {item.label}
+            </NavLink>
+          ))}
+          <Link to="/book" className="btn btn-primary header-cta" onClick={() => setOpen(false)}>
+            Book an Assessment
+          </Link>
         </nav>
-      )}
+      </div>
     </header>
   )
 }

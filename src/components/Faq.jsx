@@ -1,16 +1,12 @@
-// Native <details> — accessible disclosure with zero JS and zero animation,
-// which is the whole point of dropping the old site's motion layer.
+// Native <details> — accessible disclosure with zero JS. The old sheet's
+// .faq-item rules style it.
 export default function Faq({ items }) {
   return (
     <div className="faq">
       {items.map((item) => (
-        <details className="faq__item" key={item.q}>
-          <summary className="faq__q">
-            <span>{item.q}</span>
-          </summary>
-          <div className="faq__body">
-            <p>{item.a}</p>
-          </div>
+        <details className="faq-item faq__item" key={item.q}>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
         </details>
       ))}
     </div>

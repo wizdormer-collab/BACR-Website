@@ -8,6 +8,9 @@ export default function App() {
   return (
     <div className="app">
       <ScrollToTop />
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <Header />
       <main id="main" className="page">
         <Routes>

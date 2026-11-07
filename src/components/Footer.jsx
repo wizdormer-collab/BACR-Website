@@ -1,32 +1,40 @@
 import { Link } from 'react-router-dom'
 import { brand, nav, footer } from '../data/site.js'
-import mark from '../assets/bacr-mark.svg'
+import whiteLogo from '../assets/bacr-logo-white.png'
 
+// Original near-black footer: big white logo, name + tagline, address,
+// quick links. No social/legal columns — those were dead placeholders.
 export default function Footer() {
   return (
-    <footer className="site-footer on-dark">
-      <div className="container site-footer__top">
-        <div className="site-footer__brand">
-          <img className="site-footer__mark" src={mark} alt="" width="44" height="44" />
+    <footer className="footer">
+      <div className="container">
+        <div className="footer-grid">
           <div>
-            <p className="site-footer__name">{brand.name}</p>
-            <p className="site-footer__tagline">{brand.tagline}</p>
+            <div className="footer-brand">
+              <img src={whiteLogo} alt={`${brand.short} logo`} />
+              <span>
+                <strong>{brand.name}</strong>
+                <span>{brand.tagline}</span>
+              </span>
+            </div>
+            <p>{brand.location}</p>
+          </div>
+
+          <div>
+            <h4>Quick Links</h4>
+            <ul className="footer-links">
+              {nav.map((item) => (
+                <li key={item.to}>
+                  <Link to={item.to}>{item.label}</Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        <nav className="site-footer__nav" aria-label="Footer">
-          <ul>
-            {nav.map((item) => (
-              <li key={item.to}>
-                <Link to={item.to}>{item.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-
-      <div className="container site-footer__bottom">
-        <p>{footer.copyright}</p>
+        <div className="footer-bottom">
+          <span>{footer.copyright}</span>
+        </div>
       </div>
     </footer>
   )

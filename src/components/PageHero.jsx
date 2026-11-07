@@ -1,19 +1,17 @@
 import usePageTitle from '../lib/usePageTitle.js'
 
-// Shared opening for every inner page: kicker, headline, lead.
-// The PRD opens every section the same way, so the hero mirrors that rhythm.
-export default function PageHero({ title, kicker, lead, children }) {
+// Original inner-page opener: gradient band by default, white "light" variant
+// for text-heavy pages (as the old site did).
+export default function PageHero({ title, kicker, lead, subtitle, variant, children }) {
   usePageTitle(title)
 
   return (
-    <section className="page-hero">
+    <section className={`page-hero ${variant === 'light' ? 'light' : ''}`.trim()}>
       <div className="container">
-        <div className="page-hero__inner">
-          {kicker && <p className="kicker">{kicker}</p>}
-          <h1>{title}</h1>
-          {lead && <p className="lead">{lead}</p>}
-          {children}
-        </div>
+        {kicker ? <span className="eyebrow">{kicker}</span> : null}
+        <h1>{title}</h1>
+        {lead || subtitle ? <p>{lead || subtitle}</p> : null}
+        {children}
       </div>
     </section>
   )
