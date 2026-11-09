@@ -34,8 +34,33 @@ export function buildWhatsAppLink(number, message) {
 
 export async function copyToClipboard(text) {
   if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text)
-    return true
+    try {
+      await navigator.clipboard.writeText(text)
+      return true
+    } catch {
+      // Fall through to the selection-based path (blocked permission, or a
+      // non-secure context where the API exists but rejects).
+    }
   }
+
+  if (typeof document !== 'undefined' && document.body) {
+    const area = document.createElement('textarea')
+    area.value = text
+    area.setAttribute('readonly', '')
+    area.style.position = 'fixed'
+    area.style.top = '-1000px'
+    area.style.opacity = '0'
+    document.body.appendChild(area)
+    area.select()
+    let copied = false
+    try {
+      copied = document.execCommand('copy')
+    } catch {
+      copied = false
+    }
+    document.body.removeChild(area)
+    return copied
+  }
+
   return false
 }

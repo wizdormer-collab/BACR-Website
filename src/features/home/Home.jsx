@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import usePageTitle from '../../lib/usePageTitle.js'
 import CtaBand from '../../components/CtaBand.jsx'
 import Icon from '../../components/Icon.jsx'
-import logo from '../../assets/bacr-logo.png'
+import logo from '../../assets/bacr-logo.webp'
 import mark from '../../assets/bacr-mark.svg'
 import {
   hero,
@@ -152,7 +152,7 @@ function DoneDifferently() {
       <div className="container">
         <div className="split">
           <div>
-            <img src={logo} alt="BACR logo" className="about-logo" />
+            <img src={logo} alt="BACR logo" className="about-logo" width={480} height={382} />
             <div className="section-head">
               <span className="kicker">{doneDifferently.kicker}</span>
               <h2>{doneDifferently.headline}</h2>

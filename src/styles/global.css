@@ -1889,6 +1889,18 @@ a.contact-item:hover {
 
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .footer-grid > div:first-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Nine links in one column made the mobile footer a long scroll; two
+     short columns keep the same content in half the height. */
+  .footer-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
   }
 
   .hero {
@@ -2415,3 +2427,166 @@ a.contact-item:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Polish pass: form feedback, map fallback, typography ---------- */
+
+/* Readable line breaks without changing the design */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.btn-sm {
+  padding: 8px 14px;
+  font-size: 0.875rem;
+}
+
+/* Inline validation */
+.field-invalid input,
+.field-invalid select,
+.field-invalid textarea {
+  border-color: var(--danger);
+}
+
+.field-invalid input:focus,
+.field-invalid select:focus,
+.field-invalid textarea:focus {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(180, 52, 42, 0.14);
+}
+
+.form-note {
+  margin-bottom: 22px;
+}
+
+/* The prepared enquiry is a real, readable fallback rather than a toast that
+   disappears while the user still needs to act on it. */
+.enquiry-preview {
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+.enquiry-preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.enquiry-preview pre {
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 280px;
+  overflow: auto;
+}
+
+/* Map: a designed address card is the default; the third-party iframe only
+   loads on request, so a blocked or slow Google Maps never leaves a blank
+   white panel in the layout. */
+.map-frame {
+  position: relative;
+}
+
+.map-live {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.map-live-tools {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  max-width: calc(100% - 24px);
+}
+
+.map-live-tools .btn {
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.map-fallback {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 26px;
+  text-align: center;
+  color: var(--muted);
+  background:
+    radial-gradient(circle at 1px 1px, rgba(83, 76, 234, 0.16) 1px, transparent 0) 0 0 / 22px 22px,
+    linear-gradient(135deg, #f7f8fc, #eef0fa);
+}
+
+.map-fallback-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--primary);
+  box-shadow: var(--shadow);
+}
+
+.map-fallback strong {
+  color: var(--text);
+  font-size: 1.0625rem;
+}
+
+.map-fallback-address {
+  font-size: 0.9375rem;
+  max-width: 320px;
+}
+
+.map-fallback-note {
+  font-size: 0.8125rem;
+  max-width: 300px;
+}
+
+.map-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+@media (max-width: 640px) {
+  .enquiry-preview-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .map-live-tools {
+    right: 10px;
+    bottom: 10px;
+  }
+}
+

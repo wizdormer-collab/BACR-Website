@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHero from '../../components/PageHero.jsx'
 import CtaBand from '../../components/CtaBand.jsx'
@@ -16,6 +17,7 @@ const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encode
 
 export default function Contact() {
   const address = contactConfig.address || brand.location
+  const [showMap, setShowMap] = useState(false)
 
   // Rows only exist when a real value is configured — no placeholders.
   const rows = [
@@ -102,13 +104,62 @@ export default function Contact() {
             </div>
 
             <div className="map-frame">
-              <iframe
-                title={`Map of ${contactConfig.mapQuery || brand.location}`}
-                src={mapSrc}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+              {showMap ? (
+                <div className="map-live">
+                  <iframe
+                    title={`Map of ${contactConfig.mapQuery || brand.location}`}
+                    src={mapSrc}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                  />
+                  <div className="map-live-tools">
+                    <a
+                      className="btn btn-outline btn-sm"
+                      href={directionsHref}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Open in Maps
+                    </a>
+                    <button
+                      type="button"
+                      className="btn btn-outline btn-sm"
+                      onClick={() => setShowMap(false)}
+                    >
+                      Hide map
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="map-fallback">
+                  <span className="map-fallback-icon" aria-hidden="true">
+                    <Icon name="pin" size={26} />
+                  </span>
+                  <strong>Our location</strong>
+                  <span className="map-fallback-address">{address}</span>
+                  <span className="map-fallback-note">
+                    The interactive map is loaded from Google Maps only when you ask.
+                  </span>
+                  <div className="map-actions">
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() => setShowMap(true)}
+                    >
+                      Load interactive map
+                    </button>
+                    <a
+                      className="btn btn-outline"
+                      href={directionsHref}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {contact.directionsLabel}
+                    </a>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

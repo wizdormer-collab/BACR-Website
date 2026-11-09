@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import PageHero from '../../components/PageHero.jsx'
 import CtaBand from '../../components/CtaBand.jsx'
-import logo from '../../assets/bacr-logo.png'
+import logo from '../../assets/bacr-logo.webp'
 import { about, approach, families } from '../../data/site.js'
 
 export default function About() {
@@ -13,7 +13,7 @@ export default function About() {
         <div className="container">
           <div className="split">
             <div>
-              <img src={logo} alt="BACR logo" className="about-logo" />
+              <img src={logo} alt="BACR logo" className="about-logo" width={480} height={382} />
               {about.paragraphs.map((text) => (
                 <p key={text.slice(0, 24)} className="text-muted">
                   {text}

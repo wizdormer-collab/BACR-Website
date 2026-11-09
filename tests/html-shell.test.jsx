@@ -9,6 +9,7 @@ import { PAGE_PATHS } from '../src/lib/pages.js'
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const indexHtml = readFileSync(path.join(ROOT, 'index.html'), 'utf8')
 const pkg = JSON.parse(readFileSync(path.join(ROOT, 'package.json'), 'utf8'))
+const prerender = readFileSync(path.join(ROOT, 'tools/prerender.mjs'), 'utf8')
 
 // The shell is the only thing non-JS readers (crawlers, link unfurlers,
 // ChatGPT's fetcher) ever see before the prerendered markup arrives, and the
@@ -54,6 +55,37 @@ describe('build wiring', () => {
       const url = canonicalUrl(routePath)
       expect(new URL(url).pathname.endsWith('/')).toBe(true)
       expect(new URL(url).pathname.startsWith(`${SITE_BASE_PATH}/`)).toBe(true)
+    }
+  })
+})
+
+describe('build output stays on the current design system', () => {
+  it('the static 404 uses classes that still exist in the stylesheet', () => {
+    // These three were retired with the old stylesheet; keeping them here made
+    // the 404's "Back to home" indigo-on-indigo and effectively invisible.
+    expect(prerender).not.toContain('btn--primary')
+    expect(prerender).not.toContain('page-hero__inner')
+    expect(prerender).not.toContain('btn-row')
+    expect(prerender).toContain('hero-actions')
+    expect(prerender).toContain('btn-light')
+    expect(prerender).toContain('btn-ghost-light')
+  })
+
+  it('preloads the hashed self-hosted fonts on every prerendered page', () => {
+    expect(prerender).toContain('type="font/woff2"')
+    expect(prerender).toContain('plus-jakarta-latin-')
+    expect(prerender).toContain('inter-latin-')
+  })
+
+  it('imports the optimised WebP logos, not the large PNGs', () => {
+    const sources = [
+      'src/features/home/Home.jsx',
+      'src/features/about/About.jsx',
+      'src/components/Footer.jsx',
+    ].map((file) => readFileSync(path.join(ROOT, file), 'utf8'))
+    for (const source of sources) {
+      expect(source).not.toMatch(/bacr-logo(?:-white)?\.png/)
+      expect(source).toMatch(/bacr-logo(?:-white)?\.webp/)
     }
   })
 })

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { brand, nav, footer } from '../data/site.js'
-import whiteLogo from '../assets/bacr-logo-white.png'
+import whiteLogo from '../assets/bacr-logo-white.webp'
 
 // Original near-black footer: big white logo, name + tagline, address,
 // quick links. No social/legal columns — those were dead placeholders.
@@ -11,7 +11,14 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <div className="footer-brand">
-              <img src={whiteLogo} alt={`${brand.short} logo`} />
+              <img
+                src={whiteLogo}
+                alt={`${brand.short} logo`}
+                width={320}
+                height={255}
+                loading="lazy"
+                decoding="async"
+              />
               <span>
                 <strong>{brand.name}</strong>
                 <span>{brand.tagline}</span>

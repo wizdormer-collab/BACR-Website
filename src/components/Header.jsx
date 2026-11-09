@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { brand, nav } from '../data/site.js'
 import mark from '../assets/bacr-mark.svg'
@@ -10,6 +10,8 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const { pathname } = useLocation()
   const panelId = useId()
+  const navRef = useRef(null)
+  const toggleRef = useRef(null)
 
   useEffect(() => {
     setOpen(false)
@@ -25,9 +27,23 @@ export default function Header() {
 
   useEffect(() => {
     if (!open) return undefined
-    const onKey = (e) => e.key === 'Escape' && setOpen(false)
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        toggleRef.current?.focus()
+      }
+    }
+    // Tapping the page behind the menu card closes it, like the old header.
+    const onPointerDown = (e) => {
+      if (navRef.current?.contains(e.target) || toggleRef.current?.contains(e.target)) return
+      setOpen(false)
+    }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.removeEventListener('pointerdown', onPointerDown)
+    }
   }, [open])
 
   return (
@@ -43,6 +59,7 @@ export default function Header() {
 
         <button
           type="button"
+          ref={toggleRef}
           className={`nav-toggle ${open ? 'open' : ''}`.trim()}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
@@ -54,7 +71,7 @@ export default function Header() {
           <span />
         </button>
 
-        <nav id={panelId} className={`nav ${open ? 'open' : ''}`.trim()} aria-label="Main">
+        <nav id={panelId} ref={navRef} className={`nav ${open ? 'open' : ''}`.trim()} aria-label="Main">
           {nav.map((item) => (
             <NavLink
               key={item.to}
