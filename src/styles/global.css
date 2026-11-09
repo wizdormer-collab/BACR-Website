@@ -1778,10 +1778,6 @@ a.contact-item:hover {
   max-width: 60%;
   height: auto;
   margin-bottom: 24px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: var(--shadow-sm);
 }
 
 /* ---------- Responsive ---------- */

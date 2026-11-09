@@ -14,8 +14,8 @@ export default function Footer() {
               <img
                 src={whiteLogo}
                 alt={`${brand.short} logo`}
-                width={320}
-                height={255}
+                width={420}
+                height={299}
                 loading="lazy"
                 decoding="async"
               />

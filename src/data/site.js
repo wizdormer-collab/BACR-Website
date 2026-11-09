@@ -28,9 +28,9 @@ export const hero = {
   primaryCta: { label: 'Book an Assessment', to: '/book' },
   secondaryCta: { label: 'Contact BACR', to: '/contact' },
   trust: [
-    'Multidisciplinary Team',
-    'Coordinated Care',
-    'Measurable Progress',
+    'Multidisciplinary Care',
+    'Coordinated Rehabilitation',
+    'Measuring Progress',
   ],
 }
 
