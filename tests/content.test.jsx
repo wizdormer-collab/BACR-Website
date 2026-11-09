@@ -23,6 +23,25 @@ describe('PRD fidelity — content that must be present', () => {
     }
   })
 
+  it('uses PRD-grounded labels in the hero trust strip', () => {
+    const home = render('/')
+    for (const label of [
+      'Multidisciplinary Care',
+      'Coordinated Rehabilitation',
+      'Measuring Progress',
+    ]) {
+      expect(home).toContain(label)
+    }
+    // These were paraphrases, not PRD wording.
+    for (const paraphrase of [
+      'Multidisciplinary Team',
+      'Coordinated Care',
+      'Measurable Progress',
+    ]) {
+      expect(home).not.toContain(paraphrase)
+    }
+  })
+
   it('renders the FAQ on the contact page', () => {
     const html = render('/contact')
     expect(html).toContain('Frequently Asked Questions')

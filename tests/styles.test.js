@@ -25,4 +25,11 @@ describe('the original design tokens are the brand values', () => {
     expect(css).toMatch(/--primary:\s*var\(--brand-indigo\)/)
     expect(css).toMatch(/--accent:\s*var\(--brand-green\)/)
   })
+
+  it('the body logo is not boxed in a bordered card', () => {
+    const block = (css.match(/\.about-logo\s*\{[^}]*\}/) || [''])[0]
+    expect(block).not.toMatch(/border:/)
+    expect(block).not.toMatch(/background:/)
+    expect(block).not.toMatch(/box-shadow:/)
+  })
 })
