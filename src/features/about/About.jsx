@@ -11,7 +11,7 @@ export default function About() {
 
       <section className="section section-alt">
         <div className="container">
-          <div className="split">
+          <div className="split split--top">
             <div>
               <img src={logo} alt="BACR logo" className="about-logo" width={480} height={382} />
               {about.paragraphs.map((text) => (

@@ -32,4 +32,14 @@ describe('the original design tokens are the brand values', () => {
     expect(block).not.toMatch(/background:/)
     expect(block).not.toMatch(/box-shadow:/)
   })
+
+  it('logo-led splits top-align instead of centring the left column', () => {
+    expect(css).toMatch(/\.split--top\s*\{[^}]*align-items:\s*start/)
+    const pages = ['src/features/home/Home.jsx', 'src/features/about/About.jsx'].map((file) =>
+      readFileSync(path.join(ROOT, file), 'utf8')
+    )
+    for (const source of pages) {
+      expect(source).toContain('split split--top')
+    }
+  })
 })

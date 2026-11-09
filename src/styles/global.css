@@ -651,6 +651,11 @@ p {
   align-items: center;
 }
 
+/* Logo-led splits read better with both columns starting on the same row. */
+.split--top {
+  align-items: start;
+}
+
 .feature-list {
   display: grid;
   gap: 16px;
