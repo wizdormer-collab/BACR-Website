@@ -27,6 +27,14 @@ describe('buildWhatsAppMessage', () => {
     expect(message).toContain('Service required: Not Sure')
   })
 
+  it('omits optional labels that were not answered', () => {
+    const message = buildWhatsAppMessage({ fullName: 'Tunde', phone: '0801', description: 'Review' })
+    expect(message).not.toContain('Email:')
+    expect(message).not.toContain('Patient age group:')
+    expect(message).not.toContain('Preferred contact method:')
+    expect(message).toContain('Service required: Not Sure')
+  })
+
   it('handles missing details without throwing', () => {
     expect(() => buildWhatsAppMessage()).not.toThrow()
     expect(buildWhatsAppMessage(undefined)).toContain('Name: ')

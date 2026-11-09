@@ -14,14 +14,16 @@ export function buildWhatsAppMessage(details) {
     '',
     `Name: ${fullName.trim()}`,
     `Phone: ${phone.trim()}`,
-    `Email: ${email.trim()}`,
-    `Service required: ${service.trim() || 'Not Sure'}`,
-    `Patient age group: ${ageGroup.trim()}`,
-    `Preferred contact method: ${contactMethod.trim()}`,
-    '',
-    'Need:',
-    description.trim(),
   ]
+
+  // Optional answers are omitted rather than left as empty labels; the
+  // prepared enquiry is meant to read like a message a person could send.
+  if (email.trim()) lines.push(`Email: ${email.trim()}`)
+  lines.push(`Service required: ${service.trim() || 'Not Sure'}`)
+  if (ageGroup.trim()) lines.push(`Patient age group: ${ageGroup.trim()}`)
+  if (contactMethod.trim()) lines.push(`Preferred contact method: ${contactMethod.trim()}`)
+
+  lines.push('', 'Need:', description.trim())
 
   return lines.join('\n')
 }
