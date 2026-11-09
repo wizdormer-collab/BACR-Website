@@ -960,13 +960,19 @@ a.contact-item:hover {
 
 .footer-brand {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 10px;
 }
 
 .footer-brand img {
-  height: 84px;
+  height: 64px;
+}
+
+/* The address sits directly under the logo row, not below the browser's
+   default paragraph margin. */
+.footer-brand + p {
+  margin-top: 0;
 }
 
 .footer-brand strong {
@@ -1774,10 +1780,10 @@ a.contact-item:hover {
 }
 
 .about-logo {
-  width: 190px;
+  width: 180px;
   max-width: 60%;
   height: auto;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 /* ---------- Responsive ---------- */
