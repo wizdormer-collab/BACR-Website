@@ -3374,3 +3374,77 @@ p {
     font-size: clamp(2.25rem, 12vw, 3rem);
   }
 }
+
+/* Process: the rail fills with the scroll, steps light up in turn --------- */
+
+.process-list {
+  --process-fill: calc(100% - 60px);
+}
+
+.process-list::before {
+  background: rgba(83, 76, 234, 0.16);
+}
+
+.process-list::after {
+  content: '';
+  position: absolute;
+  left: 27px;
+  top: 30px;
+  width: 2px;
+  height: min(var(--process-fill), calc(100% - 60px));
+  border-radius: 2px;
+  background: linear-gradient(180deg, #6e67f0 0%, var(--primary) 72%, var(--primary-dark) 100%);
+  box-shadow: 0 0 14px rgba(83, 76, 234, 0.3);
+  pointer-events: none;
+}
+
+.process-num {
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.process-step.is-done .process-num,
+.process-step.is-active .process-num {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.process-step.is-active .process-num {
+  transform: translateY(-2px) scale(1.08);
+  animation: process-ring 0.7s ease-out;
+}
+
+.process-step h3,
+.process-step p {
+  transition: color 0.3s ease;
+}
+
+.process-step.is-active h3 {
+  color: var(--primary-dark);
+}
+
+.process-step.is-active p {
+  color: var(--text);
+}
+
+@keyframes process-ring {
+  0% {
+    box-shadow: 0 12px 28px rgba(83, 76, 234, 0.3), 0 0 0 0 rgba(83, 76, 234, 0.28);
+  }
+  100% {
+    box-shadow: 0 12px 28px rgba(83, 76, 234, 0.3), 0 0 0 14px rgba(83, 76, 234, 0);
+  }
+}
+
+@media (max-width: 640px) {
+  .process-list::after {
+    left: 23px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-step.is-active .process-num {
+    animation: none;
+  }
+}

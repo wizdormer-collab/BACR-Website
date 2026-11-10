@@ -95,3 +95,17 @@ describe('the home approach headline is the display moment of its column', () =>
     expect(head).toMatch(/max-width:\s*100%/)
   })
 })
+
+describe('scroll motion stays decorative and opt-outable', () => {
+  it('the process rail fill is driven by a CSS variable', () => {
+    const block = (css.match(/\.process-list::after\s*\{[^}]*\}/) || [''])[0]
+    expect(block).toMatch(/height:\s*min\(var\(--process-fill\)/)
+    expect(block).toMatch(/pointer-events:\s*none/)
+  })
+
+  it('the care coordinator columns share one starting line', () => {
+    const source = readFileSync(path.join(ROOT, 'src/features/home/Home.jsx'), 'utf8')
+    const block = source.slice(source.indexOf('function CareCoordinator'))
+    expect(block).toContain('container split split--top')
+  })
+})

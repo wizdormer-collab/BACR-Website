@@ -191,3 +191,15 @@ describe('home art direction — structure stays content-first', () => {
     expect(home.match(/class="audience-art/g) || []).toHaveLength(2)
   })
 })
+
+describe('care coordinator closing block', () => {
+  it('puts the pull quote directly under the clinicians note', () => {
+    const home = render('/')
+    const note = home.indexOf('Your clinicians remain responsible')
+    const quote = home.indexOf('The clinicians own the clinical care')
+    const list = home.indexOf('Your Clinical Case Coordinator helps to')
+    expect(note).toBeGreaterThan(-1)
+    expect(quote).toBeGreaterThan(note)
+    expect(list).toBeGreaterThan(quote)
+  })
+})

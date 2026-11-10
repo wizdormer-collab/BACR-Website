@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import usePageTitle from '../../lib/usePageTitle.js'
 import CtaBand from '../../components/CtaBand.jsx'
@@ -228,7 +228,56 @@ function ServicesSection() {
   )
 }
 
+// The rail fills with the scroll: the reading line at 55% of the viewport
+// decides how much of the numbered path is lit, and which step is current.
+// Without JS (or with reduced motion) the CSS fallback shows the whole path.
+const READING_LINE = 0.55
+const RAIL_OFFSET = 30
+
+function useProcessMotion(listRef) {
+  useEffect(() => {
+    const list = listRef.current
+    if (!list) return undefined
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+
+    const steps = Array.from(list.querySelectorAll('.process-step'))
+    let frame = 0
+
+    const update = () => {
+      frame = 0
+      const rect = list.getBoundingClientRect()
+      const line = window.innerHeight * READING_LINE
+      const max = Math.max(0, rect.height - RAIL_OFFSET * 2)
+      const filled = Math.min(max, Math.max(0, line - rect.top - RAIL_OFFSET))
+      list.style.setProperty('--process-fill', `${Math.round(filled)}px`)
+
+      for (const step of steps) {
+        const box = step.getBoundingClientRect()
+        const active = box.top <= line && box.bottom > line
+        step.classList.toggle('is-active', active)
+        step.classList.toggle('is-done', !active && box.bottom <= line)
+      }
+    }
+
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+    }
+  }, [])
+}
+
 function HowItWorksSection() {
+  const listRef = useRef(null)
+  useProcessMotion(listRef)
+
   return (
     <section className="section section-alt process-section">
       <div className="container process">
@@ -241,7 +290,7 @@ function HowItWorksSection() {
           </Link>
         </div>
 
-        <ol className="process-list">
+        <ol className="process-list" ref={listRef}>
           {howItWorks.steps.map((step, i) => (
             <li key={step.title} className="process-step">
               <span className="process-num" aria-hidden="true">
@@ -288,7 +337,7 @@ function AudiencesSection() {
 function CareCoordinator() {
   return (
     <section className="section section-alt">
-      <div className="container split">
+      <div className="container split split--top">
         <div>
           <div className="section-head">
             <span className="kicker">{careCoordinator.kicker}</span>
@@ -298,6 +347,7 @@ function CareCoordinator() {
             ))}
           </div>
           <p className="text-muted mb-0">{careCoordinator.note}</p>
+          <blockquote className="quote">{careCoordinator.quote}</blockquote>
         </div>
 
         <div>
@@ -307,7 +357,6 @@ function CareCoordinator() {
               <li key={item}>{item}</li>
             ))}
           </ul>
-          <blockquote className="quote">{careCoordinator.quote}</blockquote>
         </div>
       </div>
     </section>
