@@ -53,9 +53,14 @@ describe('the original design tokens are the brand values', () => {
 })
 
 describe('art direction never breaks the content layers', () => {
-  it('the home services use a grid that collapses on small screens', () => {
-    expect(css).toMatch(/\.service-grid\s*\{[^}]*display:\s*grid/)
-    expect(css).toMatch(/@media \(max-width: 640px\)\s*\{[\s\S]*?\.service-grid\s*\{\s*grid-template-columns:\s*1fr/)
+  it('the home services scroll sideways and snap card by card', () => {
+    const track = (css.match(/\.service-track\s*\{[^}]*\}/) || [''])[0]
+    expect(track).toMatch(/overflow-x:\s*auto/)
+    expect(track).toMatch(/scroll-snap-type:\s*x mandatory/)
+    expect(track).toMatch(/grid-auto-flow:\s*column/)
+
+    const navRow = (css.match(/\.service-nav-row\s*\{[^}]*\}/) || [''])[0]
+    expect(navRow).toMatch(/justify-content:\s*flex-end/)
   })
 
   it('the hero artwork is decorative and cannot be dragged or selected', () => {

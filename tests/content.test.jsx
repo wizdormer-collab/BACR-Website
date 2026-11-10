@@ -149,13 +149,13 @@ describe('PRD fidelity — content that must NOT be present', () => {
 })
 
 describe('home art direction — structure stays content-first', () => {
-  it('renders the five services as a bento grid, not a carousel', () => {
+  it('renders the five services as a snapping side-scroller', () => {
     const home = render('/')
-    expect(home).toContain('service-grid')
-    expect(home.match(/class="service-card[ "]/g) || []).toHaveLength(5)
-    // The clipped carousel needed arrow buttons and horizontal scrolling.
-    expect(home).not.toContain('carousel-track')
-    expect(home).not.toContain('Show next services')
+    expect(home).toContain('service-track')
+    expect(home.match(/class="service-card"/g) || []).toHaveLength(5)
+    expect(home).toContain('Show previous service')
+    expect(home).toContain('Show next service')
+    expect(home).toContain('Rehabilitation services')
   })
 
   it('keeps the four approach principles in the hero panel', () => {

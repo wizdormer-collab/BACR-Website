@@ -2856,20 +2856,42 @@ p {
   background: linear-gradient(135deg, var(--primary-soft), #e2defc);
 }
 
-/* Services: a five-card bento instead of a clipped carousel -------------- */
+/* Services: a sideways shelf that snaps card by card -------------------- */
 
 .services-section {
   background: linear-gradient(180deg, #ffffff 0%, #f7f8fb 100%);
 }
 
-.service-grid {
+.service-carousel {
+  position: relative;
+}
+
+.service-track {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 20px;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(272px, 29%, 364px);
+  gap: 22px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scroll-padding-left: 2px;
+  padding: 6px 2px 16px;
+  scrollbar-width: none;
+}
+
+.service-track::-webkit-scrollbar {
+  display: none;
+}
+
+.service-track:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 18px;
 }
 
 .service-card {
-  grid-column: span 2;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   background: var(--panel);
@@ -2881,8 +2903,47 @@ p {
     box-shadow 0.26s ease, border-color 0.26s ease;
 }
 
-.service-card--wide {
-  grid-column: span 3;
+.service-nav-row {
+  display: none;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.service-nav {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--primary);
+  box-shadow: 0 10px 26px rgba(22, 9, 88, 0.14);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.service-nav:hover:not(:disabled) {
+  color: var(--primary-dark);
+  box-shadow: 0 14px 32px rgba(22, 9, 88, 0.18);
+  transform: translateY(-1px);
+}
+
+.service-nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+  box-shadow: none;
+}
+
+@media (min-width: 900px) {
+  .service-nav-row {
+    display: flex;
+  }
+
+  .service-nav {
+    display: inline-flex;
+  }
 }
 
 .service-card:hover {
@@ -3197,17 +3258,8 @@ p {
     margin-top: -30px;
   }
 
-  .service-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .service-card,
-  .service-card--wide {
-    grid-column: span 1;
-  }
-
-  .service-card:last-child {
-    grid-column: 1 / -1;
+  .service-track {
+    grid-auto-columns: clamp(258px, 46%, 340px);
   }
 
   .process {
@@ -3267,12 +3319,9 @@ p {
     padding: 16px 18px;
   }
 
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .service-card:last-child {
-    grid-column: auto;
+  .service-track {
+    grid-auto-columns: 84%;
+    gap: 16px;
   }
 
   .service-card {

@@ -192,6 +192,36 @@ function DoneDifferently() {
 }
 
 function ServicesSection() {
+  const trackRef = useRef(null)
+  const [canPrev, setCanPrev] = useState(false)
+  const [canNext, setCanNext] = useState(false)
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return undefined
+
+    const update = () => {
+      setCanPrev(track.scrollLeft > 4)
+      setCanNext(track.scrollLeft + track.clientWidth < track.scrollWidth - 4)
+    }
+
+    update()
+    track.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      track.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [])
+
+  const slide = (dir) => {
+    const track = trackRef.current
+    if (!track) return
+    const card = track.firstElementChild
+    const step = card ? card.getBoundingClientRect().width + 22 : track.clientWidth * 0.8
+    track.scrollBy({ left: dir * step, behavior: 'smooth' })
+  }
+
   return (
     <section className="section services-section">
       <div className="container">
@@ -200,28 +230,54 @@ function ServicesSection() {
           <h2>{services.headline}</h2>
         </div>
 
-        <div className="service-grid">
-          {services.items.map((service, i) => (
-            <article
-              className={`service-card ${i > 2 ? 'service-card--wide' : ''}`}
-              key={service.slug}
+        <div className="service-carousel">
+          <div
+            className="service-track"
+            ref={trackRef}
+            tabIndex={0}
+            role="region"
+            aria-label="Rehabilitation services"
+          >
+            {services.items.map((service, i) => (
+              <article className="service-card" key={service.slug}>
+                <div className="service-card-top">
+                  <span className="service-icon">
+                    <Icon name={service.icon} size={26} />
+                  </span>
+                  <span className="service-index" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                </div>
+                <h3>{service.title}</h3>
+                <p>{service.text}</p>
+                <Link to={`/services#${service.slug}`} className="service-link">
+                  Explore service
+                  <span aria-hidden="true">&rarr;</span>
+                </Link>
+              </article>
+            ))}
+          </div>
+
+          <div className="service-nav-row">
+            <button
+              type="button"
+              className="service-nav"
+              onClick={() => slide(-1)}
+              disabled={!canPrev}
+              aria-label="Show previous service"
             >
-              <div className="service-card-top">
-                <span className="service-icon">
-                  <Icon name={service.icon} size={26} />
-                </span>
-                <span className="service-index" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-              </div>
-              <h3>{service.title}</h3>
-              <p>{service.text}</p>
-              <Link to={`/services#${service.slug}`} className="service-link">
-                Explore service
-                <span aria-hidden="true">&rarr;</span>
-              </Link>
-            </article>
-          ))}
+              <Icon name="chevronLeft" size={20} />
+            </button>
+            <button
+              type="button"
+              className="service-nav"
+              onClick={() => slide(1)}
+              disabled={!canNext}
+              aria-label="Show next service"
+            >
+              <Icon name="chevronRight" size={20} />
+            </button>
+          </div>
         </div>
       </div>
     </section>
