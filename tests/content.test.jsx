@@ -49,6 +49,17 @@ describe('PRD fidelity — content that must be present', () => {
     expect(html).toContain('faq__item')
   })
 
+  it('puts the About link directly under the home pull quote', () => {
+    const home = render('/')
+    const quote = home.indexOf('One patient. One coordinated journey.')
+    const link = home.indexOf('Learn more about BACR')
+    expect(quote).toBeGreaterThan(-1)
+    expect(link).toBeGreaterThan(quote)
+    // Nothing from the right-hand principles column should sit between them.
+    expect(home.slice(quote, link)).not.toContain('feature-list')
+    expect(home.slice(quote, link + 'Learn more about BACR'.length)).toMatch(/href="[^"]*\/about"/)
+  })
+
   it('shows the holding state when no contact details are configured', () => {
     const html = render('/contact')
     expect(html).toContain('Contact details coming soon')

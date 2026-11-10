@@ -565,6 +565,11 @@ p {
   margin: 30px 0;
 }
 
+/* CTA immediately under the home pull quote. */
+.quote-link {
+  margin-top: 18px;
+}
+
 .callout {
   background: linear-gradient(135deg, var(--primary-deep), var(--primary));
   color: #fff;

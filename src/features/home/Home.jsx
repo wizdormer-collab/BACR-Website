@@ -163,6 +163,9 @@ function DoneDifferently() {
               </p>
             ))}
             <blockquote className="quote mb-0">{doneDifferently.pullQuote}</blockquote>
+            <Link to="/about" className="btn btn-outline quote-link">
+              Learn more about BACR
+            </Link>
           </div>
 
           <div className="feature-list">
@@ -179,9 +182,6 @@ function DoneDifferently() {
                 </div>
               </div>
             ))}
-            <Link to="/about" className="btn btn-outline">
-              Learn more about BACR
-            </Link>
           </div>
         </div>
       </div>
