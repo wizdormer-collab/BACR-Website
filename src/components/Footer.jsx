@@ -9,7 +9,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer-grid">
-          <div>
+          <div className="footer-brand-col">
             <div className="footer-brand">
               <img
                 src={whiteLogo}
@@ -27,8 +27,8 @@ export default function Footer() {
             <p>{brand.location}</p>
           </div>
 
-          <div>
-            <h4>Quick Links</h4>
+          <div className="footer-links-col">
+            <h4>Explore</h4>
             <ul className="footer-links">
               {nav.map((item) => (
                 <li key={item.to}>

@@ -51,3 +51,23 @@ describe('the original design tokens are the brand values', () => {
     expect(block).toMatch(/width:\s*auto/)
   })
 })
+
+describe('art direction never breaks the content layers', () => {
+  it('the home services use a grid that collapses on small screens', () => {
+    expect(css).toMatch(/\.service-grid\s*\{[^}]*display:\s*grid/)
+    expect(css).toMatch(/@media \(max-width: 640px\)\s*\{[\s\S]*?\.service-grid\s*\{\s*grid-template-columns:\s*1fr/)
+  })
+
+  it('the hero artwork is decorative and cannot be dragged or selected', () => {
+    expect(css).toMatch(/\.hero-bloom\s*\{[^}]*pointer-events:\s*none/)
+    expect(css).toMatch(/\.audience-svg\s*\{[^}]*position:\s*absolute/)
+  })
+
+  it('light inner-page heroes keep the bloom hidden', () => {
+    expect(css).toMatch(/\.page-hero\.light \.page-hero-art\s*\{\s*display:\s*none/)
+  })
+
+  it('motion-heavy hover effects are dropped for reduced motion', () => {
+    expect(css).toMatch(/@media \(prefers-reduced-motion: reduce\)[\s\S]*\.service-card/)
+  })
+})

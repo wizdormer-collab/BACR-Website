@@ -147,3 +147,45 @@ describe('PRD fidelity — content that must NOT be present', () => {
     expect(html).not.toContain('Meet the team')
   })
 })
+
+describe('home art direction — structure stays content-first', () => {
+  it('renders the five services as a bento grid, not a carousel', () => {
+    const home = render('/')
+    expect(home).toContain('service-grid')
+    expect(home.match(/class="service-card[ "]/g) || []).toHaveLength(5)
+    // The clipped carousel needed arrow buttons and horizontal scrolling.
+    expect(home).not.toContain('carousel-track')
+    expect(home).not.toContain('Show next services')
+  })
+
+  it('keeps the four approach principles in the hero panel', () => {
+    const home = render('/')
+    expect(home).toContain('hero-panel')
+    expect(home.match(/class="approach-row/g) || []).toHaveLength(4)
+    for (const title of ['Safety', 'Coordination', 'Individualisation', 'Measurement']) {
+      expect(home).toContain(title)
+    }
+  })
+
+  it('hides the decorative brand artwork from assistive tech', () => {
+    const home = render('/')
+    expect(home).toContain('hero-bloom')
+    expect(home.match(/audience-svg/g) || []).toHaveLength(2)
+    // Every generated SVG is aria-hidden; none of it is content.
+    expect(home.match(/<svg[^>]*hero-bloom[^>]*aria-hidden="true"/g) || []).toHaveLength(1)
+  })
+
+  it('renders the process as a numbered rail with the PRD steps', () => {
+    const home = render('/')
+    expect(home).toContain('process-list')
+    expect(home.match(/class="process-step"/g) || []).toHaveLength(5)
+    expect(home).toContain('process-num')
+  })
+
+  it('keeps the audience headings as PRD copy', () => {
+    const home = render('/')
+    expect(home).toContain('Helping children develop, participate and thrive.')
+    expect(home).toContain('Supporting recovery, independence and participation.')
+    expect(home.match(/class="audience-art/g) || []).toHaveLength(2)
+  })
+})
