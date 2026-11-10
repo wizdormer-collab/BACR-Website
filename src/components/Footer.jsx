@@ -19,12 +19,12 @@ export default function Footer() {
                 loading="lazy"
                 decoding="async"
               />
-              <span>
+              <div className="footer-brand-text">
                 <strong>{brand.name}</strong>
+                <span>{brand.location}</span>
                 <span>{brand.tagline}</span>
-              </span>
+              </div>
             </div>
-            <p>{brand.location}</p>
           </div>
 
           <div className="footer-links-col">

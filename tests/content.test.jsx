@@ -203,3 +203,16 @@ describe('care coordinator closing block', () => {
     expect(list).toBeGreaterThan(quote)
   })
 })
+
+describe('footer brand block', () => {
+  it('puts the address directly under the centre name, above the tagline', () => {
+    const home = render('/')
+    const footer = home.slice(home.indexOf('footer-brand-text'))
+    const name = footer.indexOf('Bodija Advanced Centre for Rehabilitation')
+    const address = footer.indexOf('Bodija, Ibadan, Oyo State, Nigeria')
+    const tagline = footer.indexOf('Rehabilitation, coordinated around you.')
+    expect(name).toBeGreaterThan(-1)
+    expect(address).toBeGreaterThan(name)
+    expect(tagline).toBeGreaterThan(address)
+  })
+})

@@ -980,6 +980,11 @@ a.contact-item:hover {
   width: auto;
 }
 
+.footer-brand-text {
+  display: grid;
+  gap: 2px;
+}
+
 .footer-brand strong {
   color: #fff;
   display: block;
