@@ -3502,3 +3502,13 @@ p {
     animation: none;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .service-track {
+    scroll-behavior: auto;
+  }
+
+  .service-nav {
+    transition: none;
+  }
+}
