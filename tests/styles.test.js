@@ -80,3 +80,18 @@ describe('the hero trust strip centres each icon-and-label pair', () => {
     expect(block).not.toMatch(/align-items:\s*flex-start/)
   })
 })
+
+describe('the home approach headline is the display moment of its column', () => {
+  it('runs large and bold, and spans the full width of the feature column', () => {
+    const block = (css.match(/\.feature-list \.approach-title\s*\{[^}]*\}/) || [''])[0]
+    expect(block).toMatch(/font-size:\s*clamp\(/)
+    expect(block).toMatch(/font-weight:\s*800/)
+    expect(block).toMatch(/text-wrap:\s*balance/)
+    expect(block).toMatch(/max-width:\s*100%/)
+
+    // The section head's 720px cap once left the heading narrower than the
+    // cards beneath it on tablet widths.
+    const head = (css.match(/\.feature-list \.section-head\s*\{[^}]*\}/) || [''])[0]
+    expect(head).toMatch(/max-width:\s*100%/)
+  })
+})

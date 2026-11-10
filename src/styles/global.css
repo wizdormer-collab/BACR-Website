@@ -3345,3 +3345,32 @@ p {
     opacity: 0.28;
   }
 }
+
+/* Home: "Care that connects." carries the right column -------------------- */
+
+.feature-list .section-head {
+  max-width: 100%;
+}
+
+.feature-list .approach-title {
+  font-size: clamp(2.5rem, 5.6vw, 5.25rem);
+  font-weight: 800;
+  line-height: 0.93;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  margin-bottom: 0;
+}
+
+@media (max-width: 980px) {
+  .feature-list .approach-title {
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-list .approach-title {
+    font-size: clamp(2.25rem, 12vw, 3rem);
+  }
+}

@@ -173,7 +173,7 @@ function DoneDifferently() {
           <div className="feature-list">
             <div className="section-head">
               <span className="kicker">{approach.kicker}</span>
-              <h2>{approach.headline}</h2>
+              <h2 className="approach-title">{approach.headline}</h2>
             </div>
             {approach.principles.map((item) => (
               <div key={item.title} className="feature">
