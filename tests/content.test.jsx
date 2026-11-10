@@ -165,6 +165,8 @@ describe('home art direction — structure stays content-first', () => {
     for (const title of ['Safety', 'Coordination', 'Individualisation', 'Measurement']) {
       expect(home).toContain(title)
     }
+    // The panel header carries the label only — no counter badge.
+    expect(home).not.toContain('04 principles')
   })
 
   it('hides the decorative brand artwork from assistive tech', () => {

@@ -2717,17 +2717,6 @@ p {
   color: var(--muted);
 }
 
-.hero-panel-count {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--primary);
-  background: var(--primary-soft);
-  border-radius: 999px;
-  padding: 4px 9px;
-  white-space: nowrap;
-}
-
 .hero-stack {
   display: grid;
   grid-template-columns: 1fr;

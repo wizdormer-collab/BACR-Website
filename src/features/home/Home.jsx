@@ -88,7 +88,6 @@ function Hero() {
           <div className="hero-panel">
             <div className="hero-panel-head">
               <span className="hero-panel-label">Our approach</span>
-              <span className="hero-panel-count">04 principles</span>
             </div>
             <div className="hero-stack">
               {approach.principles.map((card, i) => {
