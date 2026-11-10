@@ -42,4 +42,12 @@ describe('the original design tokens are the brand values', () => {
       expect(source).toContain('split split--top')
     }
   })
+
+  it('the footer logo keeps its aspect ratio', () => {
+    // Intrinsic width/height attributes plus a fixed CSS height squashed the
+    // lockup when the column was narrower than the attribute width.
+    const block = (css.match(/\.footer-brand img\s*\{[^}]*\}/) || [''])[0]
+    expect(block).toMatch(/height:\s*84px/)
+    expect(block).toMatch(/width:\s*auto/)
+  })
 })

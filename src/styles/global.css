@@ -970,19 +970,14 @@ a.contact-item:hover {
 
 .footer-brand {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 10px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
 .footer-brand img {
-  height: 64px;
-}
-
-/* The address sits directly under the logo row, not below the browser's
-   default paragraph margin. */
-.footer-brand + p {
-  margin-top: 0;
+  height: 84px;
+  width: auto;
 }
 
 .footer-brand strong {
