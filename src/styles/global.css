@@ -1175,8 +1175,10 @@ a.contact-item:hover {
 
 .trust-item {
   display: flex;
-  gap: 13px;
-  align-items: flex-start;
+  gap: 11px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .trust-item .ti-icon {

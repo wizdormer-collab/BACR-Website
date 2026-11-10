@@ -71,3 +71,12 @@ describe('art direction never breaks the content layers', () => {
     expect(css).toMatch(/@media \(prefers-reduced-motion: reduce\)[\s\S]*\.service-card/)
   })
 })
+
+describe('the hero trust strip centres each icon-and-label pair', () => {
+  it('does not left-align the icon against a top-aligned label', () => {
+    const block = (css.match(/\.trust-item\s*\{[^}]*\}/) || [''])[0]
+    expect(block).toMatch(/justify-content:\s*center/)
+    expect(block).toMatch(/align-items:\s*center/)
+    expect(block).not.toMatch(/align-items:\s*flex-start/)
+  })
+})
