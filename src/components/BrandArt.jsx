@@ -72,7 +72,7 @@ export function AudienceArt({ variant }) {
       >
         <circle cx="500" cy="66" r="150" fill="#ffffff" fillOpacity="0.07" />
         <circle cx="500" cy="66" r="82" fill="#ffffff" fillOpacity="0.06" />
-        <circle cx="492" cy="74" r="46" fill="#00e24b" fillOpacity="0.28" />
+        <circle cx="492" cy="74" r="46" fill="#00e24b" fillOpacity="0.8" />
 
         <g transform="rotate(-8 250 286)">
           <rect x="128" y="252" width="150" height="86" rx="22" fill="#ffffff" fillOpacity="0.16" />

@@ -3813,3 +3813,55 @@ p {
     linear-gradient(135deg, #101b26 0%, #1a2a44 58%, #24365c 100%);
   box-shadow: 0 18px 44px rgba(16, 27, 38, 0.18);
 }
+
+/* ==========================================================================
+   Brand palette lock
+   The logo has exactly three colours: navy #160958, indigo #534cea and
+   green #00e24b. Every coloured surface below is one of those three (or a
+   neutral/tint of them), so the site and the mark stop drifting apart.
+   ========================================================================== */
+
+.footer {
+  background:
+    radial-gradient(circle at 88% -10%, rgba(0, 226, 75, 0.1), transparent 32%),
+    radial-gradient(circle at 2% 110%, rgba(83, 76, 234, 0.34), transparent 44%),
+    var(--brand-navy);
+  color: #d8d5f2;
+}
+
+.footer-brand span,
+.footer p,
+.footer-bottom {
+  color: #b9b5dc;
+}
+
+.footer-links a {
+  color: #d8d5f2;
+}
+
+.footer-bottom .tagline {
+  color: #b9b5dc;
+}
+
+.callout {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(0, 226, 75, 0.11), transparent 40%),
+    radial-gradient(circle at 10% 100%, rgba(83, 76, 234, 0.55), transparent 56%),
+    var(--brand-navy);
+  box-shadow: 0 18px 44px rgba(22, 9, 88, 0.24);
+}
+
+/* Audience panels: navy into the logo indigo / logo green. */
+.audience-art {
+  background: linear-gradient(140deg, #160958 0%, #3b32c8 52%, #534cea 100%);
+  box-shadow: 0 16px 36px rgba(22, 9, 88, 0.18);
+}
+
+.audience-art.tone-2 {
+  background: linear-gradient(140deg, #160958 0%, #0a6b32 52%, #00e24b 100%);
+}
+
+/* The scroll rail is the logo indigo, not a separate violet. */
+.process-list::before {
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
