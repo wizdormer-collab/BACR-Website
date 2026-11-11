@@ -3714,7 +3714,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 9px;
+  gap: 7px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -3724,8 +3724,8 @@ p {
   border: 1px solid var(--border);
   background: #fff;
   border-radius: 999px;
-  padding: 8px 14px;
-  font-size: 0.875rem;
+  padding: 7px 11px;
+  font-size: 0.8125rem;
   line-height: 1.2;
   color: var(--text);
 }
@@ -3864,4 +3864,159 @@ p {
 /* The scroll rail is the logo indigo, not a separate violet. */
 .process-list::before {
   background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+/* ==========================================================================
+   Tighter vertical rhythm
+   The layout was carrying too much dead air between bands and inside the
+   process/list blocks. These values keep the calm spacing but remove the
+   long empty stretches on a normal laptop screen.
+   ========================================================================== */
+
+.section {
+  padding: 56px 0;
+}
+
+.hero {
+  padding: 48px 0;
+}
+
+.hero h1 {
+  margin-bottom: 16px;
+}
+
+.hero p.lead {
+  margin-bottom: 14px;
+}
+
+.hero-note {
+  margin-bottom: 20px;
+}
+
+.hero-actions {
+  margin-bottom: 0;
+}
+
+.section-head {
+  margin-bottom: 28px;
+}
+
+.conditions {
+  margin-top: 32px;
+  padding-top: 24px;
+}
+
+.process-step {
+  padding: 10px 0;
+}
+
+.audience-rows {
+  gap: 32px;
+}
+
+.audience-art {
+  min-height: 280px;
+}
+
+.feature {
+  padding: 16px 18px;
+}
+
+.callout {
+  padding: 34px;
+}
+
+.footer {
+  padding: 44px 0 22px;
+}
+
+@media (min-width: 981px) {
+  .process-intro {
+    position: sticky;
+    top: calc(var(--header-h) + 28px);
+  }
+}
+
+@media (max-width: 980px) {
+  .section {
+    padding: 46px 0;
+  }
+
+  .hero {
+    padding: 44px 0 40px;
+  }
+
+  .section-head {
+    margin-bottom: 26px;
+  }
+
+  .audience-art {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 40px 0;
+  }
+
+  .hero {
+    padding: 40px 0 36px;
+  }
+
+  .section-head {
+    margin-bottom: 22px;
+  }
+
+  .process-step {
+    padding: 10px 0;
+  }
+
+  .audience-art {
+    min-height: 240px;
+  }
+
+  .callout {
+    padding: 28px 20px;
+  }
+}
+
+
+/* Services index: three cards, then two wider cards, so the five items
+   fill both rows instead of leaving the last cell empty. */
+.services-index-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.services-index-grid > .card {
+  grid-column: span 2;
+}
+
+.services-index-grid > .card:nth-last-child(-n + 2) {
+  grid-column: span 3;
+}
+
+@media (max-width: 980px) {
+  .services-index-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .services-index-grid > .card,
+  .services-index-grid > .card:nth-last-child(-n + 2) {
+    grid-column: span 1;
+  }
+
+  .services-index-grid > .card:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .services-index-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-index-grid > .card:last-child {
+    grid-column: auto;
+  }
 }

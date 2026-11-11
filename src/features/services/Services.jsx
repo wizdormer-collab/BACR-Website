@@ -11,7 +11,7 @@ export default function Services() {
 
       <section className="section">
         <div className="container">
-          <div className="grid grid-auto">
+          <div className="grid services-index-grid">
             {services.items.map((service) => (
               <article key={service.slug} className="card" id={service.slug}>
                 <div className="icon-tile">
