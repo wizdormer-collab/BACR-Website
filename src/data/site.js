@@ -186,6 +186,21 @@ export const services = {
   ],
 }
 
+// A home-page summary of the conditions already named in the PRD's service
+// and audience lists. Exact wording from those lists — no new claims.
+export const supportedConditions = [
+  'Movement and mobility',
+  'Balance and coordination',
+  'Walking and transfers',
+  'Activities of daily living',
+  'Speech and language difficulties',
+  'Hearing and listening difficulties',
+  'Swallowing and feeding support',
+  'Developmental concerns',
+  'Behaviour and self-regulation',
+  'Attention and participation',
+]
+
 export const children = {
   kicker: 'For Children',
   headline: 'Helping children develop, participate and thrive.',

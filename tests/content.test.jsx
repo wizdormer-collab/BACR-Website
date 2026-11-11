@@ -83,6 +83,12 @@ describe('PRD fidelity — content that must be present', () => {
     expect(html).toContain('Submit Enquiry')
   })
 
+  it('keeps every inner page opener on the light clinical surface', () => {
+    for (const path of allPages.slice(1)) {
+      expect(render(path)).toMatch(/class="page-hero light"/)
+    }
+  })
+
   it('closes most pages on the Start Your Journey band', () => {
     for (const path of ['/about', '/services', '/children', '/adults', '/team', '/referrers']) {
       expect(render(path)).toContain('Start Your Journey')
@@ -171,10 +177,11 @@ describe('home art direction — structure stays content-first', () => {
 
   it('hides the decorative brand artwork from assistive tech', () => {
     const home = render('/')
-    expect(home).toContain('hero-bloom')
+    expect(home).toContain('hero-mark-light')
     expect(home.match(/audience-svg/g) || []).toHaveLength(2)
-    // Every generated SVG is aria-hidden; none of it is content.
-    expect(home.match(/<svg[^>]*hero-bloom[^>]*aria-hidden="true"/g) || []).toHaveLength(1)
+    // Every decorative graphic is inert: it carries no alt text and no role.
+    expect(home).toMatch(/<img(?=[^>]*hero-mark-light)(?=[^>]*alt="")[^>]*>/)
+    expect(home).toMatch(/<svg[^>]*audience-svg[^>]*aria-hidden="true"/)
   })
 
   it('renders the process as a numbered rail with the PRD steps', () => {

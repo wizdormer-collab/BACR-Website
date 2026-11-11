@@ -3512,3 +3512,304 @@ p {
     transition: none;
   }
 }
+
+/* ==========================================================================
+   Clinical credibility pass
+   The brand stays indigo + green, but the surface language moves from
+   "launch page" to "clinic": light hero, calmer type, flatter cards, and the
+   PRD's conditions surfaced as plain language. No new claims.
+   ========================================================================== */
+
+/* Light hero -------------------------------------------------------------- */
+
+.hero {
+  background:
+    radial-gradient(circle at 84% 6%, rgba(83, 76, 234, 0.07), transparent 34%),
+    linear-gradient(180deg, #ffffff 0%, #f5f7fb 100%);
+  color: var(--text);
+  padding: 72px 0 80px;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero::before,
+.hero::after {
+  display: none;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  flex: none;
+}
+
+.hero-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.hero-location svg {
+  color: var(--primary);
+  flex: none;
+}
+
+.hero h1 {
+  color: var(--text);
+  font-size: clamp(2.25rem, 4.6vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  max-width: 16ch;
+  margin-bottom: 20px;
+}
+
+.hero p.lead {
+  color: var(--muted);
+}
+
+.hero-note {
+  color: var(--text);
+}
+
+.hero-visual {
+  min-height: 440px;
+}
+
+.hero-mark-light {
+  position: absolute;
+  right: -34px;
+  top: -16px;
+  width: 330px;
+  height: auto;
+  opacity: 0.06;
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  right: 34px;
+  top: 50%;
+  translate: 0 -50%;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  border: 1px solid rgba(83, 76, 234, 0.1);
+  box-shadow: 0 0 0 42px rgba(83, 76, 234, 0.025);
+  pointer-events: none;
+}
+
+.hero-panel {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(22, 9, 88, 0.07);
+  backdrop-filter: none;
+}
+
+.hero-panel-head {
+  padding: 14px 16px;
+}
+
+.approach-row {
+  border-radius: 10px;
+}
+
+.approach-icon {
+  border-radius: 10px;
+}
+
+/* Trust strip sits in the page flow again --------------------------------- */
+
+.trust-strip {
+  margin-top: 0;
+  padding: 0;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.trust-strip .trust-grid {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 24px 0;
+}
+
+.trust-item .ti-icon {
+  background: var(--primary-soft);
+  border: 1px solid #e5e2fb;
+}
+
+/* Calmer type and flatter cards ------------------------------------------- */
+
+.section-head h2 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.service-card {
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(22, 9, 88, 0.07);
+}
+
+.service-nav {
+  box-shadow: 0 6px 18px rgba(22, 9, 88, 0.1);
+}
+
+.audience-art {
+  border-radius: 18px;
+  box-shadow: 0 16px 36px rgba(22, 9, 88, 0.14);
+}
+
+.audience-art.tone-2 {
+  background: linear-gradient(140deg, #0b3d2b 0%, #0f6b46 58%, #178a56 100%);
+}
+
+/* Conditions band: the PRD's own condition names, in plain language ------- */
+
+.conditions {
+  margin-top: 46px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+}
+
+.conditions-label {
+  font-size: 0.71875rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.conditions-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.conditions-list li {
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+/* Softer inner-page bands -------------------------------------------------- */
+
+.page-hero {
+  background:
+    radial-gradient(circle at 84% 14%, rgba(0, 226, 75, 0.08), transparent 30%),
+    linear-gradient(135deg, var(--primary-deep) 0%, #413bc9 62%, #5a54e2 100%);
+}
+
+.footer {
+  background:
+    radial-gradient(circle at 88% -10%, rgba(0, 226, 75, 0.05), transparent 30%),
+    radial-gradient(circle at 2% 110%, rgba(83, 76, 234, 0.2), transparent 42%),
+    #101b26;
+}
+
+@media (max-width: 980px) {
+  .hero {
+    padding: 56px 0 64px;
+  }
+
+  .hero-visual {
+    min-height: 0;
+    padding: 10px 0 4px;
+  }
+
+  .hero-visual::before {
+    display: none;
+  }
+
+  .hero-mark-light {
+    width: 250px;
+    right: -52px;
+    top: -20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero h1 {
+    font-size: clamp(2rem, 9vw, 2.5rem);
+  }
+
+  .hero-location {
+    margin-bottom: 16px;
+  }
+
+  .hero-panel {
+    width: 100%;
+  }
+
+  .conditions {
+    margin-top: 34px;
+    padding-top: 26px;
+  }
+
+  .conditions-list {
+    gap: 7px;
+  }
+
+  .conditions-list li {
+    font-size: 0.8125rem;
+    padding: 7px 12px;
+  }
+}
+
+/* Calmer audience panels: the illustrations stay, but in clinical tones.
+   Vivid indigo/emerald gradients read as a product launch; slate blue and
+   muted teal read as a clinic. */
+.audience-art {
+  background: linear-gradient(140deg, #1b2a4a 0%, #2c4066 58%, #3a5480 100%);
+  box-shadow: 0 16px 36px rgba(16, 27, 38, 0.14);
+}
+
+.audience-art.tone-2 {
+  background: linear-gradient(140deg, #173f36 0%, #1f5a4c 58%, #2c7263 100%);
+}
+
+/* The closing band keeps the brand ink, not a bright SaaS gradient. */
+.callout {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(83, 76, 234, 0.22), transparent 38%),
+    linear-gradient(135deg, #101b26 0%, #1a2a44 58%, #24365c 100%);
+  box-shadow: 0 18px 44px rgba(16, 27, 38, 0.18);
+}

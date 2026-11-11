@@ -30,6 +30,7 @@ export default function Contact() {
   return (
     <>
       <PageHero
+        variant="light"
         title={contact.headline}
         subtitle={`${brand.name} - ${brand.location}`}
       />

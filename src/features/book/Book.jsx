@@ -120,6 +120,7 @@ export default function Book() {
   return (
     <>
       <PageHero
+        variant="light"
         kicker={journey.kicker}
         title={booking.headline}
         subtitle={booking.subtext}

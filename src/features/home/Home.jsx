@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom'
 import usePageTitle from '../../lib/usePageTitle.js'
 import CtaBand from '../../components/CtaBand.jsx'
 import Icon from '../../components/Icon.jsx'
-import { HeroBloom, AudienceArt } from '../../components/BrandArt.jsx'
+import { AudienceArt } from '../../components/BrandArt.jsx'
 import logo from '../../assets/bacr-logo.webp'
+import mark from '../../assets/bacr-mark.svg'
 import {
+  brand,
   hero,
   doneDifferently,
   approach,
   services,
+  supportedConditions,
   howItWorks,
   children,
   adults,
@@ -65,7 +68,11 @@ function Hero() {
     <section className="hero">
       <div className="container hero-inner">
         <div className="hero-copy">
-          <span className="eyebrow">{hero.eyebrow}</span>
+          <p className="hero-eyebrow">{hero.eyebrow}</p>
+          <p className="hero-location">
+            <Icon name="pin" size={15} />
+            {brand.location}
+          </p>
           <h1>{hero.headline}</h1>
           {hero.paragraphs.map((text) => (
             <p className="lead" key={text.slice(0, 24)}>
@@ -74,17 +81,17 @@ function Hero() {
           ))}
           <p className="hero-note">{hero.note}</p>
           <div className="hero-actions">
-            <Link to={hero.primaryCta.to} className="btn btn-light">
+            <Link to={hero.primaryCta.to} className="btn btn-primary">
               {hero.primaryCta.label}
             </Link>
-            <Link to={hero.secondaryCta.to} className="btn btn-ghost-light">
+            <Link to={hero.secondaryCta.to} className="btn btn-outline">
               {hero.secondaryCta.label}
             </Link>
           </div>
         </div>
 
         <div className="hero-visual">
-          <HeroBloom />
+          <img src={mark} alt="" aria-hidden="true" className="hero-mark-light" />
           <div className="hero-panel">
             <div className="hero-panel-head">
               <span className="hero-panel-label">Our approach</span>
@@ -278,6 +285,15 @@ function ServicesSection() {
               <Icon name="chevronRight" size={20} />
             </button>
           </div>
+        </div>
+
+        <div className="conditions">
+          <span className="conditions-label">Areas of support</span>
+          <ul className="conditions-list">
+            {supportedConditions.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
