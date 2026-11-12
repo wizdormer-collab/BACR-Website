@@ -835,7 +835,11 @@ blockquote.pull {
 
 .team-inner {
   display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
+  /* Fixed rather than fractional: the discipline chips wrap into three rows
+     (478 / 502 / 433 px) whose widths come from their labels, and 520px is
+     the column width where all three fill evenly — a fractional column leaves
+     a dead pocket under the two shorter rows at some viewport widths. */
+  grid-template-columns: minmax(0, 1fr) 520px;
   align-items: center;
   gap: clamp(24px, 5vw, 64px);
   padding-block: clamp(32px, 4vw, 46px);
@@ -1230,9 +1234,12 @@ blockquote.coord-quote {
 
 .referrers-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  /* Copy left, the PRD's referral pitch + action right (see .referrers-aside):
+     two balanced columns instead of one paragraph with a button floating in
+     the whitespace at the far edge. */
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
   align-items: center;
-  gap: 32px;
+  gap: clamp(24px, 4vw, 56px);
   padding-block: clamp(30px, 4vw, 44px);
 }
 
@@ -1246,6 +1253,11 @@ blockquote.coord-quote {
   max-width: 70ch;
   color: var(--muted);
   font-size: 14px;
+}
+
+.referrers-aside .btn {
+  align-self: flex-start;
+  margin-top: 18px;
 }
 
 /* ---------- CTA band ---------- */
@@ -1284,7 +1296,10 @@ blockquote.coord-quote {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  /* auto (not 0.85fr): the three actions need 516px on one line, and a
+     fractional column at this container width only gave them 433px — which
+     wrapped them into an accidental-looking 2-then-1 stagger. */
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: clamp(30px, 5vw, 60px);
   padding-block: clamp(50px, 6vw, 78px);
@@ -1309,7 +1324,9 @@ blockquote.coord-quote {
 
 .cta-actions {
   display: flex;
-  flex-wrap: wrap;
+  /* nowrap: the auto grid column is sized to fit all three on one line, so
+     wrapping here would only ever be a rounding accident. */
+  flex-wrap: nowrap;
   justify-content: flex-end;
   gap: 12px;
 }
@@ -2027,7 +2044,7 @@ a.contact-item:hover .ci-value {
   line-height: 1.55;
 }
 
-.footer-links-col h4 {
+.footer-links-col h2 {
   margin-bottom: 14px;
   color: var(--muted);
   font-family: var(--font-body);

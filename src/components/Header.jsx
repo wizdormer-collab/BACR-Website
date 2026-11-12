@@ -50,7 +50,10 @@ export default function Header() {
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`.trim()}>
       <div className="container header-inner">
-        <Link to="/" className="brand" aria-label={`${brand.short} — home`}>
+        {/* No aria-label: the visible wordmark IS the link's accessible name.
+            An explicit label here tripped Lighthouse's label-content-name-
+            mismatch (visible text not inside "BACR — home"). */}
+        <Link to="/" className="brand">
           <img
             className="brand-mark"
             src={mark}

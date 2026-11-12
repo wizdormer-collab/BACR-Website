@@ -16,10 +16,10 @@ import {
   team,
   referrers,
 } from '../../data/site.js'
-import heroPhoto from '../../assets/home/hero-consultation.jpg'
-import childrenPhoto from '../../assets/home/children-family.jpg'
-import adultsPhoto from '../../assets/home/adults-session.jpg'
-import coordinatorPhoto from '../../assets/home/care-coordinator.jpg'
+import heroPhoto from '../../assets/home/hero-consultation.webp'
+import childrenPhoto from '../../assets/home/children-family.webp'
+import adultsPhoto from '../../assets/home/adults-session.webp'
+import coordinatorPhoto from '../../assets/home/care-coordinator.webp'
 
 const TRUST_ICONS = ['users', 'clipboard', 'activity']
 
@@ -330,9 +330,16 @@ function ReferrersStrip() {
           <h2>{referrers.headline}</h2>
           <p>{referrers.paragraphs.join(' ')}</p>
         </div>
-        <Link to="/referrers" className="btn btn-outline">
-          Make a Referral
-        </Link>
+        {/* The PRD's referral pitch (headline2/text), previously unused on the
+            home page: it fills the right column so the band isn't one paragraph
+            with a button adrift in whitespace. */}
+        <div className="card referrers-aside">
+          <h3>{referrers.headline2}</h3>
+          <p>{referrers.text}</p>
+          <Link to="/referrers" className="btn btn-outline">
+            Make a Referral
+          </Link>
+        </div>
       </div>
     </section>
   )

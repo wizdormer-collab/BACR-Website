@@ -30,7 +30,10 @@ export default function Footer() {
         </div>
 
         <div className="footer-links-col">
-          <h4>Explore</h4>
+          {/* h2, not h4: the footer follows the page's h2/h3 headings and a
+              level skip there is exactly what Lighthouse's heading-order audit
+              flags. */}
+          <h2>Explore</h2>
           <ul className="footer-links">
             {nav.slice(0, half).map((item) => (
               <li key={item.to}>
@@ -41,7 +44,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-links-col">
-          <h4>More</h4>
+          <h2>More</h2>
           <ul className="footer-links">
             {nav.slice(half).map((item) => (
               <li key={item.to}>

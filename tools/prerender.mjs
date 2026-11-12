@@ -39,11 +39,13 @@ const vite = await createServer({
 })
 
 try {
-  const [{ render }, { PAGE_ROUTES, REDIRECTS }, { SITE_BASE_PATH, canonicalUrl }] = await Promise.all([
-    vite.ssrLoadModule('/src/ssr.jsx'),
-    vite.ssrLoadModule('/src/lib/pages.js'),
-    vite.ssrLoadModule('/src/lib/site.config.js'),
-  ])
+  const [{ render }, { PAGE_ROUTES, REDIRECTS }, { SITE_BASE_PATH, canonicalUrl }, { PAGE_DESCRIPTIONS, PAGE_JSON_LD }] =
+    await Promise.all([
+      vite.ssrLoadModule('/src/ssr.jsx'),
+      vite.ssrLoadModule('/src/lib/pages.js'),
+      vite.ssrLoadModule('/src/lib/site.config.js'),
+      vite.ssrLoadModule('/src/lib/seo.js'),
+    ])
 
   let template = await readFile(path.join(DIST, 'index.html'), 'utf8')
 
@@ -73,7 +75,12 @@ try {
       return entry ? entry.file : match
     })
 
-  function buildPage({ markup, title, canonical, headExtra = '' }) {
+  // JSON-LD goes in verbatim; `<` is escaped so a future value containing
+  // `</script>` can never break out of the tag.
+  const jsonLdTag = (data) =>
+    `    <script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>\n    `
+
+  function buildPage({ markup, title, canonical, description, headExtra = '' }) {
     let html = template
     markup = rewriteAssets(markup)
     html = replaceOnce(html, /<title>[^<]*<\/title>/, () => `<title>${esc(title)}</title>`)
@@ -87,6 +94,18 @@ try {
       /(<meta name="twitter:title" content=")[^"]*(")/,
       (_match, open, close) => `${open}${esc(title)}${close}`,
     )
+    // The template ships one shared description (the home page's), so without
+    // this swap every route goes out as a duplicate. og/twitter get the same
+    // text so link unfurlers match the search snippet.
+    if (description) {
+      for (const pattern of [
+        /(<meta\s+name="description"\s+content=")[^"]*(")/,
+        /(<meta\s+property="og:description"\s+content=")[^"]*(")/,
+        /(<meta\s+name="twitter:description"\s+content=")[^"]*(")/,
+      ]) {
+        html = replaceOnce(html, pattern, (_match, open, close) => `${open}${esc(description)}${close}`)
+      }
+    }
     html = replaceOnce(
       html,
       /<\/head>/,
@@ -109,12 +128,19 @@ try {
   // 1. One static file per route.
   for (const { path: routePath } of PAGE_ROUTES) {
     const { html, title } = render(routePath)
+    const description = PAGE_DESCRIPTIONS[routePath]
+    // A route without a description would silently fall back to the shell's
+    // shared one — the exact defect this step exists to fix. Fail instead.
+    if (!description) throw new Error(`prerender: no meta description for route ${routePath}`)
+    const schema = PAGE_JSON_LD[routePath]
     await write(
       routePath === '/' ? 'index.html' : `${routePath.slice(1)}/index.html`,
       buildPage({
         markup: html,
         title: title ?? DEFAULT_TITLE,
         canonical: canonicalUrl(routePath),
+        description,
+        headExtra: schema ? jsonLdTag(schema) : '',
       }),
     )
   }
@@ -132,6 +158,8 @@ try {
         markup: html,
         title: DEFAULT_TITLE,
         canonical,
+        // The refresh target's snippet — this file is only a waystation.
+        description: PAGE_DESCRIPTIONS[to],
         headExtra: `<meta http-equiv="refresh" content="0; url=${esc(`${SITE_BASE_PATH}${to}/`)}" />\n    `,
       }),
     )
@@ -156,7 +184,7 @@ try {
       <div class="app">
         <header class="header">
           <div class="container header-inner">
-            <a class="brand" href="${SITE_BASE_PATH}/" aria-label="BACR - home">
+            <a class="brand" href="${SITE_BASE_PATH}/">
               <svg class="brand-mark" viewBox="0 0 320 320" width="40" height="40" aria-hidden="true">
                 <path fill="#534cea" d="M82 0L144 0L144 144L0 144L0 82C0 39 39 0 82 0Z" />
                 <path fill="#534cea" d="M176 176L320 176L320 238C320 281 281 320 238 320L176 320L176 176Z" />
