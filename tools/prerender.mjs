@@ -149,14 +149,13 @@ try {
   notFound = replaceOnce(
     notFound,
     /<div id="root"><\/div>/,
-    // Same structure PageHero emits, so the static page keeps the site's
-    // opening rhythm without needing the bundle to hydrate it. The button
-    // classes are the current stylesheet's, so they stay visibly white on
-    // the gradient rather than indigo-on-indigo.
+    // Same structure Header and PageHero emit, so the static page keeps the
+    // site's rhythm without needing the bundle to hydrate it. Every class is
+    // in the current stylesheet.
     () => `<div id="root">
       <div class="app">
         <header class="header">
-          <div class="header-inner">
+          <div class="container header-inner">
             <a class="brand" href="${SITE_BASE_PATH}/" aria-label="BACR - home">
               <svg class="brand-mark" viewBox="0 0 320 320" width="40" height="40" aria-hidden="true">
                 <path fill="#534cea" d="M82 0L144 0L144 144L0 144L0 82C0 39 39 0 82 0Z" />
@@ -164,18 +163,21 @@ try {
                 <path fill="#00e24b" d="M82 176L144 176L144 238C144 283 107 320 62 320L0 320L0 258C0 213 37 176 82 176Z" />
                 <path fill="#00e24b" d="M258 0L320 0L320 62C320 107 283 144 238 144L176 144L176 82C176 37 213 0 258 0Z" />
               </svg>
-              <span class="brand-text"><strong>BACR</strong></span>
+              <span class="brand-text">
+                <strong class="brand-name">Bodija Advanced Centre</strong>
+                <span class="brand-sub">for Rehabilitation</span>
+              </span>
             </a>
           </div>
         </header>
         <main id="main" class="page">
-          <section class="page-hero">
-            <div class="container">
+          <section class="page-hero light">
+            <div class="container page-hero-inner">
               <h1>Page not found</h1>
-              <p>The page you are looking for does not exist.</p>
+              <p class="lead">The page you are looking for does not exist.</p>
               <div class="hero-actions">
-                <a class="btn btn-light" href="${SITE_BASE_PATH}/">Back to home</a>
-                <a class="btn btn-ghost-light" href="${SITE_BASE_PATH}/contact/">Contact BACR</a>
+                <a class="btn btn-primary" href="${SITE_BASE_PATH}/">Back to home</a>
+                <a class="btn btn-outline" href="${SITE_BASE_PATH}/contact/">Contact BACR</a>
               </div>
             </div>
           </section>

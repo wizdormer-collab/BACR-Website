@@ -100,12 +100,6 @@ const paths = {
       <path d="M18.5 7c-2.5 0-4 2-4 4.5s1.5 4.5 3.5 4.5c1 0 1.8-.4 2.3-1" />
     </>
   ),
-  pin: (
-    <>
-      <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z" />
-      <circle cx="12" cy="10" r="2.6" />
-    </>
-  ),
   chevronLeft: <polyline points="14.5 5 8 12 14.5 19" />,
   chevronRight: <polyline points="9.5 5 16 12 9.5 19" />,
 }

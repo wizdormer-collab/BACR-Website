@@ -51,13 +51,14 @@ describe('PRD fidelity — content that must be present', () => {
 
   it('puts the About link directly under the home pull quote', () => {
     const home = render('/')
-    const quote = home.indexOf('One patient. One coordinated journey.')
-    const link = home.indexOf('Learn more about BACR')
+    const about = home.slice(home.indexOf('id="about"'))
+    const quote = about.indexOf('One patient. One coordinated journey.')
+    const link = about.indexOf('Learn more about BACR')
     expect(quote).toBeGreaterThan(-1)
     expect(link).toBeGreaterThan(quote)
     // Nothing from the right-hand principles column should sit between them.
-    expect(home.slice(quote, link)).not.toContain('feature-list')
-    expect(home.slice(quote, link + 'Learn more about BACR'.length)).toMatch(/href="[^"]*\/about"/)
+    expect(about.slice(quote, link)).not.toContain('class="principles"')
+    expect(about.slice(quote, link + 'Learn more about BACR'.length)).toMatch(/href="[^"]*\/about"/)
   })
 
   it('shows the holding state when no contact details are configured', () => {
@@ -154,60 +155,67 @@ describe('PRD fidelity — content that must NOT be present', () => {
   })
 })
 
-describe('home art direction — structure stays content-first', () => {
-  it('renders the five services as a snapping side-scroller', () => {
+describe('home art direction — Calm Clinic structure', () => {
+  it('renders the five services as a numbered editorial list', () => {
     const home = render('/')
-    expect(home).toContain('service-track')
-    expect(home.match(/class="service-card"/g) || []).toHaveLength(5)
-    expect(home).toContain('Show previous service')
-    expect(home).toContain('Show next service')
-    expect(home).toContain('Rehabilitation services')
+    expect(home).toContain('service-list')
+    expect(home.match(/class="service-row"/g) || []).toHaveLength(5)
+    expect(home.match(/class="service-num"/g) || []).toHaveLength(5)
+    // The old side-scroller is gone for good.
+    expect(home).not.toContain('service-track')
+    expect(home).not.toContain('Show previous service')
   })
 
-  it('keeps the four approach principles in the hero panel', () => {
+  it('keeps the four approach principles in the About column', () => {
     const home = render('/')
-    expect(home).toContain('hero-panel')
-    expect(home.match(/class="approach-row/g) || []).toHaveLength(4)
+    expect(home).toContain('class="principles"')
+    expect(home.match(/class="principle"/g) || []).toHaveLength(4)
     for (const title of ['Safety', 'Coordination', 'Individualisation', 'Measurement']) {
       expect(home).toContain(title)
     }
-    // The panel header carries the label only — no counter badge.
+    expect(home).not.toContain('hero-panel')
     expect(home).not.toContain('04 principles')
   })
 
-  it('hides the decorative brand artwork from assistive tech', () => {
+  it('uses labelled, honestly-attributed placeholder photography', () => {
     const home = render('/')
-    expect(home).toContain('hero-mark-light')
-    expect(home.match(/audience-svg/g) || []).toHaveLength(2)
-    // Every decorative graphic is inert: it carries no alt text and no role.
-    expect(home).toMatch(/<img(?=[^>]*hero-mark-light)(?=[^>]*alt="")[^>]*>/)
-    expect(home).toMatch(/<svg[^>]*audience-svg[^>]*aria-hidden="true"/)
+    for (const photo of [
+      'hero-consultation',
+      'children-family',
+      'adults-session',
+      'care-coordinator',
+    ]) {
+      expect(home).toContain(photo)
+    }
+    expect(home.match(/class="photo-tag"/g) || []).toHaveLength(3)
+    expect(home).toMatch(/alt="A clinician in conversation with a client/)
+    expect(home).toContain('Preview photography: Pexels. Not BACR staff or patients.')
   })
 
-  it('renders the process as a numbered rail with the PRD steps', () => {
+  it('renders the process as a five-step numbered grid', () => {
     const home = render('/')
-    expect(home).toContain('process-list')
+    expect(home).toContain('process-grid')
     expect(home.match(/class="process-step"/g) || []).toHaveLength(5)
-    expect(home).toContain('process-num')
+    expect(home.match(/class="process-num"/g) || []).toHaveLength(5)
   })
 
-  it('keeps the audience headings as PRD copy', () => {
+  it('keeps the audience headings and photos as PRD copy', () => {
     const home = render('/')
     expect(home).toContain('Helping children develop, participate and thrive.')
     expect(home).toContain('Supporting recovery, independence and participation.')
-    expect(home.match(/class="audience-art/g) || []).toHaveLength(2)
+    expect(home.match(/class="audience-photo"/g) || []).toHaveLength(2)
   })
 })
 
 describe('care coordinator closing block', () => {
-  it('puts the pull quote directly under the clinicians note', () => {
+  it('puts the clinicians note and pull quote under the coordinator list', () => {
     const home = render('/')
+    const list = home.indexOf('Understand your initial concerns')
     const note = home.indexOf('Your clinicians remain responsible')
     const quote = home.indexOf('The clinicians own the clinical care')
-    const list = home.indexOf('Your Clinical Case Coordinator helps to')
-    expect(note).toBeGreaterThan(-1)
+    expect(list).toBeGreaterThan(-1)
+    expect(note).toBeGreaterThan(list)
     expect(quote).toBeGreaterThan(note)
-    expect(list).toBeGreaterThan(quote)
   })
 })
 

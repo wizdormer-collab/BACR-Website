@@ -66,9 +66,11 @@ describe('build output stays on the current design system', () => {
     expect(prerender).not.toContain('btn--primary')
     expect(prerender).not.toContain('page-hero__inner')
     expect(prerender).not.toContain('btn-row')
-    expect(prerender).toContain('hero-actions')
-    expect(prerender).toContain('btn-light')
-    expect(prerender).toContain('btn-ghost-light')
+    expect(prerender).not.toContain('btn-light')
+    expect(prerender).toContain('page-hero light')
+    expect(prerender).toContain('page-hero-inner')
+    expect(prerender).toContain('btn-primary')
+    expect(prerender).toContain('btn-outline')
   })
 
   it('preloads the hashed self-hosted fonts on every prerendered page', () => {
@@ -77,15 +79,16 @@ describe('build output stays on the current design system', () => {
     expect(prerender).toContain('inter-latin-')
   })
 
-  it('imports the optimised WebP logos, not the large PNGs', () => {
-    const sources = [
-      'src/features/home/Home.jsx',
-      'src/features/about/About.jsx',
-      'src/components/Footer.jsx',
-    ].map((file) => readFileSync(path.join(ROOT, file), 'utf8'))
-    for (const source of sources) {
-      expect(source).not.toMatch(/bacr-logo(?:-white)?\.png/)
-      expect(source).toMatch(/bacr-logo(?:-white)?\.webp/)
+  it('imports the optimised brand assets, not the large PNGs', () => {
+    const about = readFileSync(path.join(ROOT, 'src/features/about/About.jsx'), 'utf8')
+    expect(about).not.toMatch(/bacr-logo(?:-white)?\.png/)
+    expect(about).toMatch(/bacr-logo\.webp/)
+
+    // Header and footer use the scalable mark, not the full lockup.
+    for (const file of ['src/components/Header.jsx', 'src/components/Footer.jsx']) {
+      const source = readFileSync(path.join(ROOT, file), 'utf8')
+      expect(source).not.toMatch(/bacr-logo(?:-white)?\.(?:png|webp)/)
+      expect(source).toContain('bacr-mark.svg')
     }
   })
 })
