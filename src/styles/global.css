@@ -2108,6 +2108,14 @@ a.contact-item:hover .ci-value {
   transform: none;
 }
 
+/* Printing (or any capture that never scrolls) must not ship blank pages. */
+@media print {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* ---------- Responsive ---------- */
 /* The full nav needs ~1100px to clear the logo and the header CTA, so it
    collapses to the hamburger well before the rest of the layout does. */
