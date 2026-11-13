@@ -24,18 +24,23 @@ import coordinatorPhoto from '../../assets/home/care-coordinator.webp'
 const TRUST_ICONS = ['users', 'clipboard', 'activity']
 
 function Headline() {
-  const [before, after] = hero.headline.split('coordinated')
+  // The green bar sits on "around you" — the promise the headline lands on.
+  const [before, after] = hero.headline.split('around you')
   if (after === undefined) return <h1>{hero.headline}</h1>
   return (
     <h1>
       {before}
-      <span className="hl">coordinated</span>
+      <span className="hl">around you</span>
       {after}
     </h1>
   )
 }
 
 function Hero() {
+  // The PRD note is two sentences; the second gets its own line so it reads
+  // as the payoff rather than a wrapped continuation. The break derives from
+  // the copy — the data stays the single source of truth.
+  const noteBreak = hero.note.indexOf('. ')
   return (
     <section className="hero">
       <div className="container hero-grid">
@@ -50,7 +55,17 @@ function Hero() {
               {text}
             </p>
           ))}
-          <p className="hero-note">{hero.note}</p>
+          <p className="hero-note">
+            {noteBreak === -1 ? (
+              hero.note
+            ) : (
+              <>
+                {hero.note.slice(0, noteBreak + 2)}
+                <br />
+                {hero.note.slice(noteBreak + 2)}
+              </>
+            )}
+          </p>
           <div className="hero-actions">
             <Link to={hero.primaryCta.to} className="btn btn-primary">
               {hero.primaryCta.label}
