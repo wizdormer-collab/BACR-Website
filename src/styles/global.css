@@ -511,15 +511,20 @@ footer[id] {
 }
 
 /* Entrance: the copy column's children rise in sequence on arrival — pure
-   CSS so it starts before React boots. Fill-mode backwards (not both): the
-   backwards half is what prevents a flash during the stagger delays, while
-   the end state is just the natural style — holding it with `both` would
-   pin an identity matrix to every child for the life of the page, giving
-   each one a permanent stacking context for no visual gain. Delays are
-   short enough that the last child (the buttons) is moving within a third
-   of a second. Six children today: location, headline, two leads, note,
+   CSS so it starts before React boots, fill-mode backwards so nothing
+   flashes visible-then-hidden during the stagger delays. Delays are short
+   enough that the last child (the buttons) is moving within a third of a
+   second. Six children today: location, headline, two leads, note,
    actions; the default delay covers any paragraph the PRD copy gains
-   later. Opt-outs: print (the block near the end of this file) and
+   later.
+   The keyframes translate only — deliberately NOT opacity. An opacity-0
+   element is not painted, so the hero text would not count toward LCP (or
+   speed index) until its fade completed: measured against the old build,
+   that pushed Lighthouse's LCP from 1081ms to 4669ms and cost ~20
+   performance points, even though real throttled Chrome showed the hero
+   image winning LCP unaffected. Text sitting14px low and gliding up is
+   painted from first paint, so the metric holds and the entrance stays.
+   Opt-outs: print (the block near the end of this file) and
    prefers-reduced-motion, which kills animation globally — the keyframes
    hold no resting state, so both render the column immediately. */
 .hero-copy > * {
@@ -553,7 +558,6 @@ footer[id] {
 
 @keyframes hero-rise {
   from {
-    opacity: 0;
     transform: translateY(14px);
   }
 }
