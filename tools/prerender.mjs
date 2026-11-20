@@ -75,44 +75,6 @@ try {
       return entry ? entry.file : match
     })
 
-  // Route-level code splitting (main.jsx): React only imports a page's chunk
-  // when it renders the route — one network hop AFTER index.js has downloaded
-  // and executed, which on a phone delays hydration for no reason. The page
-  // we are prerendering is the page that URL is about, so preload its chunk
-  // and the chunk's static imports right in the head: the import() then
-  // resolves from cache instead of the network.
-  //
-  // The route→module mapping is parsed straight out of pages.js (the single
-  // source of truth for routes) rather than duplicated here, and a route
-  // whose chunk or import is missing from the manifest fails the build —
-  // silently shipping the waterfall is exactly what this exists to prevent.
-  const pagesSource = await readFile(path.join(ROOT, 'src/lib/pages.js'), 'utf8')
-  const routeModules = new Map(
-    [...pagesSource.matchAll(/path: '([^']+)',\s*load: \(\) => import\('([^']+)'\)/g)].map(
-      ([, routePath, specifier]) => [routePath, specifier],
-    ),
-  )
-  function routePreloads(routePath) {
-    const specifier = routeModules.get(routePath)
-    if (!specifier) {
-      throw new Error(`prerender: no chunk specifier in pages.js for route ${routePath}`)
-    }
-    const files = []
-    const seen = new Set()
-    const walk = (key) => {
-      if (seen.has(key)) return
-      seen.add(key)
-      const entry = manifest[key]
-      if (!entry) throw new Error(`prerender: ${key} missing from build manifest`)
-      files.push(entry.file)
-      for (const imported of entry.imports ?? []) walk(imported)
-    }
-    walk(path.posix.join('src/lib', specifier))
-    return files
-      .map((file) => `    <link rel="modulepreload" href="${SITE_BASE_PATH}/${file}" />\n`)
-      .join('')
-  }
-
   // JSON-LD goes in verbatim; `<` is escaped so a future value containing
   // `</script>` can never break out of the tag.
   const jsonLdTag = (data) =>
@@ -178,7 +140,7 @@ try {
         title: title ?? DEFAULT_TITLE,
         canonical: canonicalUrl(routePath),
         description,
-        headExtra: routePreloads(routePath) + (schema ? jsonLdTag(schema) : ''),
+        headExtra: schema ? jsonLdTag(schema) : '',
       }),
     )
   }
