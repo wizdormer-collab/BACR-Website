@@ -1,28 +1,21 @@
-// Single source of truth for the public routes. App builds its <Routes> from
-// this list, tools/prerender.mjs emits one static HTML file per entry, and the
-// route tests iterate it — add a page here and everything else follows.
-import Home from '../features/home/Home.jsx'
-import About from '../features/about/About.jsx'
-import HowItWorks from '../features/how-it-works/HowItWorks.jsx'
-import Services from '../features/services/Services.jsx'
-import Children from '../features/audiences/Children.jsx'
-import Adults from '../features/audiences/Adults.jsx'
-import Team from '../features/team/Team.jsx'
-import Referrers from '../features/referrers/Referrers.jsx'
-import Book from '../features/book/Book.jsx'
-import Contact from '../features/contact/Contact.jsx'
-
+// Single source of truth for the public routes. Each entry pairs a path with a
+// loader rather than a component: the client wraps the loader in React.lazy so
+// a phone downloads only the page it opens (route-level code splitting, see
+// App.jsx), while the prerender step renders the same pages eagerly from
+// pages.ssr.js — renderToString cannot await a suspended boundary, so the
+// server must never see these lazy wrappers. tools/prerender.mjs and the route
+// tests both read the paths from here.
 export const PAGE_ROUTES = [
-  { path: '/', component: Home },
-  { path: '/about', component: About },
-  { path: '/how-it-works', component: HowItWorks },
-  { path: '/services', component: Services },
-  { path: '/children', component: Children },
-  { path: '/adults', component: Adults },
-  { path: '/team', component: Team },
-  { path: '/referrers', component: Referrers },
-  { path: '/book', component: Book },
-  { path: '/contact', component: Contact },
+  { path: '/', load: () => import('../features/home/Home.jsx') },
+  { path: '/about', load: () => import('../features/about/About.jsx') },
+  { path: '/how-it-works', load: () => import('../features/how-it-works/HowItWorks.jsx') },
+  { path: '/services', load: () => import('../features/services/Services.jsx') },
+  { path: '/children', load: () => import('../features/audiences/Children.jsx') },
+  { path: '/adults', load: () => import('../features/audiences/Adults.jsx') },
+  { path: '/team', load: () => import('../features/team/Team.jsx') },
+  { path: '/referrers', load: () => import('../features/referrers/Referrers.jsx') },
+  { path: '/book', load: () => import('../features/book/Book.jsx') },
+  { path: '/contact', load: () => import('../features/contact/Contact.jsx') },
 ]
 
 // Old URLs that must keep working: /who-we-help was a landing route and the

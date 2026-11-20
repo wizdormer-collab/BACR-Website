@@ -1,6 +1,7 @@
 import { renderToString } from 'react-dom/server'
 import { MemoryRouter } from 'react-router-dom'
 import App from './App.jsx'
+import { SSR_ROUTES } from './lib/pages.ssr.js'
 import { takePendingTitle } from './lib/meta.js'
 import { SITE_BASE_PATH } from './lib/site.config.js'
 
@@ -9,11 +10,16 @@ import { SITE_BASE_PATH } from './lib/site.config.js'
 // empty #root shell Vite builds. The entry carries the deployed base path —
 // that is what a browser actually requests, and it keeps every server-rendered
 // <a href> (and React's hydration pass) in step with the client router.
+//
+// SSR_ROUTES is the eager table (pages.ssr.js): every component is already
+// imported, so nothing suspends and renderToString emits real markup. The
+// client hydrates the same routes lazily from pages.js — matching structure,
+// one Suspense boundary in App, zero hydration errors.
 export function render(path) {
   const entry = path === '/' ? `${SITE_BASE_PATH}/` : SITE_BASE_PATH + path
   const html = renderToString(
     <MemoryRouter basename={SITE_BASE_PATH} initialEntries={[entry]}>
-      <App />
+      <App routes={SSR_ROUTES} />
     </MemoryRouter>,
   )
   return { html, title: takePendingTitle() }

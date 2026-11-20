@@ -135,6 +135,15 @@ p {
   border-radius: 2px;
 }
 
+/* Route changes move focus to <main> (RouteFocus.jsx) so keyboard and screen
+   reader users land on the new page's content instead of staying in the
+   header. The ring is suppressed because the target is a full-width region:
+   a box around the whole page tells nobody where they are, and the skip
+   link's real keyboard focus is already covered by :focus-visible above. */
+#main:focus {
+  outline: none;
+}
+
 section[id],
 footer[id] {
   scroll-margin-top: 96px;
@@ -245,6 +254,14 @@ footer[id] {
 
 .btn:hover {
   transform: translateY(-1px);
+}
+
+/* Press feedback: the shortened duration means the button reacts on the way
+   down instead of animating into it, then eases back over the base 0.18s on
+   release. :active is transient on touch too, so phones get the same press. */
+.btn:active {
+  transform: translateY(1px) scale(0.985);
+  transition-duration: 0.06s;
 }
 
 .btn-primary {
@@ -437,6 +454,18 @@ footer[id] {
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 24px 60px rgba(22, 9, 88, 0.16);
+  transform-origin: top right;
+  /* The panel mounts on open (Header.jsx), so this runs exactly then. No
+     fill-mode: the natural state IS the final state, which keeps the
+     prefers-reduced-motion kill switch (animation: none) fully visible. */
+  animation: mnav-in 0.16s ease-out;
+}
+
+@keyframes mnav-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
 }
 
 .mnav-link {
@@ -479,6 +508,54 @@ footer[id] {
 
 .hero-copy {
   min-width: 0;
+}
+
+/* Entrance: the copy column's children rise in sequence on arrival — pure
+   CSS so it starts before React boots. Fill-mode backwards (not both): the
+   backwards half is what prevents a flash during the stagger delays, while
+   the end state is just the natural style — holding it with `both` would
+   pin an identity matrix to every child for the life of the page, giving
+   each one a permanent stacking context for no visual gain. Delays are
+   short enough that the last child (the buttons) is moving within a third
+   of a second. Six children today: location, headline, two leads, note,
+   actions; the default delay covers any paragraph the PRD copy gains
+   later. Opt-outs: print (the block near the end of this file) and
+   prefers-reduced-motion, which kills animation globally — the keyframes
+   hold no resting state, so both render the column immediately. */
+.hero-copy > * {
+  animation: hero-rise 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+  animation-delay: 0.04s;
+}
+
+.hero-copy > *:nth-child(1) {
+  animation-delay: 0.04s;
+}
+
+.hero-copy > *:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.hero-copy > *:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.hero-copy > *:nth-child(4) {
+  animation-delay: 0.22s;
+}
+
+.hero-copy > *:nth-child(5) {
+  animation-delay: 0.28s;
+}
+
+.hero-copy > *:nth-child(6) {
+  animation-delay: 0.34s;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
 }
 
 .hero-location {
@@ -1371,6 +1448,23 @@ blockquote.coord-quote {
   background: #fff;
 }
 
+/* Hover lift — only for cards that are actually links, and only on a real
+   pointer: a stuck :hover after a tap would leave touch users staring at a
+   floating card. The transition sits on :has(a) rather than .card so the
+   resting surface stays the flat bordered panel (and styles.test.js's
+   box-shadow pin on .card still holds); browsers without :has simply keep
+   the cards where they are. */
+@media (hover: hover) and (pointer: fine) {
+  .card:has(a) {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .card:has(a):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(22, 9, 88, 0.1);
+  }
+}
+
 .card h3 {
   margin-bottom: 10px;
   font-size: 1.05rem;
@@ -2111,6 +2205,14 @@ a.contact-item:hover .ci-value {
 /* Printing (or any capture that never scrolls) must not ship blank pages. */
 @media print {
   .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* And a hero caught mid-entrance must print fully drawn, not at whatever
+     opacity the stagger had reached. */
+  .hero-copy > * {
+    animation: none !important;
     opacity: 1 !important;
     transform: none !important;
   }
