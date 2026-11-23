@@ -2370,7 +2370,7 @@ a.contact-item:hover .ci-value {
   }
 
   .hero {
-    padding-top: 32px;
+    padding-top: 44px;
   }
 
   .hero h1 {
@@ -2394,7 +2394,7 @@ a.contact-item:hover .ci-value {
   .hero-actions {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 12px;
   }
 
   .hero-actions .btn {
@@ -2422,7 +2422,7 @@ a.contact-item:hover .ci-value {
   }
 
   .trust-item {
-    padding: 15px 0;
+    padding: 18px 0;
   }
 
   .trust-item + .trust-item {
@@ -2432,11 +2432,11 @@ a.contact-item:hover .ci-value {
   }
 
   .section {
-    padding: 44px 0;
+    padding: 56px 0;
   }
 
   .section-head {
-    margin-bottom: 26px;
+    margin-bottom: 34px;
   }
 
   .section-head h2 {
@@ -2469,7 +2469,7 @@ a.contact-item:hover .ci-value {
   .service-row {
     grid-template-columns: 38px minmax(0, 1fr);
     gap: 12px;
-    padding: 20px 0;
+    padding: 24px 0;
   }
 
   .service-row:hover {
@@ -2492,7 +2492,7 @@ a.contact-item:hover .ci-value {
 
   .process-step,
   .tl-item {
-    padding: 18px 0;
+    padding: 22px 0;
     border-bottom: 1px solid var(--line);
   }
 
@@ -2507,6 +2507,7 @@ a.contact-item:hover .ci-value {
 
   .mini-list {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .coord-photo {
@@ -2530,7 +2531,7 @@ a.contact-item:hover .ci-value {
   .cta-actions {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 12px;
   }
 
   .cta-actions .btn {
@@ -2631,6 +2632,170 @@ a.contact-item:hover .ci-value {
 
   .quote {
     font-size: 1.05rem;
+  }
+  /* ---- Mobile type floor ---------------------------------------------
+     The base sheet tunes copy to 12.5-14.5px for a wide canvas; on a
+     phone that packed every section with sub-14px text and left body
+     paragraphs under the 16px floor. Each text rule is restated here at
+     a readable size - same specificity, later in the file, so these win
+     by order. Labels stay labels but are floored near 13px, and the row
+     rhythm further down opens up to match the larger type. ---- */
+
+  /* Body copy: the 16px floor. */
+  .hero-note,
+  .hero-location,
+  .team-inner p,
+  .process-step p,
+  .tl-item p,
+  .mini-list li,
+  .check li,
+  .list-check li,
+  .list-check-sm li,
+  .card p,
+  .principle p,
+  .feature span,
+  .referrers p,
+  .service-row p,
+  .faq-item p,
+  .notice,
+  .map-fallback-note,
+  .map-fallback-address {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* The italic card note is !important in the base sheet (it has to
+     outrank `.card p` there), so raising it needs the same. */
+  .card-note {
+    font-size: 16px !important;
+  }
+
+  /* ...but the uppercase card sublabel is a label, not a paragraph. */
+  .card p.card-sublabel {
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  /* Actions, inline links and menu rows. */
+  .btn,
+  .card-link,
+  .text-link,
+  .mnav-link {
+    font-size: 16px;
+  }
+
+  .btn-sm {
+    font-size: 15px;
+  }
+
+  /* Sub-headings and stat lines. */
+  .process-step h3,
+  .tl-item h3,
+  .faq-item summary,
+  .feature strong,
+  .coord-card strong,
+  .trust-item strong,
+  .hero-quote strong {
+    font-size: 16.5px;
+    line-height: 1.4;
+  }
+
+  /* Micro-labels: still labels, floored at 13px. */
+  .kicker,
+  .conditions-label,
+  .coord-card span,
+  .hero-quote span,
+  .quote strong {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .photo-tag {
+    padding: 8px 12px;
+    font-size: 12.5px;
+  }
+
+  /* Chips and pills: 14.5px keeps the two-column chip lists legible. */
+  .conditions-list li,
+  .disciplines li,
+  .chip,
+  .chip-lg {
+    font-size: 14.5px;
+    line-height: 1.4;
+  }
+
+  /* Form controls. */
+  .field label {
+    font-size: 15.5px;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    font-size: 16px;
+  }
+
+  /* Header and footer copy. */
+  .brand-sub {
+    font-size: 11px;
+  }
+
+  .footer-hold,
+  .footer-brand-text span {
+    font-size: 15px;
+  }
+
+  .footer-links-col h2 {
+    font-size: 12.5px;
+  }
+
+  .footer-links a {
+    font-size: 15.5px;
+  }
+
+  .footer-bottom span {
+    font-size: 13px;
+  }
+
+  /* Row rhythm: bigger type needs more air between rows, and the
+     check/tick markers re-centre on the new first-line position
+     (12px padding + half of a 25.6px line box = ~25px, marker sits
+     5px above its bottom edge). */
+  .check li,
+  .list-check li {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .check li::before,
+  .list-check li::before,
+  .list-check-sm li::before {
+    top: 20px;
+  }
+
+  .conditions-list,
+  .disciplines,
+  .chip-grid {
+    gap: 10px;
+  }
+
+  .grid,
+  .team-inner {
+    gap: 24px;
+  }
+
+  .faq-item summary {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .mnav-link {
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+
+  .cta-inner {
+    padding-block: 58px;
   }
 }
 
